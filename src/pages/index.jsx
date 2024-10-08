@@ -1,7 +1,9 @@
+import Header from '../components/Header/Header'
+
 export default function HomePage() {
   return (
-    <div>
-      Hello World!
+    <div className="bg-slate-100 min-h-screen">
+      <Header />
     </div>
   )
 }
