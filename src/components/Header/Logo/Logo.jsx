@@ -12,7 +12,7 @@ const pattaya = Pattaya({
 
 export default function Logo() {
 	return (
-		<Link href='/' className='flex items-center'>
+		<Link href='/' className='h-full flex items-center transition-all duration-150 hover:scale-105'>
 			<Image src={ logoSrc } alt='logo' className='h-9 w-9' />
 			<span className={ `${pattaya.className} pl-2 text-4xl` }>Моя История</span>
 		</Link>

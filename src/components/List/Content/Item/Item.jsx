@@ -18,10 +18,10 @@ const list = {
 
 export default function Item() {
 	return (
-		<div className='px-6 py-4 rounded-xl shadow-xl bg-sky-400/50'>
+		<div className='p-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-150 hover:scale-105 hover:bg-sky-300'>
 			<div className='flex items-center justify-between'>
 				<button>
-					<Image src={ editSrc } alt='edit' className='h-5 w-5' />
+					<Image src={ editSrc } alt='edit' className='h-6 w-6 transition-all duration-150 hover:scale-110' />
 				</button>
 
 				<div className='font-bold'>
@@ -29,23 +29,24 @@ export default function Item() {
 				</div>
 
 				<button>
-						<Image src={ shareSrc } alt='share' className='h-5 w-5'/>
+						<Image src={ shareSrc } alt='share' className='h-6 w-6 transition-all duration-150 hover:scale-110'/>
 				</button>
 			</div>
 
-			<button className='w-full mt-4 px-2 py-1 rounded-lg text-lg text-center border-4 border-sky-800 bg-slate-100 hover:bg-sky-200/50 transition-all duration-150'>
+			<button className='block mx-auto mt-6 px-2 py-1 rounded-lg text-lg font-bold border-2 border-sky-900 transition-all duration-150 hover:bg-sky-300 hover:border-white hover:text-white'>
 				{ list.title }
 			</button>
 
-			<div className='mt-4 flex items-center justify-center gap-2'>
-				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-20 max-w-20 rounded-xl' />
-				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-20 max-w-20 rounded-xl' />
-				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-20 max-w-20 rounded-xl' />
-				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-20 max-w-20 rounded-xl' />
+			<div className='mt-6 flex items-center justify-center gap-3'>
+				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-150 hover:scale-105' />
+				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-150 hover:scale-105' />
+				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-150 hover:scale-105' />
+				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-150 hover:scale-105' />
 			</div>	
 
-			<div className='mt-4 px-4 py-2 rounded-lg text-sm bg-sky-500/25'>
+			<div className='mt-6 rounded-lg'>
 				{ list.description }
+				<hr className='mt-6 border-sky-900' />
 			</div>
 
 			<div className='mt-4'>
