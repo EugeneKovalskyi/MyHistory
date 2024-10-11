@@ -2,7 +2,7 @@ import Item from "./Item/Item"
 
 export default function Content() {
 	return (
-		<div className='mt-5 grid grid-cols-3 gap-4 text-sky-50'>
+		<div className='mt-8 grid grid-cols-3 gap-6 text-sky-800'>
 			<Item />
 			<Item />
 			<Item />

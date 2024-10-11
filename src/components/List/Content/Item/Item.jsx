@@ -18,7 +18,7 @@ const list = {
 
 export default function Item() {
 	return (
-		<div className='px-4 py-2 rounded-xl shadow-xl bg-sky-600'>
+		<div className='px-6 py-4 rounded-xl shadow-xl bg-sky-400/50'>
 			<div className='flex items-center justify-between'>
 				<button>
 					<Image src={ editSrc } alt='edit' className='h-5 w-5' />
@@ -33,22 +33,22 @@ export default function Item() {
 				</button>
 			</div>
 
-			<button className='w-full mt-2 px-2 py-1 rounded-lg text-lg text-center border-4 border-sky-800 text-sky-800 bg-slate-100 hover:bg-sky-200 transition-all duration-150'>
+			<button className='w-full mt-4 px-2 py-1 rounded-lg text-lg text-center border-4 border-sky-800 bg-slate-100 hover:bg-sky-200/50 transition-all duration-150'>
 				{ list.title }
 			</button>
 
-			<div className='mt-2 flex items-center justify-center gap-2'>
+			<div className='mt-4 flex items-center justify-center gap-2'>
 				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-20 max-w-20 rounded-xl' />
 				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-20 max-w-20 rounded-xl' />
 				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-20 max-w-20 rounded-xl' />
 				<Image src={ list.photos.src } alt={ list.photos.name } className='max-h-20 max-w-20 rounded-xl' />
 			</div>	
 
-			<div className='mt-2 px-2 py-1 rounded-lg text-sm bg-sky-700'>
+			<div className='mt-4 px-4 py-2 rounded-lg text-sm bg-sky-500/25'>
 				{ list.description }
 			</div>
 
-			<div className='mt-2'>
+			<div className='mt-4'>
 				{ list.tags.join(' ') }
 			</div>
 		</div>
