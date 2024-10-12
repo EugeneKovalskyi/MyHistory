@@ -11,9 +11,10 @@ const pattaya = Pattaya({
 })
 
 export default function Logo() {
+	const style = 'h-full flex items-center transition-all duration-150 hover:scale-105'
 	return (
-		<Link href='/' className='h-full flex items-center transition-all duration-150 hover:scale-105'>
-			<Image src={ logoSrc } alt='logo' className='h-9 w-9' />
+		<Link className={ style } href='/'>
+			<Image className='h-9 w-9' src={ logoSrc } alt='logo' />
 			<span className={ `${pattaya.className} pl-2 text-4xl` }>Моя История</span>
 		</Link>
 	)

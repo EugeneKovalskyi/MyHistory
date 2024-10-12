@@ -4,9 +4,14 @@ import Chat from './Chat/Chat'
 import Profile from './Profile/Profile'
 
 export default function Header() {
+  const style = [
+    'w-full shadow-xl text-sky-50 bg-sky-500',
+    'h-16 max-w-screen-xl mx-auto px-8 flex items-center justify-between gap-9',
+  ]
+
   return (
-    <div className=' w-full shadow-xl text-sky-50 bg-sky-500'>
-    	<div className='h-16 max-w-screen-xl mx-auto px-8 flex items-center justify-between gap-9'>
+    <div className={ style[0] }>
+    	<div className={ style[1] }>
         <Logo />
         <Navigation />
 
