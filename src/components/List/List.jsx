@@ -1,12 +1,10 @@
+import imageSrc1 from '../../public/cat.jpg'
+import imageSrc2 from '../../public/potato.jpg'
+
 import useAddListItem from '../../hooks/useAddListItem'
 
-import imageSrc1 from './cat.jpg'
-import imageSrc2 from './potato.jpg'
-
-import Add from './Add'
-import Content from './Content/Content'
-import Search from './Search/Search'
-import Sort from './Sort/Sort'
+import Tools from './Tools'
+import Content from './Content'
 
 const data = [
 	{
@@ -35,7 +33,7 @@ const data = [
 
 const newEvent = {
   day: '30.08.2024',
-  title: 'ВЫкопали картошку',
+  title: 'Выкопали картошку',
   photos: {
     alt: 'potato',
     src: imageSrc2,
@@ -47,7 +45,6 @@ const newEvent = {
 
 const styles = {
   List: 'max-w-screen-xl mx-auto mt-16 px-8',
-  Tools: 'flex items-center justify-between',
 }
 
 export default function List() {
@@ -57,16 +54,6 @@ export default function List() {
     <div className={styles.List}>
       <Tools addEvent={addEvent} />
       <Content eventList={eventList} />
-    </div>
-  )
-}
-
-function Tools({ addEvent }) {
-  return (
-    <div className={styles.Tools}>
-      <Search />
-      <Add addEvent={addEvent} />
-      <Sort />
     </div>
   )
 }
