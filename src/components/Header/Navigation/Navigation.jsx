@@ -31,34 +31,33 @@ const pages = [
 ]
 
 export default function Navigation() {
+	const styles = {
+		'Navigation': 'h-full flex text-sky-50 text-xl',
+		'Link': 'w-28 flex items-center justify-center transition-all duration-150 hover:bg-sky-600',
+		'current': 'border-b-4 border-sky-50 bg-sky-700 hover:bg-sky-700'
+	}
+
 	const [ currentPage, setCurrentPage ] = useState('/events')
 	
 	return (
-    <div className='h-full flex text-sky-50 text-xl'>
-
+    <div className={ styles.Navigation }>
       { pages.map((page) => {
-				const styleLink = clsx({
-					'w-28 flex items-center justify-center transition-all duration-150 hover:bg-sky-600': true,								
-					'border-b-4 border-sky-50 bg-sky-700 hover:bg-sky-700': currentPage === page.path 
-				})
+				const isCurrent = (currentPage === page.path)
 
         return (
           <Link
-            className={ styleLink }
+            className={ clsx(
+							styles.Link, 
+							isCurrent && styles.current
+						) }
             href='#'
             key={ page.path }
-            onClick={ handleClick }
-            path={ page.path }
+            onClick={ () => setCurrentPage(page.path) }
           >
             { page.title }
           </Link>
         )
-
-      }) }
+      })}
     </div>
   )
-
-	function handleClick(e) {
-		setCurrentPage(e.target.attributes.path.value)
-	}
 }

@@ -4,14 +4,14 @@ import Chat from './Chat/Chat'
 import Profile from './Profile/Profile'
 
 export default function Header() {
-  const style = [
-    'w-full shadow-xl text-sky-50 bg-sky-500',
-    'h-16 max-w-screen-xl mx-auto px-8 flex items-center justify-between gap-9',
-  ]
+  const styles = {
+    'HeaderContainer': 'w-full shadow-xl text-sky-50 bg-sky-500',
+    'Header': 'h-16 max-w-screen-xl mx-auto px-8 flex items-center justify-between gap-9'
+  }
 
   return (
-    <div className={ style[0] }>
-    	<div className={ style[1] }>
+    <div className={ styles.HeaderContainer }>
+    	<div className={ styles.Header }>
         <Logo />
         <Navigation />
 

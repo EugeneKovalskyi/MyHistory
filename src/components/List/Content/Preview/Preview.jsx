@@ -33,8 +33,10 @@ export default function Preview() {
 }
 
 function Tools() {
+  const style = 'flex items-center justify-between'
+
   return (
-    <div className='flex items-center justify-between'>
+    <div className={ style }>
       <button>
         <Image className='h-6 w-6' src={ editSrc } alt='edit' />
       </button>
@@ -56,15 +58,17 @@ function Title({ title }) {
 }
 
 function Photos({ photos }) {
-  const style = 'mt-6 flex items-center justify-center gap-4'
-  const styleImage = 'max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-150 hover:scale-110'
+  const styles = {
+    'Photos': 'mt-6 flex items-center justify-center gap-4', 
+    'Image': 'max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-150 hover:scale-110'
+  }
 
   return (
-    <div className={ style }>
-      <Image className={ styleImage } src={ photos.src } alt={ photos.alt }/>
-      <Image className={ styleImage } src={ photos.src } alt={ photos.alt }/>
-      <Image className={ styleImage } src={ photos.src } alt={ photos.alt }/>
-      <Image className={ styleImage } src={ photos.src } alt={ photos.alt }/>
+    <div className={ styles.Photos }>
+      <Image className={ styles.Image } src={ photos.src } alt={ photos.alt }/>
+      <Image className={ styles.Image } src={ photos.src } alt={ photos.alt }/>
+      <Image className={ styles.Image } src={ photos.src } alt={ photos.alt }/>
+      <Image className={ styles.Image } src={ photos.src } alt={ photos.alt }/>
     </div>
   )
 }
