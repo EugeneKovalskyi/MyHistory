@@ -4,7 +4,7 @@ import imageSrc2 from '../../public/potato.jpg'
 import useAddListItem from '../../hooks/useAddListItem'
 
 import Tools from './Tools'
-import Content from './Content'
+import Content from './List'
 
 const data = [
 	{
