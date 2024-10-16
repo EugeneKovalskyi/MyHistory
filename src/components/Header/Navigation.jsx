@@ -37,20 +37,20 @@ const styles = {
 }
 
 export default function Navigation() {
-  const [currentPage, setCurrentPage] = useState('/events')
+  const [currentLink, setCurrentLink] = useState('/events')
 
   return (
     <div className={styles.Navigation}>
       {
         navigationLinks.map((link) => {
-          const isCurrent = currentPage === link.path
+          const isCurrent = currentLink === link.path
 
           return (
             <Link
               className={clsx(styles.Link, isCurrent && styles.current)}
               href='#'
               key={link.path}
-              onClick={() => setCurrentPage(link.path)}
+              onClick={() => setCurrentLink(link.path)}
             >
               {link.title}
             </Link>

@@ -50,6 +50,7 @@ function Add({ addEvent }) {
     <button
       className={styles.Add}
       onClick={addEvent}
+      role='addEvent'
     >
       Добавить событие
     </button>

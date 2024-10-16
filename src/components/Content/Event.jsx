@@ -16,7 +16,10 @@ const styles = {
 
 export default function Event({ event }) {
   return (
-    <div className={styles.Preview}>
+    <div 
+      className={styles.Preview}
+      role='event'
+    >
       <Tools />
       <Day day={event.day} />
       <Title title={event.title} />
