@@ -16,11 +16,11 @@ const styles = {
     'px-3 grow rounded-lg text-center cursor-pointer bg-slate-100 transition-all duration-150 focus:bg-white hover:bg-white',
 }
 
-export default function Tools({ addEvent }) {
+export default function Tools({ openForm }) {
   return (
     <div className={styles.Tools}>
       <Search />
-      <Add addEvent={addEvent} />
+      <OpenForm openForm={openForm} />
       <Sort />
     </div>
   )
@@ -45,12 +45,11 @@ function Search() {
   )
 }
 
-function Add({ addEvent }) {
+function OpenForm({ openForm }) {
   return (
     <button
       className={styles.Add}
-      onClick={addEvent}
-      role='addEvent'
+      onClick={openForm}
     >
       Добавить событие
     </button>

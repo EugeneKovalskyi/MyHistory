@@ -1,10 +1,13 @@
 import imageSrc1 from '../../public/cat.jpg'
 import imageSrc2 from '../../public/potato.jpg'
 
+import { useState } from 'react'
 import useAddListItem from '../../hooks/useAddListItem'
+import useOpenAndCloseForm from '../../hooks/useOpenAndCloseForm'
 
 import Tools from './Tools'
 import List from './List'
+import Form from './Form'
 
 const __testData = [
 	{
@@ -44,16 +47,20 @@ const __testNewEvent = {
 }
 	
 const styles = {
-  List: 'max-w-screen-xl mx-auto mt-16 px-8',
+  Content: 'max-w-screen-xl mx-auto mt-16 px-8',
 }
 
 export default function Content() {
   const [eventList, addEvent] = useAddListItem(__testData, __testNewEvent)
+	const [isOpened, openForm, closeForm] = useOpenAndCloseForm()
 
   return (
-    <div className={styles.List}>
-      <Tools addEvent={addEvent} />
+    <div className={styles.Content}>
+			<Form isOpened={isOpened} closeForm={closeForm} addEvent={addEvent} />
+      <Tools openForm={openForm} />
       <List eventList={eventList} />
     </div>
   )
+
+
 }

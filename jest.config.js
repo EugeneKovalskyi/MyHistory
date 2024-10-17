@@ -13,8 +13,8 @@ const config = {
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
   roots: ["<rootDir>/src"],
-  clearMocks: true
-  // setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
+  clearMocks: true,
+  setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 }
 
 module.exports = createJestConfig(config)

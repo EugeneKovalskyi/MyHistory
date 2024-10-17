@@ -1,18 +1,18 @@
-import Event from './Event'
+import EventItem from './EventItem'
 
 const styles = {
-  Content: 'mt-12 grid grid-cols-2 gap-8 text-sky-900',
+  List: 'mt-12 grid grid-cols-2 gap-8 text-sky-900',
 }
 
 export default function List({ eventList }) {
   return (
     <div
-      className={styles.Content}
+      className={styles.List}
       role='eventList'
     >
       {
 				eventList.map((event, index) => (
-        	<Event
+        	<EventItem
           	key={index}
           	event={event}
         	/>

@@ -4,7 +4,7 @@ import editSrc from './edit.svg'
 import shareSrc from './share.svg'
 
 const styles = {
-  Preview:
+  Event:
     'px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-150 hover:scale-105 hover:bg-sky-300',
   Tools: 'flex items-center justify-between',
   Title:
@@ -14,12 +14,9 @@ const styles = {
     'max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-150 hover:scale-110',
 }
 
-export default function Event({ event }) {
+export default function EventItem({ event }) {
   return (
-    <div 
-      className={styles.Preview}
-      role='event'
-    >
+    <div className={styles.Event}>
       <Tools />
       <Day day={event.day} />
       <Title title={event.title} />
