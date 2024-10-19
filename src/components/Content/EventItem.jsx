@@ -3,33 +3,26 @@ import Image from 'next/image'
 import editSrc from './edit.svg'
 import shareSrc from './share.svg'
 
-const styles = {
-  Event:
-    'px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-150 hover:scale-105 hover:bg-sky-300',
-  Tools: 'flex items-center justify-between',
-  Title:
-    'block mx-auto mt-4 px-2 py-1 rounded-lg text-lg font-bold border-2 border-sky-900 transition-all duration-150 hover:bg-sky-300 hover:border-white hover:text-white',
-  Photos: 'mt-6 flex items-center justify-center gap-4',
-  PhotosImage:
-    'max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-150 hover:scale-110',
-}
-
-export default function EventItem({ event }) {
+export default function EventItem({ item }) {
   return (
-    <div className={styles.Event}>
+    <div className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-150 hover:bg-sky-300'>
+
       <Tools />
-      <Day day={event.day} />
-      <Title title={event.title} />
-      <Photos photos={event.photos} />
-      <Description description={event.description} />
-      <Tags tags={event.tags} />
+      <Day day={item.day} />
+      <Title title={item.title} />
+
+      {item.photos && <Photos photos={item.photos} />}
+      {item.description && <Description description={item.description} />}
+      {item.tags && <Tags tags={item.tags} />}
+
     </div>
   )
 }
 
 function Tools() {
   return (
-    <div className={styles.Tools}>
+    <div className='flex items-center justify-between'>
+
       <button>
         <Image
           className='h-6 w-6'
@@ -37,6 +30,7 @@ function Tools() {
           alt='edit'
         />
       </button>
+
       <button>
         <Image
           className='h-6 w-6'
@@ -44,54 +38,57 @@ function Tools() {
           alt='share'
         />
       </button>
+
     </div>
   )
 }
 
 function Day({ day }) {
-  return <div className='text-center font-bold'>{day}</div>
+  return (
+    <div className='w-fit mx-auto -mt-6 text-center font-bold'>
+      { day.split('-').reverse().join(' . ') }
+    </div>
+  )
 }
 
 function Title({ title }) {
-  return <button className={styles.Title}>{title}</button>
-}
-
-function Photos({ photos }) {
   return (
-    <div className={styles.Photos}>
-      <Image
-        className={styles.PhotosImage}
-        src={photos.src}
-        alt={photos.alt}
-      />
-      <Image
-        className={styles.PhotosImage}
-        src={photos.src}
-        alt={photos.alt}
-      />
-      <Image
-        className={styles.PhotosImage}
-        src={photos.src}
-        alt={photos.alt}
-      />
-      <Image
-        className={styles.PhotosImage}
-        src={photos.src}
-        alt={photos.alt}
-      />
-    </div>
+    <button className='block mx-auto mt-6 px-2 py-1 rounded-lg text-lg font-bold border-2 border-sky-900 transition-all duration-150 hover:bg-sky-300 hover:border-white hover:text-white'>
+      { title }
+    </button>
   )
 }
 
 function Description({ description }) {
   return (
     <div className='mt-4 rounded-lg'>
-      {description}
+      {
+        description.length <= 160 ? 
+          description : 
+          description.slice(0, 160).concat('... (читать далее ➾)')
+      }
+      
       <hr className='mt-6 border-sky-900' />
     </div>
   )
 }
 
+function Photos({ photos }) {
+  return (
+    <div className='mt-6 flex items-center justify-center gap-4'>
+      {
+        photos.map(photo => 
+          <Image
+            className='max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-150 hover:scale-110'
+            src={photo?.src}
+            alt={photo?.alt}
+          />
+        ) 
+      }
+    </div>
+  )
+}
+
 function Tags({ tags }) {
-  return <div className='mt-4'>{tags.join(' ')}</div>
+  return <div className='mt-4'>{tags}</div>
 }

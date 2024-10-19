@@ -7,9 +7,9 @@ const styles = {
   Tools: 'flex items-center justify-between',
   Search: 'w-2/5 px-6 py-4 flex gap-5 rounded-xl shadow-lg bg-sky-600',
   SearchInput:
-    'px-3 grow rounded-lg bg-slate-100 transition-all duration-150 focus:outline-none focus:ring focus:ring-inset focus:ring-sky-400 focus:bg-white hover:bg-white',
+    'px-3 grow rounded-lg bg-slate-100 transition-all duration-150 focus:ring focus:ring-inset focus:ring-sky-400 focus:bg-white hover:bg-white',
   SearchButton: 'transition-all duration-150 hover:scale-110',
-  Add: 'w-1/6 px-2 py-5 rounded-xl shadow-lg font-bold text-lg text-sky-50 bg-teal-500 transition-all duration-150 hover:shadow-xl hover:bg-teal-400',
+  OpenForm: 'w-1/6 px-2 py-5 rounded-xl shadow-lg font-bold text-lg text-sky-50 bg-teal-500 transition-all duration-150 hover:shadow-xl hover:bg-teal-400',
   Sort: 'w-2/5 px-6 py-4 flex gap-5 rounded-lg shadow-xl bg-sky-600',
   SortButton: 'transition-all duration-150 hover:scale-110',
   SortSelect:
@@ -48,7 +48,7 @@ function Search() {
 function OpenForm({ openForm }) {
   return (
     <button
-      className={styles.Add}
+      className={styles.OpenForm}
       onClick={openForm}
     >
       Добавить событие

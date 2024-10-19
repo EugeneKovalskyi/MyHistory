@@ -8,13 +8,12 @@ export default function List({ eventList }) {
   return (
     <div
       className={styles.List}
-      role='eventList'
     >
       {
-				eventList.map((event, index) => (
+				eventList.map((item, index) => (
         	<EventItem
           	key={index}
-          	event={event}
+          	item={item}
         	/>
       	))
 			}
