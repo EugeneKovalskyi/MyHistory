@@ -3,22 +3,9 @@ import sortSrc from './sort.svg'
 
 import Image from 'next/image'
 
-const styles = {
-  Tools: 'flex items-center justify-between',
-  Search: 'w-2/5 px-6 py-4 flex gap-5 rounded-xl shadow-lg bg-sky-600',
-  SearchInput:
-    'px-3 grow rounded-lg bg-slate-100 transition-all duration-150 focus:ring focus:ring-inset focus:ring-sky-400 focus:bg-white hover:bg-white',
-  SearchButton: 'transition-all duration-150 hover:scale-110',
-  OpenForm: 'w-1/6 px-2 py-5 rounded-xl shadow-lg font-bold text-lg text-sky-50 bg-teal-500 transition-all duration-150 hover:shadow-xl hover:bg-teal-400',
-  Sort: 'w-2/5 px-6 py-4 flex gap-5 rounded-lg shadow-xl bg-sky-600',
-  SortButton: 'transition-all duration-150 hover:scale-110',
-  SortSelect:
-    'px-3 grow rounded-lg text-center cursor-pointer bg-slate-100 transition-all duration-150 focus:bg-white hover:bg-white',
-}
-
 export default function Tools({ openForm }) {
   return (
-    <div className={styles.Tools}>
+    <div className='flex items-center justify-between'>
       <Search />
       <OpenForm openForm={openForm} />
       <Sort />
@@ -28,13 +15,13 @@ export default function Tools({ openForm }) {
 
 function Search() {
   return (
-    <div className={styles.Search}>
+    <div className='w-2/5 px-6 py-4 flex gap-5 rounded-xl shadow-lg bg-sky-600'>
       <input
-        className={styles.SearchInput}
+        className='px-3 grow rounded-lg bg-slate-100 transition-all duration-150 focus:ring focus:ring-inset focus:ring-sky-400 focus:bg-white hover:bg-white'
         type='text'
         placeholder='Искать...'
       />
-      <button className={styles.SearchButton}>
+      <button className='transition-all duration-150 hover:scale-110'>
         <Image
           className='h-9 w-9'
           src={searchSrc}
@@ -48,7 +35,7 @@ function Search() {
 function OpenForm({ openForm }) {
   return (
     <button
-      className={styles.OpenForm}
+      className='w-1/6 px-2 py-5 rounded-xl shadow-lg font-bold text-lg text-sky-50 bg-teal-500 transition-all duration-150 hover:shadow-xl hover:bg-teal-400'
       onClick={openForm}
     >
       Добавить событие
@@ -58,8 +45,8 @@ function OpenForm({ openForm }) {
 
 function Sort() {
   return (
-    <div className={styles.Sort}>
-      <button className={styles.SortButton}>
+    <div className='w-2/5 px-6 py-4 flex gap-5 rounded-lg shadow-xl bg-sky-600'>
+      <button className='transition-all duration-150 hover:scale-110'>
         <Image
           className='h-9 w-9'
           src={sortSrc}
@@ -67,7 +54,7 @@ function Sort() {
         />
       </button>
       <select
-        className={styles.SortSelect}
+        className='px-3 grow rounded-lg text-center cursor-pointer bg-slate-100 transition-all duration-150 focus:bg-white hover:bg-white'
         name='criterion'
       >
         <option value='name'>По названию</option>

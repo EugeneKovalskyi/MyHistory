@@ -3,13 +3,9 @@ import Image from 'next/image'
 import profileSrc from './profile.svg'
 import arrowSrc from './arrow.svg'
 
-const styles = {
-  Profile: 'transition-all duration-150 hover:scale-110',
-}
-
 export default function Profile() {
   return (
-    <button className={styles.Profile}>
+    <button className='transition-all duration-150 hover:scale-110'>
       <Image
         className='w-9 h-9 mt-3'
         src={profileSrc}
