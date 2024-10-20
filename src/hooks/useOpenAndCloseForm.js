@@ -1,10 +1,6 @@
 import { useState } from 'react'
 
 export default function useOpenAndCloseForm() {
-  const [isOpened, setIsOpened] = useState(false)
-
-  return [isOpened, openForm, closeForm]
-
   function openForm() {
     setIsOpened(true)
   }
@@ -12,4 +8,8 @@ export default function useOpenAndCloseForm() {
   function closeForm() {
     setIsOpened(false)
   }
+
+  const [isOpened, setIsOpened] = useState(false)
+
+  return { isOpened, openForm, closeForm }
 }

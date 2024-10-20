@@ -4,12 +4,19 @@ import PhotosUpload from './PhotosUpload'
 
 export default function Form({ isOpened, closeForm, addEventItem }) {
 
+  function handleUploadPhotos(photos) {
+    setFormData({
+      ...formData,
+      photos
+    })
+  }
+
   function handleInputChange(e) {
     const { name, value } = e.target
 
     setFormData({
       ...formData,
-      [name]: value
+      [name]: value,
     })
   }
 
@@ -30,6 +37,7 @@ export default function Form({ isOpened, closeForm, addEventItem }) {
     day: null,
     title:null,
     description: null,
+    photos: null,
     tags: null
   })
 
@@ -43,15 +51,15 @@ export default function Form({ isOpened, closeForm, addEventItem }) {
         name='eventForm'
       >
 
-        <Day onChange={handleInputChange} />
-        <Title onChange={handleInputChange} />
-        <Description onChange={handleInputChange} />
-        <PhotosUpload />
-        <Tags onChange={handleInputChange} />
+        <Day handleInputChange={handleInputChange} />
+        <Title handleInputChange={handleInputChange} />
+        <Description handleInputChange={handleInputChange} />
+        <PhotosUpload handleUploadPhotos={handleUploadPhotos} />
+        <Tags handleInputChange={handleInputChange} />
 
         <div className='mt-16 flex justify-between'>
-          <Cancel onClick={handleCancelClick} />
-          <Submit onClick={handleSubmitClick} />
+          <Cancel handleCancelClick={handleCancelClick} />
+          <Submit handleSubmitClick={handleSubmitClick} />
         </div>
         
       </form>
@@ -59,7 +67,7 @@ export default function Form({ isOpened, closeForm, addEventItem }) {
   )
 }
 
-function Day({ onChange }) {
+function Day({ handleInputChange }) {
   const id = useId()
 
   return (
@@ -77,13 +85,13 @@ function Day({ onChange }) {
         type='date'
         name='day'
         required
-        onChange={onChange}
+        onChange={handleInputChange}
       />
     </div>
   )
 }
 
-function Title({ onChange }) {
+function Title({ handleInputChange }) {
   const id = useId()
 
   return (
@@ -102,13 +110,13 @@ function Title({ onChange }) {
         name='title'
         maxLength={50}
         required
-        onChange={onChange}
+        onChange={handleInputChange}
       />
     </div>
   )
 }
 
-function Description({ onChange }) {
+function Description({ handleInputChange }) {
   const id = useId()
 
   return (
@@ -126,17 +134,17 @@ function Description({ onChange }) {
         type='text'
         name='description'
         rows={5}
-        onChange={onChange}
+        onChange={handleInputChange}
       />
     </div>
   )
 }
 
-function Tags({ onChange }) {
+function Tags({ handleInputChange }) {
   const id = useId()
 
   return (
-    <div className='mt-10'>
+    <div className='mt-6'>
       <label
         className='font-bold text-xl text-sky-50'
         htmlFor={id}
@@ -151,28 +159,28 @@ function Tags({ onChange }) {
         name='tags'
         maxLength={30}
         placeholder='Ассоциативное слово'
-        onChange={onChange}
+        onChange={handleInputChange}
       />
     </div>
   )
 }
 
-function Cancel({ onClick }) {
+function Cancel({ handleCancelClick }) {
   return (
     <button
       className='px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-rose-400/75 transition-all duration-150 hover:bg-rose-400 focus:bg-rose-400'
-      onClick={onClick}
+      onClick={handleCancelClick}
     >
       Отменить
     </button>
   )
 }
 
-function Submit({ onClick }) {
+function Submit({ handleSubmitClick }) {
   return (
     <button
       className='px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-emerald-400/75 transition-all duration-150 hover:bg-emerald-400 focus:bg-emerald-400'
-      onClick={onClick}
+      onClick={handleSubmitClick}
     >
       Добавить
     </button>

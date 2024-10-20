@@ -1,23 +1,16 @@
-import catSrc from '../../public/cat.jpg'
-import potatoSrc from '../../public/potato.jpg'
-
 import useAddListItem from '../../hooks/useAddListItem'
 import useOpenAndCloseForm from '../../hooks/useOpenAndCloseForm'
 
+import Form from './Form/Form'
 import Tools from './Tools'
 import List from './List'
-import Form from './Form'
-	
-const styles = {
-  Content: 'max-w-screen-xl mx-auto mt-16 px-8',
-}
 
 export default function Content() {
   const [eventList, addEventItem] = useAddListItem([])
-  const [isOpened, openForm, closeForm] = useOpenAndCloseForm()
+  const {isOpened, openForm, closeForm} = useOpenAndCloseForm()
 
   return (
-    <div className={styles.Content}>
+    <div className='max-w-screen-xl mx-auto mt-16 px-8'>
       <Form
         isOpened={isOpened}
         closeForm={closeForm}
