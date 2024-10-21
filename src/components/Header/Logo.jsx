@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Image from 'next/image'
 
-import logoSrc from './logo.svg'
+import logoSrc from '../../../public/Header/logo.svg'
 
 import { Pattaya } from 'next/font/google'
 

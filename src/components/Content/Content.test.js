@@ -1,34 +1,38 @@
-import userEvent from '@testing-library/user-event';
-import { fireEvent, render } from '@testing-library/react';
+import { fireEvent, render, screen, prettyDOM, queryByLabelText } from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 
 import Content from './Content'
 
-describe('*Content', () => {
+describe('* Form', () => {
 	test('Open form', () => {
-		const { getByRole, getByText } = render(<Content />)
+		render(<Content />)
 
-		fireEvent.click(getByText(/Добавить событие/))
-
-		expect(getByRole('form')).toBeInTheDocument()
+		expect(screen.queryByRole('form')).toBeNull()
+		fireEvent.click(screen.getByText('Добавить событие'))
+		expect(screen.queryByRole('form')).toBeInTheDocument()
 	})
 
 	test('Close form', () => {
-		const { queryByRole, getByText } = render(<Content />)
+		render(<Content />)
 
-		fireEvent.click(getByText(/Добавить событие/))
-		fireEvent.click( getByText(/Отменить/) )
-
-		expect(queryByRole('form')).toBeNull()
+		fireEvent.click(screen.getByText('Добавить событие'))
+		expect(screen.queryByRole('form')).toBeInTheDocument()
+		fireEvent.click(screen.getByText('Отменить'))
+		expect(screen.queryByRole('form')).toBeNull()	
 	})
 
-	// test('Adding item to list', async () => {
-	// 	const { getByRole, getAllByRole } = render(<Content />)
-	// 	const user = userEvent.setup()
+	test('Submit new event item to list', async () => {
+		render(<Content />)
 
-	// 	let listLength = getAllByRole('event').length
+		const inputTitle = screen.getByLabelText(/Название/)
+		const submitButton = screen.getByText('Добавить')
 
-	// 	await user.click(getByRole('addEvent'))
+		expect(screen.queryByRole('EventItem')).toBeNull()
+
+		await userEvent.type(inputTitle, 'Hello World')
+		await userEvent.click(submitButton)
 		
-	// 	expect(getAllByRole('event').length).toBe(++listLength)
-	// })
+		expect(screen.queryByRole('EventItem')).toBeInTheDocument()
+		expect(screen.queryByText(/Hello World/)).toBeInTheDocument()
+	})
 })

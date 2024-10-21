@@ -2,23 +2,27 @@ import { useState, useId, useEffect } from 'react'
 import clsx from 'clsx'
 import Image from 'next/image'
 
-import addSrc from './add.svg'
-import garbageSrc from './garbage.svg'
+import addSrc from '../../../../public/Content/add.svg'
+import garbageSrc from '../../../../public/Content/garbage.svg'
 
 import usePhotosPreview from '../../../hooks/usePhotosPreview'
 
-export default function PhotosUpload({ handleUploadPhotos }) {
+import ErrorMessage from './ErrorMessage'
+
+export default function PhotosUpload({ uploadPhotos }) {
   const id = useId()
   const {photos, addPhotos, removePhoto, errorMessage} = usePhotosPreview()
 
   useEffect(() => {
-    handleUploadPhotos(photos)
+    uploadPhotos(photos)
   }, [photos])
 
   return (
     <div className='w-full mt-10 relative'>
 
       <Title id={id} />
+      { errorMessage && <ErrorMessage message={errorMessage} /> }
+      
       <Preview
         id={id}
         photos={photos}
@@ -35,8 +39,6 @@ export default function PhotosUpload({ handleUploadPhotos }) {
         onChange={addPhotos}
       />
 
-      {errorMessage && <ErrorMessage message={errorMessage} />}
-      
     </div>
   )
 }
@@ -120,13 +122,5 @@ function Add({ id, photosCount }) {
         />
       }
     </label>
-  )
-}
-
-function ErrorMessage({ message }) {
-  return (
-    <div className='absolute w-max px-2 text-lg left-1/2 -translate-x-1/2'>
-      {message}
-    </div>
   )
 }

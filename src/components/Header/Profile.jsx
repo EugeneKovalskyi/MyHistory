@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
-import profileSrc from './profile.svg'
-import arrowSrc from './arrow.svg'
+import profileSrc from '../../../public/Header/profile.svg'
+import arrowSrc from '../../../public/Header/arrow.svg'
 
 export default function Profile() {
   return (

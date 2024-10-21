@@ -1,11 +1,14 @@
 import Image from 'next/image'
 
-import editSrc from './edit.svg'
-import shareSrc from './share.svg'
+import editSrc from '../../../public/Content/edit.svg'
+import shareSrc from '../../../public/Content/share.svg'
 
 export default function EventItem({ item }) {
   return (
-    <div className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-150 hover:bg-sky-300'>
+    <div 
+      className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-150 hover:bg-sky-300'
+      role='EventItem'
+    >
 
       <Tools />
       <Day day={item.day} />
@@ -46,7 +49,7 @@ function Tools() {
 function Day({ day }) {
   return (
     <div className='w-fit mx-auto -mt-6 text-center font-bold'>
-      { day.split('-').reverse().join(' . ') }
+      { day && day.split('-').reverse().join(' . ') }
     </div>
   )
 }
@@ -82,6 +85,7 @@ function Photos({ photos }) {
           &&
           <Image
             className='max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-150 hover:scale-110'
+            key={index}
             src={photo.src}
             alt={photo.alt}
             width={photo.width}

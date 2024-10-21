@@ -1,73 +1,37 @@
-import { useState, useId } from 'react'
+import { useId } from 'react'
 
+import useForm from '../../../hooks/useForm'
 import PhotosUpload from './PhotosUpload'
+import ErrorMessage from './ErrorMessage'
 
-export default function Form({ isOpened, closeForm, addEventItem }) {
+export default function Form({ isOpened, closeForm, addListItem }) {
 
-  function handleUploadPhotos(photos) {
-    setFormData({
-      ...formData,
-      photos
-    })
-  }
-
-  function handleInputChange(e) {
-    const { name, value } = e.target
-
-    setFormData({
-      ...formData,
-      [name]: value,
-    })
-  }
-
-  function handleSubmitClick(e) {
-    e.preventDefault()
-
-    addEventItem(formData)
-    closeForm()
-  }
-
-  function handleCancelClick(e) {
-    e.preventDefault()
-
-    closeForm()
-  }
-
-  const [formData, setFormData] = useState({
-    day: null,
-    title:null,
-    description: null,
-    photos: null,
-    tags: null
-  })
+  const { publishEvent, inputText, uploadPhotos } = useForm({ addListItem, closeForm })
 
   return (
     <div
       className='z-10 fixed top-0 left-0 min-h-screen w-full bg-black/50'
       hidden={!isOpened}
     >
-      <form
-        className='max-w-3xl mx-auto mt-24 px-10 py-6 rounded-xl border-2 bg-sky-500'
-        name='eventForm'
-      >
-
-        <Day handleInputChange={handleInputChange} />
-        <Title handleInputChange={handleInputChange} />
-        <Description handleInputChange={handleInputChange} />
-        <PhotosUpload handleUploadPhotos={handleUploadPhotos} />
-        <Tags handleInputChange={handleInputChange} />
+      <div className='max-w-3xl mx-auto mt-24 px-10 py-6 rounded-xl border-2 bg-sky-500'>
+        <form name='form'>
+          <Day inputText={inputText} />
+          <Title inputText={inputText} />
+          <Description inputText={inputText} />
+          <PhotosUpload uploadPhotos={uploadPhotos} />
+          <Tags inputText={inputText} />
+        </form>
 
         <div className='mt-16 flex justify-between'>
-          <Cancel handleCancelClick={handleCancelClick} />
-          <Submit handleSubmitClick={handleSubmitClick} />
+          <Cancel closeForm={closeForm} />
+          <Submit publishEvent={publishEvent} />
         </div>
-        
-      </form>
+      </div>
     </div>
   )
 }
 
-function Day({ handleInputChange }) {
+function Day({ inputText }) {
   const id = useId()
 
   return (
@@ -76,22 +40,22 @@ function Day({ handleInputChange }) {
         className='font-bold text-xl text-sky-50'
         htmlFor={id}
       >
-        Дата
+        Дата *
       </label>
+      { error.cause === 'EMPTY_DAY' && <ErrorMessage message='Введите дату' />}
 
       <input
         className='block mt-4 px-4 py-2 rounded-lg text-lg bg-slate-100 transition-all duration-150 hover:bg-white focus:ring focus:ring-inset focus:ring-sky-700 focus:bg-white'
         id={id}
         type='date'
         name='day'
-        required
-        onChange={handleInputChange}
+        onChange={inputText}
       />
     </div>
   )
 }
 
-function Title({ handleInputChange }) {
+function Title({ inputText }) {
   const id = useId()
 
   return (
@@ -100,8 +64,9 @@ function Title({ handleInputChange }) {
         className='font-bold text-xl text-sky-50'
         htmlFor={id}
       >
-        Название
+        Название *
       </label>
+      {/* { errorCause === 'EMPTY_TITLE' && <ErrorMessage message='Введите название' />} */}
 
       <input
         className='block w-full mt-4 px-4 py-2 rounded-lg text-lg text-center bg-slate-100 transition-all duration-150 hover:bg-white focus:ring focus:ring-inset focus:ring-sky-700 focus:bg-white'
@@ -109,14 +74,13 @@ function Title({ handleInputChange }) {
         type='text'
         name='title'
         maxLength={50}
-        required
-        onChange={handleInputChange}
+        onChange={inputText}
       />
     </div>
   )
 }
 
-function Description({ handleInputChange }) {
+function Description({ inputText }) {
   const id = useId()
 
   return (
@@ -134,13 +98,13 @@ function Description({ handleInputChange }) {
         type='text'
         name='description'
         rows={5}
-        onChange={handleInputChange}
+        onChange={inputText}
       />
     </div>
   )
 }
 
-function Tags({ handleInputChange }) {
+function Tags({ inputText }) {
   const id = useId()
 
   return (
@@ -159,28 +123,28 @@ function Tags({ handleInputChange }) {
         name='tags'
         maxLength={30}
         placeholder='Ассоциативное слово'
-        onChange={handleInputChange}
+        onChange={inputText}
       />
     </div>
   )
 }
 
-function Cancel({ handleCancelClick }) {
+function Cancel({ closeForm }) {
   return (
     <button
       className='px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-rose-400/75 transition-all duration-150 hover:bg-rose-400 focus:bg-rose-400'
-      onClick={handleCancelClick}
+      onClick={closeForm}
     >
       Отменить
     </button>
   )
 }
 
-function Submit({ handleSubmitClick }) {
+function Submit({ publishEvent }) {
   return (
     <button
       className='px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-emerald-400/75 transition-all duration-150 hover:bg-emerald-400 focus:bg-emerald-400'
-      onClick={handleSubmitClick}
+      onClick={publishEvent}
     >
       Добавить
     </button>

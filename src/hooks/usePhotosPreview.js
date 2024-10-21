@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { MAX_PHOTOS_COUNT } from '../utils/constants'
+import { MAX_PHOTOS_COUNT } from '../constants/formConstants'
 import getImageDimensions from '../utils/getImageDimensions'
 
 export default function usePhotosPreview() {
@@ -42,7 +42,7 @@ export default function usePhotosPreview() {
 
 	function handleError(cause) {
 		if (cause === 'TOO_LARGE_FILE') setErrorMessage('Размер файла должен быть меньше 10 Мб')
-		// else if (cause === 'UPLOAD_ERROR') setErrorMessage('Файл не удалось загрузить')
+		else if (cause === 'UPLOAD_ERROR') setErrorMessage('Файл не удалось загрузить')
 		else setErrorMessage('Неизвестная ошибка')
 
 		setTimeout(setErrorMessage, 5000, '')
