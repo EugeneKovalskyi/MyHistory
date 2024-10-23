@@ -6,7 +6,6 @@ import addSrc from '../../../../public/Content/add.svg'
 import garbageSrc from '../../../../public/Content/garbage.svg'
 
 import usePhotosPreview from '../../../hooks/usePhotosPreview'
-
 import ErrorMessage from './ErrorMessage'
 
 export default function PhotosUpload({ uploadPhotos }) {
