@@ -4,19 +4,19 @@ import ErrorMessage from './ErrorMessage'
 
 export default function Day({ inputText, validateForm }) {
 	
-  function validateInput(e) {
+  function validateDay(e) {
     if (e.target.value.trim() === '') {
       validateForm('Day', false)
-      setIsValid(false)
+      setIsDayValid(false)
     }
     else {
       validateForm('Day',true)
-      setIsValid(true)
+      setIsDayValid(true)
     }
   }
   
   const id = useId()
-  const [isValid, setIsValid] = useState(true)
+  const [isDayValid, setIsDayValid] = useState(true)
 
   return (
     <div className='w-fit mx-auto text-center'>
@@ -26,7 +26,7 @@ export default function Day({ inputText, validateForm }) {
       >
         Дата *
       </label>
-      { !isValid && <ErrorMessage message='Введите дату' />}
+      { !isDayValid && <ErrorMessage message='Введите дату' />}
 
       <input
         className='block mt-4 px-4 py-2 rounded-lg text-lg bg-slate-100 transition-all duration-150 hover:bg-white focus:ring focus:ring-inset focus:ring-sky-700 focus:bg-white'
@@ -34,7 +34,7 @@ export default function Day({ inputText, validateForm }) {
         type='date'
         name='day'
         onChange={inputText}
-        onBlur={validateInput}
+        onBlur={validateDay}
       />
     </div>
   )

@@ -3,11 +3,11 @@ import sortSrc from '../../../public/Content/sort.svg'
 
 import Image from 'next/image'
 
-export default function Tools({ openForm }) {
+export default function Tools({ showForm }) {
   return (
     <div className='flex items-center justify-between'>
       <Search />
-      <OpenForm openForm={openForm} />
+      <ShowForm showForm={showForm} />
       <Sort />
     </div>
   )
@@ -32,11 +32,11 @@ function Search() {
   )
 }
 
-function OpenForm({ openForm }) {
+function ShowForm({ showForm }) {
   return (
     <button
       className='w-1/6 px-2 py-5 rounded-xl shadow-lg font-bold text-lg text-sky-50 bg-teal-500 transition-all duration-150 hover:shadow-xl hover:bg-teal-400'
-      onClick={openForm}
+      onClick={showForm}
     >
       Добавить событие
     </button>

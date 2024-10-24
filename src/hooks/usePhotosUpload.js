@@ -2,7 +2,7 @@ import { useState } from "react";
 import { MAX_PHOTOS_COUNT } from '../constants/formConstants'
 import getImageDimensions from '../utils/getImageDimensions'
 
-export default function usePhotosPreview() {
+export default function usePhotosUpload() {
 
 	async function addPhotos(e) {
     const files = [...e.target.files].slice(0, MAX_PHOTOS_COUNT - photos.length)
@@ -36,16 +36,16 @@ export default function usePhotosPreview() {
     }
   }
 
-	function removePhoto(photoToRemove) {
-		setPhotos(photos.filter(photo => photo !== photoToRemove))
-	}
-
 	function handleError(cause) {
 		if (cause === 'TOO_LARGE_FILE') setErrorMessage('Размер файла должен быть меньше 10 Мб')
 		else if (cause === 'UPLOAD_ERROR') setErrorMessage('Файл не удалось загрузить')
 		else setErrorMessage('Неизвестная ошибка')
 
-		setTimeout(setErrorMessage, 5000, '')
+		setTimeout(setErrorMessage, 3000, '')
+	}
+
+  function removePhoto(photoToRemove) {
+		setPhotos(photos.filter(photo => photo !== photoToRemove))
 	}
 
 	const [photos, setPhotos] = useState([])

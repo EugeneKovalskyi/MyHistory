@@ -1,25 +1,41 @@
-import { useState } from 'react'
-import { useId} from 'react'
+import { useId, useRef } from 'react'
 import clsx from 'clsx'
 
 import useForm from '../../../hooks/useForm'
 import useFormValidation from '../../../hooks/useFormValidation'
 import Day from './Day'
 import Title from './Title'
-import PhotosUpload from './PhotosUpload'
+import Upload from './Upload'
 
-export default function Form({ isOpened, closeForm, addListItem }) {
-  const { publishEvent, inputText, uploadPhotos } = useForm({ addListItem, closeForm })
-  const { isFormValid, validateForm } = useFormValidation()
+export default function Form({ isFormHidden, hideForm, addListItem }) {
+
+  function closeForm() {
+    hideForm()
+    clearFormData()
+    clearFormValidation()
+    formRef.current.reset()
+  }
+
+  function submitEvent() {
+    addListItem(formData)
+    closeForm()
+  }
+
+  const formRef = useRef(null)
+  const { formData, clearFormData, inputText, uploadPhotos } = useForm()
+  const { isFormValid, validateForm, clearFormValidation } = useFormValidation()
 
   return (
     <div
       className='z-10 fixed top-0 left-0 min-h-screen w-full bg-black/50'
-      hidden={!isOpened}
+      hidden={isFormHidden}
     >
       <div className='max-w-3xl mx-auto mt-24 px-10 py-6 rounded-xl border-2 bg-sky-500'>
-        <form name='form'>
-          <Day 
+        <form 
+          name='form'
+          ref={formRef}
+        >
+          <Day
             inputText={inputText} 
             validateForm={validateForm}
           />
@@ -28,15 +44,17 @@ export default function Form({ isOpened, closeForm, addListItem }) {
             validateForm={validateForm}
           />
           <Description inputText={inputText} />
-          <PhotosUpload uploadPhotos={uploadPhotos} />
+          <Upload 
+            uploadPhotos={uploadPhotos}
+          />
           <Tags inputText={inputText} />
         </form>
 
         <div className='mt-16 flex justify-between'>
           <Cancel closeForm={closeForm} />
           <Submit 
-            publishEvent={publishEvent} 
-            isFormValid={isFormValid} 
+            submitEvent={submitEvent}
+            disabled={!isFormValid} 
           />
         </div>
       </div>
@@ -104,15 +122,15 @@ function Cancel({ closeForm }) {
   )
 }
 
-function Submit({ publishEvent, isFormValid }) {
+function Submit({ submitEvent, disabled }) {
   return (
     <button
       className={ clsx(
-        'px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-gray-400 transition-all duration-150',
-        isFormValid && '!bg-emerald-400/75 hover:bg-emerald-400 focus:bg-emerald-400'
+        'px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-emerald-400/75 hover:bg-emerald-400 focus:bg-emerald-400 transition-all duration-150',
+        disabled && '!bg-gray-400'
       ) }
-      disabled={!isFormValid}
-      onClick={publishEvent}
+      disabled={disabled}
+      onClick={submitEvent}
     >
       Добавить
     </button>

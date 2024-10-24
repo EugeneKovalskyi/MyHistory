@@ -1,6 +1,7 @@
 import { useState } from "react"
 
-export default function useForm({ addListItem, closeForm }) {
+export default function useForm() {
+ 
   function inputText(e) {
     const { name, value } = e.target
 
@@ -17,22 +18,28 @@ export default function useForm({ addListItem, closeForm }) {
     })
   }
 
-  function publishEvent() {
-    addListItem(formData)
-    closeForm()
+  function clearFormData() {
+    setFormData({
+      day: '',
+      title: '',
+      description: '',
+      photos: [],
+      tags: ''
+    })
   }
-
+  
 	const [formData, setFormData] = useState({
     day: '',
-    title:'',
+    title: '',
     description: '',
-    photos: {},
+    photos: [],
     tags: ''
   })
 
   return {
-    publishEvent,
+    formData,
+    clearFormData,
 		inputText,
-    uploadPhotos,
+    uploadPhotos
   }
 }

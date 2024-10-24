@@ -1,16 +1,16 @@
-import { useState, useId, useEffect } from 'react'
+import { useState, useEffect, useId } from 'react'
 import clsx from 'clsx'
 import Image from 'next/image'
 
 import addSrc from '../../../../public/Content/add.svg'
 import garbageSrc from '../../../../public/Content/garbage.svg'
 
-import usePhotosPreview from '../../../hooks/usePhotosPreview'
+import usePhotosUpload from '../../../hooks/usePhotosUpload'
 import ErrorMessage from './ErrorMessage'
 
-export default function PhotosUpload({ uploadPhotos }) {
+export default function Upload({ uploadPhotos }) {
   const id = useId()
-  const {photos, addPhotos, removePhoto, errorMessage} = usePhotosPreview()
+  const { photos, addPhotos, removePhoto, errorMessage } = usePhotosUpload()
 
   useEffect(() => {
     uploadPhotos(photos)
