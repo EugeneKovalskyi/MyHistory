@@ -8,7 +8,6 @@ import Title from './Title'
 import Upload from './Upload'
 
 export default function Form({ isFormHidden, hideForm, addListItem }) {
-
   function closeForm() {
     hideForm()
     clearFormData()
@@ -22,39 +21,49 @@ export default function Form({ isFormHidden, hideForm, addListItem }) {
   }
 
   const formRef = useRef(null)
-  const { formData, clearFormData, inputText, uploadPhotos } = useForm()
   const { isFormValid, validateForm, clearFormValidation } = useFormValidation()
+  const {
+    formData,
+    clearFormData,
+    inputText,
+    addPhotos,
+    removePhoto,
+    uploadErrorMessage,
+  } = useForm()
 
   return (
     <div
-      className='z-10 fixed top-0 left-0 min-h-screen w-full bg-black/50'
+      className='z-10 fixed top-0 left-0 min-h-screen w-full backdrop-blur-sm bg-black/50'
       hidden={isFormHidden}
     >
       <div className='max-w-3xl mx-auto mt-24 px-10 py-6 rounded-xl border-2 bg-sky-500'>
-        <form 
+        <form
           name='form'
           ref={formRef}
         >
           <Day
-            inputText={inputText} 
+            inputText={inputText}
             validateForm={validateForm}
           />
-          <Title 
-            inputText={inputText} 
+          <Title
+            inputText={inputText}
             validateForm={validateForm}
           />
           <Description inputText={inputText} />
-          <Upload 
-            uploadPhotos={uploadPhotos}
+          <Upload
+            photos={formData.photos}
+            addPhotos={addPhotos}
+            removePhoto={removePhoto}
+            uploadErrorMessage={uploadErrorMessage}
           />
           <Tags inputText={inputText} />
         </form>
 
         <div className='mt-16 flex justify-between'>
           <Cancel closeForm={closeForm} />
-          <Submit 
+          <Submit
             submitEvent={submitEvent}
-            disabled={!isFormValid} 
+            disabled={!isFormValid}
           />
         </div>
       </div>
@@ -125,10 +134,10 @@ function Cancel({ closeForm }) {
 function Submit({ submitEvent, disabled }) {
   return (
     <button
-      className={ clsx(
+      className={clsx(
         'px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-emerald-400/75 hover:bg-emerald-400 focus:bg-emerald-400 transition-all duration-150',
         disabled && '!bg-gray-400'
-      ) }
+      )}
       disabled={disabled}
       onClick={submitEvent}
     >

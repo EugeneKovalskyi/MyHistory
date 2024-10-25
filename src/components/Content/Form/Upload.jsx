@@ -1,27 +1,26 @@
-import { useState, useEffect, useId } from 'react'
-import clsx from 'clsx'
+import { useId } from 'react'
 import Image from 'next/image'
 
 import addSrc from '../../../../public/Content/add.svg'
-import garbageSrc from '../../../../public/Content/garbage.svg'
 
-import usePhotosUpload from '../../../hooks/usePhotosUpload'
-import ErrorMessage from './ErrorMessage'
+import Photo from './Photo'
 
-export default function Upload({ uploadPhotos }) {
+export default function Upload({
+  photos,
+  addPhotos,
+  removePhoto,
+  uploadErrorMessage,
+}) {
+
   const id = useId()
-  const { photos, addPhotos, removePhoto, errorMessage } = usePhotosUpload()
-
-  useEffect(() => {
-    uploadPhotos(photos)
-  }, [photos])
 
   return (
     <div className='w-full mt-10 relative'>
+      <Title 
+        id={id} 
+        uploadErrorMessage={uploadErrorMessage} 
+      />
 
-      <Title id={id} />
-      { errorMessage && <ErrorMessage message={errorMessage} /> }
-      
       <Preview
         id={id}
         photos={photos}
@@ -37,29 +36,36 @@ export default function Upload({ uploadPhotos }) {
         multiple
         onChange={addPhotos}
       />
-
     </div>
   )
 }
 
-function Title({ id }) {
+function Title({ id, uploadErrorMessage }) {
   return (
     <label
       className='font-bold text-xl text-sky-50'
       htmlFor={id}
     >
       Фотографии
+      { 
+        uploadErrorMessage 
+        && 
+        <span className='ml-4 text-rose-700'>
+          ⚠ { uploadErrorMessage } ⚠
+        </span>
+      } 
     </label>
+    
   )
 }
 
 function Preview({ id, photos, removePhoto }) {
   return (
     <div className='mt-4 flex flex-wrap items-center gap-4'>
-      { 
+      {
         photos.map((photo, index) => (
-          <Photo 
-            photo={photo} 
+          <Photo
+            photo={photo}
             key={index}
             removePhoto={removePhoto}
           />
@@ -69,41 +75,7 @@ function Preview({ id, photos, removePhoto }) {
       <Add
         id={id}
         photosCount={photos.length}
-      />      
-    </div>
-  )
-}
-
-function Photo({ photo, removePhoto }) {
-  const [isMouseEnter, setIsMouseEnter] = useState(false)
-
-  return (
-    <div
-      className='relative cursor-pointer'
-      onMouseEnter={() => setIsMouseEnter(true)}
-      onMouseLeave={() => setIsMouseEnter(false)}
-      onClick={() => removePhoto(photo)}
-    >
-      <Image
-        className='max-w-28 max-h-28 rounded-md shadow-lg shadow-black/25'
-        src={photo.src}
-        alt={photo.alt}
-        width={photo.width}
-        height={photo.height}
       />
-
-      <div
-        className={clsx(
-          isMouseEnter ? 'opacity-100' : 'opacity-0',
-          'absolute top-0 left-0 w-full h-full rounded-md bg-black/50 transition-all duration-150'
-        )}
-      >
-        <Image
-          className='w-1/3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'
-          src={garbageSrc}
-          alt='Garbage'
-        />
-      </div>
     </div>
   )
 }
@@ -114,11 +86,11 @@ function Add({ id, photosCount }) {
       {
         photosCount < 10 
         && 
-        <Image
+        (<Image
           className='w-20 h-20 rounded-xl border-2 shadow-md shadow-black/25 cursor-pointer transition-all duration-150 hover:scale-110'
           src={addSrc}
           alt='Upload photo'
-        />
+        />)
       }
     </label>
   )

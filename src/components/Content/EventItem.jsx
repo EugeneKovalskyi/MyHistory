@@ -5,19 +5,14 @@ import shareSrc from '../../../public/Content/share.svg'
 
 export default function EventItem({ item }) {
   return (
-    <div 
-      className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-150 hover:bg-sky-300'
-      role='EventItem'
-    >
-
+    <div role='EventItem' className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-150 hover:bg-sky-300'>
       <Tools />
       <Day day={item.day} />
       <Title title={item.title} />
 
-      {item.photos && <Photos photos={item.photos} />}
-      {item.description && <Description description={item.description} />}
-      {item.tags && <Tags tags={item.tags} />}
-
+      { item.photos && <Photos photos={item.photos} /> }
+      { item.description && <Description description={item.description} /> }
+      { item.tags && <Tags tags={item.tags} /> }
     </div>
   )
 }
