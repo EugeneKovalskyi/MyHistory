@@ -12,6 +12,7 @@ export default function Form({
   hideForm,
   addListItem,
   updateListItem,
+  removeListItem,
   currentItem,
   clearCurrentItem,
 }) {
@@ -88,7 +89,15 @@ export default function Form({
         <div className='mt-16 flex justify-between'>
           <Cancel closeForm={closeForm} />
 
-          { currentItem && <Remove currentItem={currentItem} /> }
+          { 
+            currentItem 
+            && 
+            <Remove 
+              currentItem={currentItem} 
+              removeListItem={removeListItem}
+              closeForm={closeForm}
+            /> 
+          }
 
           <Submit
             submitForm={submitForm}
@@ -173,9 +182,15 @@ function Cancel({ closeForm }) {
   )
 }
 
-function Remove({ currentItem }) {
+function Remove({ currentItem, removeListItem, closeForm }) {
   return (
-    <button className='px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-rose-400/75 transition-all duration-150 hover:bg-rose-400 focus:bg-rose-400'>
+    <button 
+      className='px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 hover:bg-sky-50/25 transition-all duration-150'
+      onClick={() => {
+        removeListItem(currentItem)
+        closeForm()
+      }}
+    >
       Удалить
     </button>
   )

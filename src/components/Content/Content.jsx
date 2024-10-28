@@ -7,7 +7,7 @@ import List from './List'
 import useItem from '../../hooks/useItem'
 
 export default function Content() {
-  const { list, addListItem, updateListItem } = useList([])
+  const { list, addListItem, updateListItem, removeListItem } = useList([])
   const { isFormHidden, hideForm, showForm } = useToggleForm()
   const { currentItem, getCurrentItem, clearCurrentItem } = useItem()
 
@@ -18,6 +18,7 @@ export default function Content() {
         isFormHidden={isFormHidden}
         addListItem={addListItem}
         updateListItem={updateListItem}
+        removeListItem={removeListItem}
         currentItem={currentItem}
         clearCurrentItem={clearCurrentItem}
       />
