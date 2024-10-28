@@ -15,7 +15,7 @@ export default function Upload({
   const id = useId()
 
   return (
-    <div className='w-full mt-10 relative'>
+    <div className='w-full mt-10'>
       <Title 
         id={id} 
         uploadErrorMessage={uploadErrorMessage} 

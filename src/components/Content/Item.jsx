@@ -3,21 +3,26 @@ import Image from 'next/image'
 import editSrc from '../../../public/Content/edit.svg'
 import shareSrc from '../../../public/Content/share.svg'
 
-export default function EventItem({ item }) {
+export default function Item({ item, showForm, getCurrentItem }) {
   return (
-    <div role='EventItem' className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-150 hover:bg-sky-300'>
-      <Tools />
+    <div className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-150 hover:bg-sky-300'>
+      <Tools
+        item={item}
+        showForm={showForm}
+        getCurrentItem={getCurrentItem}
+      />
+
       <Day day={item.day} />
       <Title title={item.title} />
 
-      { item.photos && <Photos photos={item.photos} /> }
-      { item.description && <Description description={item.description} /> }
-      { item.tags && <Tags tags={item.tags} /> }
+      { item?.photos && <Photos photos={item.photos} /> }
+      { item?.description && <Description description={item.description} /> }
+      { item?.tags && <Tags tags={item.tags} /> }
     </div>
   )
 }
 
-function Tools() {
+function Tools({ item, showForm, getCurrentItem }) {
   return (
     <div className='flex items-center justify-between'>
 
@@ -26,6 +31,10 @@ function Tools() {
           className='h-6 w-6'
           src={editSrc}
           alt='edit'
+          onClick={() => {
+            showForm()
+            getCurrentItem(item)
+          }}
         />
       </button>
 

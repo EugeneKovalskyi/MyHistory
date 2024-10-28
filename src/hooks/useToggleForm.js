@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-export default function useToggleComponent(componentName) {
-	if (componentName === 'Form') {
+export default function useToggleForm() {
+	
 		function hideForm() {
 			setIsFormHidden(true)
 		}
@@ -13,5 +13,4 @@ export default function useToggleComponent(componentName) {
 		const [isFormHidden, setIsFormHidden] = useState(true)
 
 		return { isFormHidden, hideForm, showForm }
-	}
 }

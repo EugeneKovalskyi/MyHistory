@@ -1,6 +1,7 @@
-import { useId, useState } from "react"
+import { useEffect, useId, useRef, useState } from "react"
 
-export default function Title({ inputText, validateForm }) {
+export default function Title({ inputText, isFormHidden, validateForm, currentItem }) {
+  
   function validateTitle(e) {
     if (e.target.value.trim() === '') {
       validateForm('Title', false)
@@ -13,18 +14,27 @@ export default function Title({ inputText, validateForm }) {
   }
   
   const id = useId()
+  const titleRef = useRef()
   const [isTitleValid, setIsTitleValid] = useState(true)
 
+  useEffect(() => {
+    if (currentItem) {
+      titleRef.current.value = currentItem.title
+      validateForm('Title', true)
+    }
+
+    if (isFormHidden) setIsTitleValid(true)
+
+    }, [currentItem, isFormHidden])
+
   return (
-    <div className='mt-10 text-center '>
+    <div className='mt-10 text-center'>
       <label
         className='font-bold text-xl text-sky-50'
         htmlFor={id}
       >
         { 
-          isTitleValid 
-          ? 
-          'Название *' 
+          isTitleValid ? 'Название *' 
           : 
           <span className='text-rose-700'>
             ⚠ Введите название ⚠
@@ -38,6 +48,7 @@ export default function Title({ inputText, validateForm }) {
         type='text'
         name='title'
         maxLength={50}
+        ref={titleRef}
         onChange={inputText}
         onBlur={validateTitle}
       />

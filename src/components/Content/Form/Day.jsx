@@ -1,6 +1,6 @@
-import { useId, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 
-export default function Day({ inputText, validateForm }) {
+export default function Day({ inputText, isFormHidden, validateForm, currentItem }) {
 
   function validateDay(e) {
     if (e.target.value.trim() === '') {
@@ -13,7 +13,19 @@ export default function Day({ inputText, validateForm }) {
   }
 
   const id = useId()
+  const dayRef = useRef()
   const [isDayValid, setIsDayValid] = useState(true)
+
+  useEffect(() => {
+    if (currentItem) {
+      dayRef.current.value = currentItem.day
+      validateForm('Day', true)
+    }
+
+    if (isFormHidden) setIsDayValid(true)
+
+  }, [currentItem, isFormHidden])
+
 
   return (
     <div className='w-fit mx-auto text-center'>
@@ -22,9 +34,7 @@ export default function Day({ inputText, validateForm }) {
         htmlFor={id}
       >
         { 
-          isDayValid 
-          ? 
-          'Дата *' 
+          isDayValid ? 'Дата *' 
           : 
           <span className='text-rose-700'>
             ⚠ Введите дату ⚠
@@ -37,6 +47,7 @@ export default function Day({ inputText, validateForm }) {
         id={id}
         type='date'
         name='day'
+        ref={dayRef}
         onChange={inputText}
         onBlur={validateDay}
       />

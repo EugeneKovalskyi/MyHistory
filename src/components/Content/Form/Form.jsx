@@ -1,4 +1,4 @@
-import { useId, useRef } from 'react'
+import { useEffect, useId, useRef } from 'react'
 import clsx from 'clsx'
 
 import useForm from '../../../hooks/useForm'
@@ -7,16 +7,27 @@ import Day from './Day'
 import Title from './Title'
 import Upload from './Upload'
 
-export default function Form({ isFormHidden, hideForm, addListItem }) {
+export default function Form({
+  isFormHidden,
+  hideForm,
+  addListItem,
+  updateListItem,
+  currentItem,
+  clearCurrentItem,
+}) {
+
   function closeForm() {
     hideForm()
     clearFormData()
     clearFormValidation()
+    clearCurrentItem()
     formRef.current.reset()
   }
 
-  function submitEvent() {
-    addListItem(formData)
+  function submitForm() {
+    if (currentItem) updateListItem(formData)
+    else addListItem(formData)
+
     closeForm()
   }
 
@@ -29,7 +40,12 @@ export default function Form({ isFormHidden, hideForm, addListItem }) {
     addPhotos,
     removePhoto,
     uploadErrorMessage,
+    setFormDataWithCurrentItemData,
   } = useForm()
+
+  useEffect(() => {
+    if (currentItem) setFormDataWithCurrentItemData(currentItem)
+  }, [currentItem])
 
   return (
     <div
@@ -43,27 +59,41 @@ export default function Form({ isFormHidden, hideForm, addListItem }) {
         >
           <Day
             inputText={inputText}
+            isFormHidden={isFormHidden}
             validateForm={validateForm}
+            currentItem={currentItem}
           />
           <Title
             inputText={inputText}
+            isFormHidden={isFormHidden}
             validateForm={validateForm}
+            currentItem={currentItem}
           />
-          <Description inputText={inputText} />
+          <Description
+            inputText={inputText}
+            currentItem={currentItem}
+          />
           <Upload
             photos={formData.photos}
             addPhotos={addPhotos}
             removePhoto={removePhoto}
             uploadErrorMessage={uploadErrorMessage}
           />
-          <Tags inputText={inputText} />
+          <Tags
+            inputText={inputText}
+            currentItem={currentItem}
+          />
         </form>
 
         <div className='mt-16 flex justify-between'>
           <Cancel closeForm={closeForm} />
+
+          { currentItem && <Remove currentItem={currentItem} /> }
+
           <Submit
-            submitEvent={submitEvent}
+            submitForm={submitForm}
             disabled={!isFormValid}
+            currentItem={currentItem}
           />
         </div>
       </div>
@@ -71,8 +101,13 @@ export default function Form({ isFormHidden, hideForm, addListItem }) {
   )
 }
 
-function Description({ inputText }) {
+function Description({ inputText, currentItem }) {
   const id = useId()
+  const descriptionRef = useRef()
+
+  useEffect(() => {
+    if (currentItem) descriptionRef.current.value = currentItem.description
+  }, [currentItem])
 
   return (
     <div className='mt-10'>
@@ -89,14 +124,20 @@ function Description({ inputText }) {
         type='text'
         name='description'
         rows={5}
+        ref={descriptionRef}
         onChange={inputText}
       />
     </div>
   )
 }
 
-function Tags({ inputText }) {
+function Tags({ inputText, currentItem }) {
   const id = useId()
+  const tagsRef = useRef()
+
+  useEffect(() => {
+    if (currentItem) tagsRef.current.value = currentItem.tags
+  }, [currentItem])
 
   return (
     <div className='mt-6'>
@@ -114,6 +155,7 @@ function Tags({ inputText }) {
         name='tags'
         maxLength={30}
         placeholder='Ассоциативное слово'
+        ref={tagsRef}
         onChange={inputText}
       />
     </div>
@@ -131,7 +173,15 @@ function Cancel({ closeForm }) {
   )
 }
 
-function Submit({ submitEvent, disabled }) {
+function Remove({ currentItem }) {
+  return (
+    <button className='px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-rose-400/75 transition-all duration-150 hover:bg-rose-400 focus:bg-rose-400'>
+      Удалить
+    </button>
+  )
+}
+
+function Submit({ submitForm, disabled, currentItem }) {
   return (
     <button
       className={clsx(
@@ -139,9 +189,9 @@ function Submit({ submitEvent, disabled }) {
         disabled && '!bg-gray-400'
       )}
       disabled={disabled}
-      onClick={submitEvent}
+      onClick={submitForm}
     >
-      Добавить
+      { currentItem ? 'Сохранить' : 'Добавить' }
     </button>
   )
 }

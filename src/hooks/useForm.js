@@ -4,7 +4,7 @@ import { MAX_PHOTOS_COUNT } from '../constants/formConstants'
 import getImageDimensions from '../utils/getImageDimensions'
 
 export default function useForm() {
- 
+
   function inputText(e) {
     const { name, value } = e.target
 
@@ -64,8 +64,20 @@ export default function useForm() {
     })
   }
 
+  function setFormDataWithCurrentItemData(currentItem) {
+    setFormData({
+      id: currentItem.id,
+      day: currentItem.day,
+      title: currentItem.title,
+      description: currentItem.description,
+      photos: currentItem.photos,
+      tags: currentItem.tags
+    })
+  }
+
   function clearFormData() {
     setFormData({
+      id: new Date().getTime(),
       day: '',
       title: '',
       description: '',
@@ -75,6 +87,7 @@ export default function useForm() {
   }
   
 	const [formData, setFormData] = useState({
+    id: new Date().getTime(),
     day: '',
     title: '',
     description: '',
@@ -89,6 +102,7 @@ export default function useForm() {
 		inputText,
     addPhotos,
     removePhoto,
-    uploadErrorMessage
+    uploadErrorMessage,
+    setFormDataWithCurrentItemData
   }
 }
