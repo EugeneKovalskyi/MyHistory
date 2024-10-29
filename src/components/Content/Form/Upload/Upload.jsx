@@ -1,7 +1,7 @@
 import { useId } from 'react'
 import Image from 'next/image'
 
-import addSrc from '../../../../public/Content/add.svg'
+import addSrc from '../../../../../public/Content/add.svg'
 
 import Photo from './Photo'
 

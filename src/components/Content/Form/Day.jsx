@@ -1,31 +1,12 @@
-import { useEffect, useId, useRef, useState } from 'react'
+import { useEffect, useId, useRef } from 'react'
 
-export default function Day({ inputText, isFormHidden, validateForm, currentItem }) {
-
-  function validateDay(e) {
-    if (e.target.value.trim() === '') {
-      validateForm('Day', false)
-      setIsDayValid(false)
-    } else {
-      validateForm('Day', true)
-      setIsDayValid(true)
-    }
-  }
-
+export default function Day({ inputText, isDayValid, validateDay, currentItem }) {
   const id = useId()
   const dayRef = useRef()
-  const [isDayValid, setIsDayValid] = useState(true)
 
   useEffect(() => {
-    if (currentItem) {
-      dayRef.current.value = currentItem.day
-      validateForm('Day', true)
-    }
-
-    if (isFormHidden) setIsDayValid(true)
-
-  }, [currentItem, isFormHidden])
-
+    if (currentItem) dayRef.current.value = currentItem.day
+  }, [currentItem])
 
   return (
     <div className='w-fit mx-auto text-center'>

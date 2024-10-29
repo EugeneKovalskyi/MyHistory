@@ -1,7 +1,7 @@
 import { fireEvent, render, screen, prettyDOM } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import Content from './Content'
+import Content from './Content.jsx'
 
 describe('* Form', () => {
 	test('Open form', () => {

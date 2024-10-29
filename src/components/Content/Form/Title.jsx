@@ -1,31 +1,12 @@
-import { useEffect, useId, useRef, useState } from "react"
+import { useEffect, useId, useRef } from "react"
 
-export default function Title({ inputText, isFormHidden, validateForm, currentItem }) {
-  
-  function validateTitle(e) {
-    if (e.target.value.trim() === '') {
-      validateForm('Title', false)
-      setIsTitleValid(false)
-    }
-    else {
-      validateForm('Title',true)
-      setIsTitleValid(true)
-    }
-  }
-  
+export default function Title({ inputText, isTitleValid, validateTitle, currentItem }) {
   const id = useId()
   const titleRef = useRef()
-  const [isTitleValid, setIsTitleValid] = useState(true)
 
   useEffect(() => {
-    if (currentItem) {
-      titleRef.current.value = currentItem.title
-      validateForm('Title', true)
-    }
-
-    if (isFormHidden) setIsTitleValid(true)
-
-    }, [currentItem, isFormHidden])
+    if (currentItem) titleRef.current.value = currentItem.title
+    }, [currentItem])
 
   return (
     <div className='mt-10 text-center'>

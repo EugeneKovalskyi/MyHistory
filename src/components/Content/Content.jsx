@@ -3,7 +3,7 @@ import useToggleForm from '../../hooks/useToggleForm'
 
 import Form from './Form/Form'
 import Tools from './Tools'
-import List from './List'
+import List from './List/List'
 import useItem from '../../hooks/useItem'
 
 export default function Content() {
@@ -13,15 +13,19 @@ export default function Content() {
 
   return (
     <div className='max-w-screen-xl mx-auto mt-16 px-8'>
-      <Form
-        hideForm={hideForm}
-        isFormHidden={isFormHidden}
-        addListItem={addListItem}
-        updateListItem={updateListItem}
-        removeListItem={removeListItem}
-        currentItem={currentItem}
-        clearCurrentItem={clearCurrentItem}
-      />
+      {
+        !isFormHidden
+        &&
+        <Form
+          hideForm={hideForm}
+          isFormHidden={isFormHidden}
+          addListItem={addListItem}
+          updateListItem={updateListItem}
+          removeListItem={removeListItem}
+          currentItem={currentItem}
+          clearCurrentItem={clearCurrentItem}
+        />
+      } 
       <Tools showForm={showForm} />
       <List list={list} showForm={showForm} getCurrentItem={getCurrentItem} />
     </div>

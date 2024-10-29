@@ -45,14 +45,10 @@ export default function useForm() {
       })
 
     } catch (error) {
-       handleError(error.cause)
+      if (error.cause === 'TOO_LARGE_FILE') setErrorMessage('Размер файла должен быть меньше 10 Мб')
+      else if (error.cause === 'UPLOAD_ERROR') setErrorMessage('Файл не удалось загрузить')
+      else setErrorMessage('Неизвестная ошибка')
     }
-  }
-
-  function handleError(cause) {
-		if (cause === 'TOO_LARGE_FILE') setErrorMessage('Размер файла должен быть меньше 10 Мб')
-		else if (cause === 'UPLOAD_ERROR') setErrorMessage('Файл не удалось загрузить')
-		else setErrorMessage('Неизвестная ошибка')
 
 		setTimeout(setErrorMessage, 3000, '')
 	}
@@ -64,7 +60,7 @@ export default function useForm() {
     })
   }
 
-  function setFormDataWithCurrentItemData(currentItem) {
+  function fillFormWithCurrentItemData(currentItem) {
     setFormData({
       id: currentItem.id,
       day: currentItem.day,
@@ -72,17 +68,6 @@ export default function useForm() {
       description: currentItem.description,
       photos: currentItem.photos,
       tags: currentItem.tags
-    })
-  }
-
-  function clearFormData() {
-    setFormData({
-      id: new Date().getTime(),
-      day: '',
-      title: '',
-      description: '',
-      photos: [],
-      tags: ''
     })
   }
   
@@ -98,11 +83,10 @@ export default function useForm() {
 
   return {
     formData,
-    clearFormData,
 		inputText,
     addPhotos,
     removePhoto,
     uploadErrorMessage,
-    setFormDataWithCurrentItemData
+    fillFormWithCurrentItemData
   }
 }

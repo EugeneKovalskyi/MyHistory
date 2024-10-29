@@ -1,26 +1,39 @@
-import { useState } from "react";
+import { useState } from 'react'
 
-export default function useFormValidation() {
-	function validateForm(inputName, isValid) {
-		switch(inputName) {
-      case 'Day':
-        setIsDayValid(isValid)				
-        break
-      case 'Title':
-        setIsTitleValid(isValid)
-        break
+export default function useFormValidation(currentItem) {
+  function validateDay(e) {
+    if (e.target.value.trim() === '') {
+      setIsDayValid(false)
+      setIsFormValid(false)
+    } else {
+			setDayDirty(true)
+      setIsDayValid(true)
+      setIsFormValid(isTitleValid && titleDirty)
     }
-	}
+  }
 
-	function clearFormValidation() {
-		setIsDayValid(false)
-		setIsTitleValid(false)
-	}
+  function validateTitle(e) {
+    if (e.target.value.trim() === '') {
+      setIsTitleValid(false)
+      setIsFormValid(false)
+    } else {
+			setTitleDirty(true)
+      setIsTitleValid(true)
+      setIsFormValid(isDayValid && dayDirty)
+    }
+  }
 
-	const [isDayValid, setIsDayValid] = useState(false)
-	const [isTitleValid, setIsTitleValid] = useState(false)
+  const [isDayValid, setIsDayValid] = useState(true)
+  const [isTitleValid, setIsTitleValid] = useState(true)
+	const [dayDirty, setDayDirty] = useState(!!currentItem)
+	const [titleDirty, setTitleDirty] = useState(!!currentItem)
+  const [isFormValid, setIsFormValid] = useState(!!currentItem)
 
-	let isFormValid = isDayValid && isTitleValid
-
-	return { isFormValid, validateForm, clearFormValidation }
+  return {
+    isFormValid,
+    isDayValid,
+    validateDay,
+    isTitleValid,
+    validateTitle,
+  }
 }
