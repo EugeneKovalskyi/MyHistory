@@ -9,7 +9,7 @@ import useItem from '../../hooks/useItem'
 export default function Content() {
   const { list, addListItem, updateListItem, removeListItem } = useList([])
   const { isFormHidden, hideForm, showForm } = useToggleForm()
-  const { currentItem, getCurrentItem, clearCurrentItem } = useItem()
+  const { currentItem, getCurrentItem } = useItem()
 
   return (
     <div className='max-w-screen-xl mx-auto mt-16 px-8'>
@@ -23,7 +23,6 @@ export default function Content() {
           updateListItem={updateListItem}
           removeListItem={removeListItem}
           currentItem={currentItem}
-          clearCurrentItem={clearCurrentItem}
         />
       } 
       <Tools showForm={showForm} />
