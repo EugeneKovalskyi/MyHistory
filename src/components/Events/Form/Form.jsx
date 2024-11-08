@@ -91,9 +91,9 @@ export default function Form({
             currentItem 
             && 
             <Remove 
-              currentItem={currentItem} 
-              removeListItem={removeListItem}
               hideForm={hideForm}
+              removeListItem={removeListItem}
+              currentItem={currentItem} 
             /> 
           }
 
@@ -119,7 +119,7 @@ function Cancel({ hideForm }) {
   )
 }
 
-function Remove({ currentItem, removeListItem, hideForm }) {
+function Remove({ hideForm, removeListItem, currentItem}) {
   return (
     <button 
       className='px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 hover:bg-sky-50/25 transition-all duration-150'

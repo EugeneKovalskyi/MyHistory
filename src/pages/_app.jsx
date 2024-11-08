@@ -1,15 +1,12 @@
 import '../styles/global.css'
 
-import { Exo_2 } from 'next/font/google'
+import Layout from '../components/Layout/Layout'
 
-const exo_2 = Exo_2({
-	subsets: ['latin', 'cyrillic']
-})
 
 export default function App({ Component, pageProps }) {
 	return (
-		<div className={exo_2.className}>
+		<Layout>
 			<Component { ...pageProps } />
-		</div>
+		</Layout>
 	)
 } 

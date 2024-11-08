@@ -18,7 +18,6 @@ export default function Content() {
         &&
         <Form
           hideForm={hideForm}
-          isFormHidden={isFormHidden}
           addListItem={addListItem}
           updateListItem={updateListItem}
           removeListItem={removeListItem}

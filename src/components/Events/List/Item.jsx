@@ -60,7 +60,7 @@ function Day({ day }) {
 
 function Title({ title }) {
   return (
-    <button className='block mx-auto mt-6 px-2 py-1 text-lg font-bold border-b-2 border-sky-900 transition-all duration-150 hover:bg-sky-300 hover:border-white hover:text-white'>
+    <button className='block mx-auto mt-6 px-2 py-1 text-lg font-bold transition-all duration-150 hover:bg-sky-300 hover:border-white hover:text-white'>
       { title }
     </button>
   )
@@ -73,9 +73,7 @@ function Description({ description }) {
         description.length <= 140 ? 
           description : 
           description.slice(0, 140).concat('... (читать далее ➾)')
-      }
-      
-      <hr className='mt-6 border-sky-900' />
+      }      
     </div>
   )
 }
@@ -102,5 +100,11 @@ function Photos({ photos }) {
 }
 
 function Tags({ tags }) {
-  return <div className='mt-4'>{tags}</div>
+  return (
+    <div className='mt-4'>
+      <hr className='mb-4 border-sky-900' />
+
+      {tags}
+    </div>
+    )
 }

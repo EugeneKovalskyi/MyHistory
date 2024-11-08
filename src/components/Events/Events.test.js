@@ -1,11 +1,11 @@
 import { fireEvent, render, screen, prettyDOM } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
 
-import Content from './Content.jsx'
+import Events from './Events'
 
 describe('* Form', () => {
 	test('Open form', () => {
-		render(<Content />)
+		render(<Events />)
 
 		expect(screen.queryByRole('form')).toBeNull()
 		fireEvent.click(screen.getByText('Добавить событие'))
@@ -13,7 +13,7 @@ describe('* Form', () => {
 	})
 
 	test('Close form', () => {
-		render(<Content />)
+		render(<Events />)
 
 		fireEvent.click(screen.getByText('Добавить событие'))
 		expect(screen.queryByRole('form')).toBeInTheDocument()
