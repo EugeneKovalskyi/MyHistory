@@ -1,5 +1,6 @@
-import Events from '../components/Events/Events'
 
 export default function HomePage() {
-  return <Events />
+  return (
+    <h1 className='mt-10 text-center text-2xl'>Home page</h1>
+  )
 }
