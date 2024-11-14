@@ -1,3 +1,5 @@
+'use client'
+
 import Logo from './Logo'
 import Navigation from './Navigation'
 import Chat from './Chat'

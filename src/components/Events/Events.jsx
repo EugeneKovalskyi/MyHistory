@@ -1,12 +1,14 @@
-import useList from '../../hooks/useList'
-import useToggleForm from '../../hooks/useToggleForm'
+'use client'
+
+import useList from '@/hooks/useList'
+import useItem from '@/hooks/useItem'
+import useToggleForm from '@/hooks/useToggleForm'
 
 import Form from './Form/Form'
 import Tools from './Tools'
 import List from './List/List'
-import useItem from '../../hooks/useItem'
 
-export default function Content() {
+export default function Events() {
   const { list, addListItem, updateListItem, removeListItem } = useList([])
   const { isFormHidden, hideForm, showForm } = useToggleForm()
   const { currentItem, getCurrentItem } = useItem()

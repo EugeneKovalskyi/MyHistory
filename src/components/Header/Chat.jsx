@@ -1,6 +1,6 @@
 import Image from "next/image"
 
-import chatSrc from '../../../../public/Header/chat.svg'
+import chatSrc from '@/public/chat.svg'
 
 export default function Chat() {
   return (

@@ -1,5 +1,5 @@
-import searchSrc from '../../../public/Content/search.svg'
-import sortSrc from '../../../public/Content/sort.svg'
+import searchSrc from '@/public/search.svg'
+import sortSrc from '@/public/sort.svg'
 
 import Image from 'next/image'
 

@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
-import editSrc from '../../../../public/Content/edit.svg'
-import shareSrc from '../../../../public/Content/share.svg'
+import editSrc from '@/public/edit.svg'
+import shareSrc from '@/public/share.svg'
 
 export default function Item({ item, showForm, getCurrentItem }) {
   return (

@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react'
 import clsx from 'clsx'
 
-import useForm from '../../../hooks/useForm'
-import useFormValidation from '../../../hooks/useFormValidation'
+import useForm from '@/hooks/useForm'
+import useFormValidation from '@/hooks/useFormValidation'
+
 import Day from './Day'
 import Title from './Title'
 import Description from './Description'

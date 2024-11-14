@@ -1,7 +1,7 @@
 import { useState } from "react"
 
-import { MAX_PHOTOS_COUNT } from '../constants/formConstants'
-import getImageDimensions from '../utils/getImageDimensions'
+import { MAX_PHOTOS_COUNT } from '@/constants'
+import getImageDimensions from '@/utils/getImageDimensions'
 
 export default function useForm() {
 

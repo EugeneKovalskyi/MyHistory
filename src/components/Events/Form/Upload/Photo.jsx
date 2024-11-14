@@ -2,7 +2,7 @@ import { useState } from 'react'
 import clsx from 'clsx'
 import Image from 'next/image'
 
-import garbageSrc from '../../../../../public/Content/garbage.svg'
+import garbageSrc from '@/public/garbage.svg'
 
 export default function Photo({ photo, removePhoto }) {
   
