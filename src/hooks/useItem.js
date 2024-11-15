@@ -6,7 +6,11 @@ export default function useItem() {
 		setCurrentItem(item)
 	}
 
+	function resetCurrentItem() {
+		setCurrentItem(null)
+	}
+
 	const [currentItem , setCurrentItem] = useState(null)
 
-	return { currentItem, getCurrentItem }
+	return { currentItem, getCurrentItem, resetCurrentItem }
 }

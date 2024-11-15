@@ -1,16 +1,17 @@
 import { useState } from "react"
 
-export default function useToggleForm() {
-	
-		function hideForm() {
-			setIsFormHidden(true)
-		}
+export default function useToggleForm(resetCurrentItem) {
 
-		function showForm() {
-			setIsFormHidden(false)
-		}
+  function hideForm() {
+		setIsFormHidden(true)
+		resetCurrentItem()
+  }
 
-		const [isFormHidden, setIsFormHidden] = useState(true)
+  function showForm() {
+    setIsFormHidden(false)
+  }
 
-		return { isFormHidden, hideForm, showForm }
+  const [isFormHidden, setIsFormHidden] = useState(true)
+
+  return { isFormHidden, hideForm, showForm }
 }

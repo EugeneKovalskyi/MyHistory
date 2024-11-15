@@ -5,7 +5,7 @@ export default function Tags({ inputText, currentItem }) {
   const tagsRef = useRef();
 
   useEffect(() => {
-    if (currentItem) tagsRef.current.value = currentItem.tags;
+    if (currentItem) tagsRef.current.value = currentItem.tags.join(' ');
   }, [currentItem]);
 
   return (

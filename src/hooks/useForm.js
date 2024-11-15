@@ -8,10 +8,17 @@ export default function useForm() {
   function inputText(e) {
     const { name, value } = e.target
 
-    setFormData({
-      ...formData,
-      [name]: value,
-    })
+    if (name === 'tags') {
+      setFormData({
+        ...formData,
+        [name]: value.split(/[\s\.,]+/),
+      })
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      })
+    }
   }
 
   async function addPhotos(e) {
@@ -77,7 +84,7 @@ export default function useForm() {
     title: '',
     description: '',
     photos: [],
-    tags: ''
+    tags: []
   })
 	const [uploadErrorMessage, setErrorMessage] = useState('')
 

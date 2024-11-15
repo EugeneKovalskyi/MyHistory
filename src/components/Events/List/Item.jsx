@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import editSrc from '@/public/edit.svg'
 import shareSrc from '@/public/share.svg'
@@ -15,9 +16,9 @@ export default function Item({ item, showForm, getCurrentItem }) {
       <Day day={item.day} />
       <Title title={item.title} />
 
-      { item?.photos && <Photos photos={item.photos} /> }
-      { item?.description && <Description description={item.description} /> }
-      { item?.tags && <Tags tags={item.tags} /> }
+      { !!item.photos.length && <Photos photos={item.photos} /> }
+      { !!item.description && <Description description={item.description} /> }
+      { !!item.tags && <Tags tags={item.tags} /> }
     </div>
   )
 }
@@ -60,7 +61,7 @@ function Day({ day }) {
 
 function Title({ title }) {
   return (
-    <button className='block mx-auto mt-6 px-2 py-1 text-lg font-bold transition-all duration-150 hover:bg-sky-300 hover:border-white hover:text-white'>
+    <button className='block mx-auto mt-6 text-lg font-bold border-sky-200 transition-all duration-150 border-b-4 rounded-md hover:border-sky-900'>
       { title }
     </button>
   )
@@ -103,8 +104,16 @@ function Tags({ tags }) {
   return (
     <div className='mt-4'>
       <hr className='mb-4 border-sky-900' />
-
-      {tags}
+      {
+        tags.map((tag, index) => (
+          <Link 
+            className='mr-2 hover:underline'
+            key={index}
+            href={`/events?searchBy=${tag}`}>
+            #{tag}
+          </Link>
+        ))
+      }
     </div>
-    )
+  )
 }
