@@ -1,7 +1,8 @@
 import Events from '@/components/Events/Events'
-import data from '../../../DB.json'
 
 export default async function Page() {
-	
-	return <Events eventList={data}/>
+  const data = await fetch('http://localhost:5000/events')
+  const eventList = await data.json()
+
+  return <Events eventList={eventList} />
 }

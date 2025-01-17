@@ -13,6 +13,7 @@ export default function useForm() {
         ...formData,
         [name]: value.split(/[\s\.,]+/),
       })
+
     } else {
       setFormData({
         ...formData,
@@ -21,13 +22,13 @@ export default function useForm() {
     }
   }
 
-  async function addPhotos(e) {
-    const files = [...e.target.files].slice(0, MAX_PHOTOS_COUNT - formData.photos.length)
+  async function addPhotos(fileList) {
+    const fileArray = [...fileList].slice(0, MAX_PHOTOS_COUNT - formData.photos.length)
 
     try {
       const newPhotos = []
 
-      for (let file of files) {
+      for (let file of fileArray) {
         if (file.size > 10485760) {
           throw new Error('Файл слишком большой!', { cause: 'TOO_LARGE_FILE' })
         }
@@ -86,6 +87,7 @@ export default function useForm() {
     photos: [],
     tags: []
   })
+  
 	const [uploadErrorMessage, setErrorMessage] = useState('')
 
   return {

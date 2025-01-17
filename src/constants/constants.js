@@ -7,27 +7,12 @@ export const NAVIGATION_LINKS = [
   },
   {
     id: 2,
-    title: 'Цели',
-    path: '/targets',
-  },
-  {
-    id: 3,
-    title: 'Знания',
-    path: '/knowledge',
-  },
-  {
-    id: 4,
-    title: 'Мысли',
-    path: '/thoughts',
-  },
-  {
-    id: 5,
     title: 'Книги',
     path: '/books',
   },
   {
-    id: 6,
-    title: 'Кино',
-    path: '/cinema',
+    id: 3,
+    title: 'Фильмы',
+    path: '/movies',
   },
 ]

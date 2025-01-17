@@ -34,7 +34,7 @@ export default function Upload({
         name='photos'
         accept='image/*'
         multiple
-        onChange={addPhotos}
+        onChange={(e) => addPhotos(e.target.files)}
       />
     </div>
   )

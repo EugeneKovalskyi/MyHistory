@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react'
+import { useEffect } from 'react'
 import clsx from 'clsx'
 
 import useForm from '@/hooks/useForm'
@@ -25,8 +25,6 @@ export default function Form({
     hideForm()
   }
 
-  const formRef = useRef(null)
-
   const {
     isFormValid,
     isDayValid,
@@ -49,14 +47,9 @@ export default function Form({
   }, [currentItem])
 
   return (
-    <div
-      className='z-10 fixed top-0 left-0 min-h-screen w-full backdrop-blur-sm bg-black/50'
-    >
+    <div className='z-10 fixed top-0 left-0 min-h-screen w-full backdrop-blur-sm bg-black/50'>
       <div className='max-w-3xl mx-auto mt-24 px-10 py-6 rounded-xl border-2 bg-sky-500'>
-        <form
-          name='form'
-          ref={formRef}
-        >
+        <form name='form'>
           <Day
             inputText={inputText}
             isDayValid={isDayValid}
@@ -83,27 +76,23 @@ export default function Form({
             inputText={inputText}
             currentItem={currentItem}
           />
-        </form>
 
-        <div className='mt-16 flex justify-between'>
-          <Cancel hideForm={hideForm} />
+          <div className='mt-16 flex justify-between'>
+            <Cancel hideForm={hideForm} />
 
-          { 
-            currentItem 
-            && 
-            <Remove 
+            <Remove
               hideForm={hideForm}
               removeListItem={removeListItem}
-              currentItem={currentItem} 
-            /> 
-          }
+              currentItem={currentItem}
+            />
 
-          <Submit
-            submitForm={submitForm}
-            disabled={!isFormValid}
-            currentItem={currentItem}
-          />
-        </div>
+            <Submit
+              submitForm={submitForm}
+              disabled={!isFormValid}
+              currentItem={currentItem}
+            />
+          </div>
+        </form>
       </div>
     </div>
   )
@@ -123,7 +112,7 @@ function Cancel({ hideForm }) {
 function Remove({ hideForm, removeListItem, currentItem}) {
   return (
     <button 
-      className='px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 hover:bg-sky-50/25 transition-all duration-150'
+      className={clsx('px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 transition-all duration-150 hover:bg-sky-50/25 focus:bg-sky-50/25', !currentItem && 'hidden')}
       onClick={() => {
         removeListItem(currentItem)
         hideForm()
