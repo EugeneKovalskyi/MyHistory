@@ -1,6 +1,6 @@
 <mxfile host="app.diagrams.net" agent="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:134.0) Gecko/20100101 Firefox/134.0" version="26.0.10">
   <diagram name="Page-1" id="9f46799a-70d6-7492-0946-bef42562c5a5">
-    <mxGraphModel dx="2188" dy="2061" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
+    <mxGraphModel dx="2134" dy="2000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1100" pageHeight="850" background="none" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -116,35 +116,20 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="qxyERZ4D7mE2W_aF4MiE-125" value="tags" style="swimlane;whiteSpace=wrap;html=1;startSize=40;fontStyle=1;fontSize=20;fillColor=#ffcd28;gradientColor=#ffa500;strokeColor=#d79b00;" parent="1" vertex="1">
-          <mxGeometry x="1320" y="-800" width="480" height="120" as="geometry" />
+          <mxGeometry x="1320" y="-800" width="480" height="80" as="geometry" />
         </mxCell>
-        <mxCell id="qxyERZ4D7mE2W_aF4MiE-126" value="SERIAL" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=right;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=14;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-125" vertex="1">
+        <mxCell id="qxyERZ4D7mE2W_aF4MiE-129" value="VARCHAR(64)" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=right;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=14;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-125" vertex="1">
           <mxGeometry x="160" y="40" width="160" height="40" as="geometry">
             <mxRectangle width="180" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="qxyERZ4D7mE2W_aF4MiE-127" value="&lt;div align=&quot;left&quot;&gt;id&lt;/div&gt;" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=left;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=16;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-125" vertex="1">
+        <mxCell id="qxyERZ4D7mE2W_aF4MiE-130" value="name" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=left;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=16;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-125" vertex="1">
           <mxGeometry y="40" width="160" height="40" as="geometry">
             <mxRectangle width="180" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="qxyERZ4D7mE2W_aF4MiE-128" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=left;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=12;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-125" vertex="1">
+        <mxCell id="qxyERZ4D7mE2W_aF4MiE-131" value="PK" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=left;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=12;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-125" vertex="1">
           <mxGeometry x="320" y="40" width="160" height="40" as="geometry">
-            <mxRectangle width="180" height="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="qxyERZ4D7mE2W_aF4MiE-129" value="VARCHAR(64)" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=right;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=14;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-125" vertex="1">
-          <mxGeometry x="160" y="80" width="160" height="40" as="geometry">
-            <mxRectangle width="180" height="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="qxyERZ4D7mE2W_aF4MiE-130" value="name" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=left;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=16;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-125" vertex="1">
-          <mxGeometry y="80" width="160" height="40" as="geometry">
-            <mxRectangle width="180" height="30" as="alternateBounds" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="qxyERZ4D7mE2W_aF4MiE-131" value="UNIQUE, NOT NULL" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=left;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=12;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-125" vertex="1">
-          <mxGeometry x="320" y="80" width="160" height="40" as="geometry">
             <mxRectangle width="180" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
@@ -166,12 +151,12 @@
             <mxRectangle width="180" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="qxyERZ4D7mE2W_aF4MiE-146" value="SERIAL" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=right;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=14;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-142" vertex="1">
+        <mxCell id="qxyERZ4D7mE2W_aF4MiE-146" value="VARCHAR(64)" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=right;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=14;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-142" vertex="1">
           <mxGeometry x="160" y="80" width="160" height="40" as="geometry">
             <mxRectangle width="180" height="30" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="qxyERZ4D7mE2W_aF4MiE-147" value="tag_id" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=left;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=16;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-142" vertex="1">
+        <mxCell id="qxyERZ4D7mE2W_aF4MiE-147" value="tag_name" style="shape=partialRectangle;connectable=0;fillColor=none;top=1;left=1;bottom=1;right=1;align=left;spacingLeft=5;fontStyle=0;overflow=hidden;html=1;whiteSpace=wrap;spacingRight=5;fontSize=16;strokeColor=default;verticalAlign=middle;fontFamily=Helvetica;fontColor=default;" parent="qxyERZ4D7mE2W_aF4MiE-142" vertex="1">
           <mxGeometry y="80" width="160" height="40" as="geometry">
             <mxRectangle width="180" height="30" as="alternateBounds" />
           </mxGeometry>
@@ -197,8 +182,8 @@
             <mxPoint x="1270" y="-560" as="sourcePoint" />
             <mxPoint x="1580" y="-440" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="1560" y="-540" />
-              <mxPoint x="1400" y="-540" />
+              <mxPoint x="1560" y="-480" />
+              <mxPoint x="1400" y="-480" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -213,7 +198,7 @@
             <mxRectangle x="-800" y="-800" width="200" height="50" as="alternateBounds" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="k0qKDHFTOWTs9ywvlTUG-13" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;CREATE TABLE users (&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;id SERIAL PRIMARY KEY,&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;login VARCHAR(32) UNIQUE NOT NULL);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;CREATE TABLE events (&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;id BIGSERIAL PRIMARY KEY,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;title VARCHAR(64) UNIQUE NOT NULL,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;day DATE NOT NULL,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;description TEXT,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;user_id VARCHAR(32) REFERENCES users(id) ON DELETE CASCADE);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;CREATE TABLE tags (&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;id SERIAL PRIMARY KEY,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;name VARCHAR(64) UNIQUE NOT NULL);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;CREATE TABLE events_tags (&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;event_id INTEGER NOT NULL&amp;nbsp;REFERENCES events(id) ON DELETE CASCADE,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;tag_id INTEGER&amp;nbsp;REFERENCES tags(id),&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;PRIMARY KEY (event_id, tag_id));&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;ALTER TABLE events_tags&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;DROP CONSTRAINT events_tags_tag_id_fkey;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;ALTER TABLE events_tags&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;ADD CONSTRAINT events_tags_tag_id_fkey&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;-- Набор тегов у каждого события&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;SELECT events.title AS event, tags.name AS tag FROM events&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;JOIN events_tags ON events_tags.event_id = events.id&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;JOIN tags ON tags.id = events_tags.tag_id&lt;/div&gt;ORDER BY event;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;-- Набор уникальных тегов у каждого пользователья&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;SELECT users.login, tags.name AS tag FROM users&lt;br&gt;JOIN&amp;nbsp; events ON events.user_id = users.id&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;JOIN events_tags ON events_tags.event_id = events.id&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;JOIN tags ON tags.id = events_tags.tag_id&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;GROUP BY users.login, tags.name&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;ORDER BY users.login;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="align=left;strokeColor=light-dark(#000000,#BFBFBF);fillColor=light-dark(#FFFFFF,#2B0920);spacingLeft=10;fontSize=16;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;strokeWidth=1;backgroundOutline=0;overflow=visible;noLabel=0;imageAspect=1;treeMoving=0;" parent="k0qKDHFTOWTs9ywvlTUG-12" vertex="1">
+        <mxCell id="k0qKDHFTOWTs9ywvlTUG-13" value="&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;CREATE TABLE events (&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;id BIGSERIAL PRIMARY KEY,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;title VARCHAR(64) UNIQUE NOT NULL,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;day DATE NOT NULL,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;description TEXT,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;user_id VARCHAR(32) REFERENCES users(id) ON DELETE CASCADE);&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;CREATE TABLE events_tags (&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;event_id INTEGER NOT NULL&amp;nbsp;REFERENCES events(id) ON DELETE CASCADE,&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;tag_id INTEGER&amp;nbsp;REFERENCES tags(id),&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;PRIMARY KEY (event_id, tag_id));&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;ALTER TABLE events_tags&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;ADD CONSTRAINT events_tags_tag_id_fkey&amp;nbsp;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;FOREIGN KEY (tag_id) REFERENCES tags(id) ON DELETE CASCADE;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;-- Набор тегов у каждого события&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;SELECT events.title AS event, tags.name AS tag FROM events&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;JOIN events_tags ON events_tags.event_id = events.id&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;JOIN tags ON tags.id = events_tags.tag_id&lt;/div&gt;ORDER BY event;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;-- Набор уникальных тегов у каждого пользователья&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;SELECT users.login, tags.name AS tag FROM users&lt;br&gt;JOIN&amp;nbsp; events ON events.user_id = users.id&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;JOIN events_tags ON events_tags.event_id = events.id&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;JOIN tags ON tags.id = events_tags.tag_id&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;GROUP BY users.login, tags.name&lt;br&gt;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;ORDER BY users.login;&lt;/div&gt;&lt;div style=&quot;line-height: 140%;&quot;&gt;&lt;br&gt;&lt;/div&gt;" style="align=left;strokeColor=light-dark(#000000,#BFBFBF);fillColor=light-dark(#FFFFFF,#2B0920);spacingLeft=10;fontSize=16;verticalAlign=top;resizable=0;rotatable=0;part=1;html=1;strokeWidth=1;backgroundOutline=0;overflow=visible;noLabel=0;imageAspect=1;treeMoving=0;" parent="k0qKDHFTOWTs9ywvlTUG-12" vertex="1">
           <mxGeometry y="50" width="720" height="990" as="geometry" />
         </mxCell>
       </root>
