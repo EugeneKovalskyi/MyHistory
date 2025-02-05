@@ -22,7 +22,7 @@ export default function Tags({ inputText, currentItem }) {
         id={id}
         type='text'
         name='tags'
-        maxLength={30}
+        maxLength={50}
         placeholder='Ассоциативное слово'
         ref={tagsRef}
         onChange={inputText} />

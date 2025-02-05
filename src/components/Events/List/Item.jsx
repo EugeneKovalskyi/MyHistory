@@ -10,7 +10,7 @@ export default function Item({ item, showForm, getCurrentItem }) {
 
       { !!item.photos.length && <Photos photos={item.photos} /> }
       { !!item.description && <Description description={item.description} /> }
-      { !!item.tags && <Tags tags={item.tags} /> }
+      { !!item.tags.length && <Tags tags={item.tags} /> }
 
       <Edit 
         item={item} 
@@ -75,12 +75,12 @@ function Tags({ tags }) {
     <div className='mt-4'>
       <hr className='mb-4 border-sky-900' />
       {
-        tags.map((tag, index) => (
+        tags.map(tag => (
           <Link 
             className='mr-2 hover:underline'
-            key={index}
-            href={`/events?searchBy=${tag}`}>
-            #{tag}
+            key={tag.id}
+            href={`/events?searchBy=${tag.id}`}>
+            #{tag.name}
           </Link>
         ))
       }
