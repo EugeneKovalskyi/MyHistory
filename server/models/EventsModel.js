@@ -1,5 +1,5 @@
 const pgf = require('pg-format')
-const db = require('../db')
+const db = require('../db/db')
 
 class EventsModel {
 	async createEvent(event, userId) {

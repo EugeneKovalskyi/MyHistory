@@ -1,44 +1,23 @@
 const dotenv = require('dotenv')
 const http = require('http')
-const path = require('path')
 dotenv.config()
 
+const PORT = process.env.PORT
+
+const parseUrl = require('./middleware/parseUrl')
+const router = require('./Router')
 const eventsController = require('./controllers/EventsController')
 
-const PORT = process.env.PORT || 5001
-const baseURL = `http://localhost:${PORT}`
+router.get('/events', eventsController.get)
+router.post('/events', eventsController.post)
+router.patch('/events', eventsController.patch)
+router.delete('/events', eventsController.delete)
 
 const server = http.createServer((req, res) => {
 	const method = req.method
-	const parsedUrl = new URL(req.url, baseURL)
-	const pathname = parsedUrl.pathname
-	const searchParams = parsedUrl.searchParams
-
-	if (pathname === '/events') {
-		if (method === 'GET') {
-			const userId = searchParams.get('userId')
-
-			eventsController.get(res, userId)
-		} 
-
-		else if (method === 'POST') {
-			const userId = searchParams.get('userId')
-			eventsController.post(req, res, userId)
-		}
-
-		else if (method === 'PATCH') {
-			const eventId = searchParams.get('eventId')
-
-			eventsController.patch(req, res, eventId)
-		}
-
-		else if(method === 'DELETE') {
-			const eventId = searchParams.get('eventId')
-
-			eventsController.delete(res, eventId)
-		}
-
-	} else res.end()
+	const { pathname } = parseUrl(req.url)
+	
+	router.emit(method + pathname, req, res)
 })
 
 server.listen(PORT, (error) => {

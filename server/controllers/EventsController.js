@@ -1,9 +1,9 @@
-const userLogin = 'eugenekovalskyi'
-
 const eventsModel = require('../models/EventsModel')
+const parseUrl = require('../middleware/parseUrl')
 
 class EventsController {
-  async post(req, res, userId) {
+  async post(req, res) {
+    const userId = parseUrl(req.url).searchParams.get('userId')
     const receivedBuffers = []
   
     req.on('error', (error) => console.log(error))
@@ -17,12 +17,14 @@ class EventsController {
           'Content-Type': 'text/plain'
         })
         res.write(eventId)
-        res.end()
       }
+      
+      res.end()
     })
   }
   
-  async get(res, userId) {
+  async get(req, res) {
+    const userId = parseUrl(req.url).searchParams.get('userId')
     const events = await eventsModel.getEvents(userId)
 
     res.writeHead(200, {
@@ -32,7 +34,8 @@ class EventsController {
     res.end()
   }
   
-  async patch(req, res, eventId) {
+  async patch(req, res) {
+    const eventId = parseUrl(req.url).searchParams.get('eventId')
     const receivedBuffers = []
     
     req.on('error', (error) => console.log(error))
@@ -47,7 +50,8 @@ class EventsController {
     })
   }
   
-  async delete(res, eventId) {
+  async delete(req, res) {
+    const eventId = parseUrl(req.url).searchParams.get('eventId')
     await eventsModel.deleteEvent(eventId)
 
     res.statusCode = 204
