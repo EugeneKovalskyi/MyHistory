@@ -42,13 +42,12 @@ class EventsController {
     req.on('data', (chunk) => receivedBuffers.push(chunk))
     req.on('end', async () => {
       const dataToUpdate = JSON.parse(Buffer.concat(receivedBuffers).toString())
-
       await eventsModel.updateEvent(dataToUpdate, eventId)
       
       res.statusCode = 204
       res.end()
     })
-  }
+  } 
   
   async delete(req, res) {
     const eventId = parseUrl(req.url).searchParams.get('eventId')

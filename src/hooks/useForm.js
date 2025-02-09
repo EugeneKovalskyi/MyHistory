@@ -1,5 +1,7 @@
 import { useState } from "react"
 
+//! (date) => new Date(date).toLocaleDateString()
+
 import { MAX_PHOTOS_COUNT } from '@/constants'
 import getImageDimensions from '@/utils/getImageDimensions'
 
@@ -71,7 +73,7 @@ export default function useForm() {
   function fillFormWithCurrentItemData(currentItem) {
     setFormData({
       id: currentItem.id,
-      day: currentItem.day,
+      date: currentItem.date,
       title: currentItem.title,
       description: currentItem.description,
       photos: currentItem.photos,
@@ -81,7 +83,7 @@ export default function useForm() {
   
 	const [formData, setFormData] = useState({
     id: new Date().getTime(),
-    day: '',
+    date: '',
     title: '',
     description: '',
     photos: [],

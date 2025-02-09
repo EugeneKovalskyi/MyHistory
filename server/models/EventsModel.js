@@ -6,10 +6,10 @@ class EventsModel {
 		const tagsArray = event.tags.split(' ')
 		
 		const eventId = ( await db.query( pgf( `
-			INSERT INTO events (title, day, description, user_id)
+			INSERT INTO events (title, date, description, user_id)
 			VALUES (%L)
 			RETURNING id;`,
-			[event.title, event.day, event.description, userId]
+			[event.title, event.date, event.description, userId]
 		))).rows[0].id
 
 		await db.query( pgf( `
@@ -30,7 +30,7 @@ class EventsModel {
 
 	async getEvents(userId) {
 		const events = ( await db.query( pgf( `
-			SELECT events.id, events.title, events.day, events.description, 
+			SELECT events.id, events.title, events.date, events.description, 
 			string_agg(tags.name, ' ') AS tags FROM events_tags
 			JOIN events ON events.id = events_tags.event_id
 			JOIN tags ON tags.name = events_tags.tag_name

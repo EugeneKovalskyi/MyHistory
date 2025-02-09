@@ -12,7 +12,7 @@ const createJestConfig = nextJest({
 const config = {
   coverageProvider: 'v8',
   testEnvironment: 'jsdom',
-  roots: ["<rootDir>/src"],
+  roots: ["<rootDir>/server", "<rootDir>/src"],
   clearMocks: true,
   setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
 }

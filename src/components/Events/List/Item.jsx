@@ -5,7 +5,7 @@ export default function Item({ item, showForm, getCurrentItem }) {
   return (
     <div className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-200 hover:bg-sky-300'>
       
-      <Day day={item.day} />
+      <Date date={item.date} />
       <Title title={item.title} />
 
       { !!item.photos.length && <Photos photos={item.photos} /> }
@@ -21,10 +21,10 @@ export default function Item({ item, showForm, getCurrentItem }) {
   )
 }
 
-function Day({ day }) {
+function Date({ date }) {
   return (
     <div className='w-fit mx-auto text-center font-bold'>
-      { day && day.split('-').reverse().join(' . ') }
+      { date.split('-').reverse().join(' . ') }
     </div>
   )
 }

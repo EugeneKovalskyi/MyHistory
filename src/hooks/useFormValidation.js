@@ -1,13 +1,13 @@
 import { useState } from 'react'
 
 export default function useFormValidation(currentItem) {
-  function validateDay(e) {
+  function validateDate(e) {
     if (e.target.value.trim() === '') {
-      setIsDayValid(false)
+      setIsDateValid(false)
       setIsFormValid(false)
     } else {
-			setDayDirty(true)
-      setIsDayValid(true)
+			setDateDirty(true)
+      setIsDateValid(true)
       setIsFormValid(isTitleValid && titleDirty)
     }
   }
@@ -19,20 +19,20 @@ export default function useFormValidation(currentItem) {
     } else {
 			setTitleDirty(true)
       setIsTitleValid(true)
-      setIsFormValid(isDayValid && dayDirty)
+      setIsFormValid(isDateValid && dateDirty)
     }
   }
 
-  const [isDayValid, setIsDayValid] = useState(true)
+  const [isDateValid, setIsDateValid] = useState(true)
   const [isTitleValid, setIsTitleValid] = useState(true)
-	const [dayDirty, setDayDirty] = useState(!!currentItem)
+	const [dateDirty, setDateDirty] = useState(!!currentItem)
 	const [titleDirty, setTitleDirty] = useState(!!currentItem)
   const [isFormValid, setIsFormValid] = useState(!!currentItem)
 
   return {
     isFormValid,
-    isDayValid,
-    validateDay,
+    isDateValid,
+    validateDate,
     isTitleValid,
     validateTitle,
   }

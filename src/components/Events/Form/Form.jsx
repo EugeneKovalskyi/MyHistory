@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import useForm from '@/hooks/useForm'
 import useFormValidation from '@/hooks/useFormValidation'
 
-import Day from './Day'
+import Date from './Date'
 import Title from './Title'
 import Description from './Description'
 import Upload from './Upload/Upload'
@@ -27,8 +27,8 @@ export default function Form({
 
   const {
     isFormValid,
-    isDayValid,
-    validateDay,
+    isDateValid,
+    validateDate,
     isTitleValid,
     validateTitle,
   } = useFormValidation(currentItem)
@@ -50,10 +50,10 @@ export default function Form({
     <div className='z-10 fixed top-0 left-0 min-h-screen w-full backdrop-blur-sm bg-black/50'>
       <div className='max-w-3xl mx-auto mt-24 px-10 py-6 rounded-xl border-2 bg-sky-500'>
         <form name='form'>
-          <Day
+          <Date
             inputText={inputText}
-            isDayValid={isDayValid}
-            validateDay={validateDay}
+            isDateValid={isDateValid}
+            validateDate={validateDate}
             currentItem={currentItem}
           />
           <Title

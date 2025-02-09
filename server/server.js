@@ -17,7 +17,12 @@ const server = http.createServer((req, res) => {
 	const method = req.method
 	const { pathname } = parseUrl(req.url)
 	
-	router.emit(method + pathname, req, res)
+	try { 
+		router.emit(method + pathname, req, res) 
+	}
+	catch(error) { 
+		console.log(error) 
+	}
 })
 
 server.listen(PORT, (error) => {
