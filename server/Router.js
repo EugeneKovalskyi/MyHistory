@@ -23,12 +23,12 @@ class Router {
 		if (!isEmitted) res.end()
 	}
 
-	get(pathname, handler) {
-		this._request('GET', pathname, handler)
-	}
-
 	post(pathname, handler) {
 		this._request('POST', pathname, handler)
+	}
+
+	get(pathname, handler) {
+		this._request('GET', pathname, handler)
 	}
 
 	patch(pathname, handler) {

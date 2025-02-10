@@ -2,27 +2,27 @@ const { getType } = require('jest-get-type')
 const db = require('../db/db')
 const eventsModel = require('../models/EventsModel')
 
-let eventId = null
-const userId = 1
-const eventToCreate = {
-	title: 'Created title',
-	date: '09.05.1945',
-	description: 'Created description',
-	tags: 'created tag'
-}
-const eventToUpdate = {
-	title: 'Updated title',
-	date: '11.11.1111',
-	description: 'Updated description',
-	tags: 'updated tag'
-}
-
 afterAll(async () => {
-	await db.query('DELETE FROM events WHERE id = $1', [eventId])
+	await db.query('DELETE FROM events WHERE user_id = 1')
 	db.end()
 })
 
 describe('EventsModel', () => {
+	let eventId = null
+	const userId = 1
+	const eventToCreate = {
+		title: 'Created title',
+		date: '09.05.1945',
+		description: 'Created description',
+		tags: 'created tag'
+	}
+	const eventToUpdate = {
+		title: 'Updated title',
+		date: '11.11.1111',
+		description: 'Updated description',
+		tags: 'updated tag'
+	}
+
 	test('createEvent', async () => {
 		eventId = await eventsModel.createEvent(eventToCreate, userId)
 
