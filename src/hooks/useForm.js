@@ -1,7 +1,5 @@
 import { useState } from "react"
 
-//! (date) => new Date(date).toLocaleDateString()
-
 import { MAX_PHOTOS_COUNT } from '@/constants'
 import getImageDimensions from '@/utils/getImageDimensions'
 
@@ -13,7 +11,7 @@ export default function useForm() {
     if (name === 'tags') {
       setFormData({
         ...formData,
-        [name]: value.split(/[\s\.,]+/),
+        [name]: value.split(/[\s\.,]+/).join(' ').toLowerCase(),
       })
 
     } else {
@@ -70,24 +68,24 @@ export default function useForm() {
     })
   }
 
-  function fillFormWithCurrentItemData(currentItem) {
+  function fillFormWithSelectedItemData(selectedItem) {
     setFormData({
-      id: currentItem.id,
-      date: currentItem.date,
-      title: currentItem.title,
-      description: currentItem.description,
-      photos: currentItem.photos,
-      tags: currentItem.tags
+      id: selectedItem.id,
+      date: selectedItem.date,
+      title: selectedItem.title,
+      description: selectedItem.description,
+      // photos: selectedItem.photos,
+      tags: selectedItem.tags
     })
   }
   
 	const [formData, setFormData] = useState({
-    id: new Date().getTime(),
+    id: null,
     date: '',
     title: '',
     description: '',
     photos: [],
-    tags: []
+    tags: ''
   })
   
 	const [uploadErrorMessage, setErrorMessage] = useState('')
@@ -98,6 +96,6 @@ export default function useForm() {
     addPhotos,
     removePhoto,
     uploadErrorMessage,
-    fillFormWithCurrentItemData
+    fillFormWithSelectedItemData
   }
 }

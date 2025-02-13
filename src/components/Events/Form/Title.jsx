@@ -1,12 +1,12 @@
 import { useEffect, useId, useRef } from "react"
 
-export default function Title({ inputText, isTitleValid, validateTitle, currentItem }) {
+export default function Title({ inputText, isTitleValid, validateTitle, selectedItem }) {
   const id = useId()
   const titleRef = useRef()
 
   useEffect(() => {
-    if (currentItem) titleRef.current.value = currentItem.title
-    }, [currentItem])
+    if (selectedItem) titleRef.current.value = selectedItem.title
+    }, [selectedItem])
 
   return (
     <div className='mt-10 text-center'>

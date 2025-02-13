@@ -4,13 +4,13 @@ const parseUrl = require('../middleware/parseUrl')
 class EventsController {
   async post(req, res) {
     const userId = parseUrl(req.url).searchParams.get('userId')
-    const receivedBuffers = []
+    const chunks = []
   
     req.on('error', (error) => console.log(error))
-    req.on('data', (chunk) => receivedBuffers.push(chunk))
+    req.on('data', (chunk) => chunks.push(chunk))
     req.on('end', async () => {
-      if (receivedBuffers.length) {
-        const event = JSON.parse(Buffer.concat(receivedBuffers).toString())
+      if (chunks.length) {
+        const event = JSON.parse(Buffer.concat(chunks).toString())
         const eventId = await eventsModel.createEvent(event, userId)
 
         res.writeHead(201, {
@@ -36,12 +36,12 @@ class EventsController {
   
   async patch(req, res) {
     const eventId = parseUrl(req.url).searchParams.get('eventId')
-    const receivedBuffers = []
+    const chunks = []
     
     req.on('error', (error) => console.log(error))
-    req.on('data', (chunk) => receivedBuffers.push(chunk))
+    req.on('data', (chunk) => chunks.push(chunk))
     req.on('end', async () => {
-      const dataToUpdate = JSON.parse(Buffer.concat(receivedBuffers).toString())
+      const dataToUpdate = JSON.parse(Buffer.concat(chunks).toString())
       await eventsModel.updateEvent(dataToUpdate, eventId)
       
       res.statusCode = 204

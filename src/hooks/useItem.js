@@ -1,16 +1,15 @@
 import { useState } from "react"
 
 export default function useItem() {
-
-	function getCurrentItem(item) {
-		setCurrentItem(item)
+	function selectItem(item) {
+		setSelectedItem(item)
 	}
 
-	function resetCurrentItem() {
-		setCurrentItem(null)
+	function deselectItem() {
+		setSelectedItem(null)
 	}
 
-	const [currentItem , setCurrentItem] = useState(null)
+	const [selectedItem , setSelectedItem] = useState(null)
 
-	return { currentItem, getCurrentItem, resetCurrentItem }
+	return { selectedItem, selectItem, deselectItem }
 }

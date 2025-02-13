@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export default function useFormValidation(currentItem) {
+export default function useFormValidation(selectedItem) {
   function validateDate(e) {
     if (e.target.value.trim() === '') {
       setIsDateValid(false)
@@ -25,9 +25,9 @@ export default function useFormValidation(currentItem) {
 
   const [isDateValid, setIsDateValid] = useState(true)
   const [isTitleValid, setIsTitleValid] = useState(true)
-	const [dateDirty, setDateDirty] = useState(!!currentItem)
-	const [titleDirty, setTitleDirty] = useState(!!currentItem)
-  const [isFormValid, setIsFormValid] = useState(!!currentItem)
+	const [dateDirty, setDateDirty] = useState(!!selectedItem)
+	const [titleDirty, setTitleDirty] = useState(!!selectedItem)
+  const [isFormValid, setIsFormValid] = useState(!!selectedItem)
 
   return {
     isFormValid,

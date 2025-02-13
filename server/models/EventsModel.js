@@ -59,7 +59,7 @@ class EventsModel {
 					tagsToUpdate.map(tag => [tag])
 				))
 
-				for(let tag of currentTags) {
+				for (let tag of currentTags) {
 					if (!tagsToUpdate.includes(tag)) {
 						await db.query( pgf( `
 							DELETE FROM events_tags WHERE tag_name = %L;`,

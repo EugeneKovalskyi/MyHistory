@@ -1,12 +1,12 @@
 import { useEffect, useId, useRef } from 'react'
 
-export default function Date({ inputText, isDateValid, validateDate, currentItem }) {
+export default function Date({ inputText, isDateValid, validateDate, selectedItem }) {
   const id = useId()
   const dateRef = useRef()
 
   useEffect(() => {
-    if (currentItem) dateRef.current.value = currentItem.date
-  }, [currentItem])
+    if (selectedItem) dateRef.current.value = selectedItem.date
+  }, [selectedItem])
 
   return (
     <div className='w-fit mx-auto text-center'>

@@ -15,12 +15,24 @@ export default function Form({
   addListItem,
   updateListItem,
   removeListItem,
-  currentItem,
+  selectedItem,
 }) {
 
   function submitForm() {
-    if (currentItem) updateListItem(formData)
-    else addListItem(formData)
+    if (selectedItem) {
+      const dataToUpdate = {}
+      console.log(selectedItem)
+      console.log(formData)
+      for (let prop in selectedItem) {
+        if (selectedItem[prop] !== formData[prop]) {
+          dataToUpdate[prop] = formData[prop]
+        }
+      }
+      console.log(dataToUpdate)
+      
+      updateListItem(selectedItem.id, dataToUpdate)
+
+    } else addListItem(formData)
 
     hideForm()
   }
@@ -31,7 +43,7 @@ export default function Form({
     validateDate,
     isTitleValid,
     validateTitle,
-  } = useFormValidation(currentItem)
+  } = useFormValidation(selectedItem)
 
   const {
     formData,
@@ -39,12 +51,12 @@ export default function Form({
     addPhotos,
     removePhoto,
     uploadErrorMessage,
-    fillFormWithCurrentItemData,
+    fillFormWithSelectedItemData,
   } = useForm()
 
   useEffect(() => {
-    if (currentItem) fillFormWithCurrentItemData(currentItem)
-  }, [currentItem])
+    if (selectedItem) fillFormWithSelectedItemData(selectedItem)
+  }, [selectedItem])
 
   return (
     <div className='z-10 fixed top-0 left-0 min-h-screen w-full backdrop-blur-sm bg-black/50'>
@@ -54,27 +66,27 @@ export default function Form({
             inputText={inputText}
             isDateValid={isDateValid}
             validateDate={validateDate}
-            currentItem={currentItem}
+            selectedItem={selectedItem}
           />
           <Title
             inputText={inputText}
             isTitleValid={isTitleValid}
             validateTitle={validateTitle}
-            currentItem={currentItem}
+            selectedItem={selectedItem}
           />
           <Description
             inputText={inputText}
-            currentItem={currentItem}
+            selectedItem={selectedItem}
           />
-          <Upload
+          {/* <Upload
             photos={formData.photos}
             addPhotos={addPhotos}
             removePhoto={removePhoto}
             uploadErrorMessage={uploadErrorMessage}
-          />
+          /> */}
           <Tags
             inputText={inputText}
-            currentItem={currentItem}
+            selectedItem={selectedItem}
           />
 
           <div className='mt-16 flex justify-between'>
@@ -83,13 +95,13 @@ export default function Form({
             <Remove
               hideForm={hideForm}
               removeListItem={removeListItem}
-              currentItem={currentItem}
+              selectedItemId={selectedItem?.id}
             />
 
             <Submit
               submitForm={submitForm}
               disabled={!isFormValid}
-              currentItem={currentItem}
+              selectedItem={selectedItem}
             />
           </div>
         </form>
@@ -109,12 +121,12 @@ function Cancel({ hideForm }) {
   )
 }
 
-function Remove({ hideForm, removeListItem, currentItem}) {
+function Remove({ hideForm, removeListItem, selectedItemId}) {
   return (
     <button 
-      className={clsx('px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 transition-all duration-150 hover:bg-sky-50/25 focus:bg-sky-50/25', !currentItem && 'hidden')}
+      className={clsx('px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 transition-all duration-150 hover:bg-sky-50/25 focus:bg-sky-50/25', !selectedItemId && 'hidden')}
       onClick={() => {
-        removeListItem(currentItem)
+        removeListItem(selectedItemId)
         hideForm()
       }}
     >
@@ -123,7 +135,7 @@ function Remove({ hideForm, removeListItem, currentItem}) {
   )
 }
 
-function Submit({ submitForm, disabled, currentItem }) {
+function Submit({ submitForm, disabled, selectedItem }) {
   return (
     <button
       className={clsx(
@@ -133,7 +145,7 @@ function Submit({ submitForm, disabled, currentItem }) {
       disabled={disabled}
       onClick={submitForm}
     >
-      { currentItem ? 'Сохранить' : 'Добавить' }
+      { selectedItem ? 'Сохранить' : 'Добавить' }
     </button>
   )
 }
