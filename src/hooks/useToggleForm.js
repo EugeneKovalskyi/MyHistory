@@ -1,10 +1,10 @@
 import { useState } from "react"
 
-export default function useToggleForm(deselectItem) {
+export default (resetUpdatedEvent) => {
 
   function hideForm() {
 		setIsFormHidden(true)
-		deselectItem()
+		resetUpdatedEvent()
   }
 
   function showForm() {

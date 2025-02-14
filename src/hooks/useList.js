@@ -2,33 +2,33 @@ import { useState } from "react"
 
 import fetchStream from "@/utils/fetchStream"
 
-export default function useList(userId) {
-  function addListItem(item) {
+export default (userId) => {
+  function addEvent(event) {
     fetch(`http://localhost:5000/events?userId=${userId}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(item)
+        body: JSON.stringify(event)
     })
     .then((response) => fetchStream(response.body, response.headers.get('content-type')))
 		.then((eventId) => {
-      item.id = eventId
-      setList([ ...list, item ])
+      event.id = eventId
+      setList([ ...list, event ])
     })
     .catch(error => console.log(error))
   }
 
   function getList() {
-		fetch(`http://localhost:5000/events?userId=${userId}`)
+		fetch(`http://localhost:5000/events?userId=${userId}&userLocale=${navigator.language}`)
 		.then((response) => fetchStream(response.body, response.headers.get('content-type')))
-		.then(eventList => {
-      setList(eventList)
+		.then(list => {
+      setList(list)
     })
     .catch(error => console.log(error))
 	}
 
-  function updateListItem(eventId, dataToUpdate) {
+  function updateEvent(eventId, dataToUpdate) {
     fetch(`http://localhost:5000/events?userId=${userId}&eventId=${eventId}`, {
       method: 'PATCH',
       headers: {
@@ -38,25 +38,25 @@ export default function useList(userId) {
     })
     .then(() => {
       setList(
-        list.map((item) => {
-          if (item.id !== eventId) return item
-          else return { ...item, ...dataToUpdate }
+        list.map((event) => {
+          if (event.id !== eventId) return event
+          else return { ...event, ...dataToUpdate }
         })
       )
     })
     .catch(error => console.log(error))
   }
 
-  function removeListItem(eventId) {
+  function deleteEvent(eventId) {
     fetch(`http://localhost:5000/events?userId=${userId}&eventId=${eventId}`, {
       method: 'DELETE'
     })
     .then(() => {
-      setList(list.filter((item) => item.id !== eventId))
+      setList(list.filter((event) => event.id !== eventId))
     })
   }
 
   const [list, setList] = useState([])
 
-  return { list, addListItem, updateListItem, removeListItem, getList }
+  return { list, addEvent, updateEvent, deleteEvent, getList }
 }

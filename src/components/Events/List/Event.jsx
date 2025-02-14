@@ -1,21 +1,21 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-export default function Item({ item, showForm, selectItem }) {
+export default function Event({ event, showForm, setUpdatedEvent }) {
   return (
     <div className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-200 hover:bg-sky-300'>
       
-      <Date date={item.date} />
-      <Title title={item.title} />
+      <Date date={event.date} />
+      <Title title={event.title} />
 
-      {/* { !!item.photos.length && <Photos photos={item.photos} /> } */}
-      { !!item.description && <Description description={item.description} /> }
-      { !!item.tags.length && <Tags tags={item.tags.split(' ')} /> }
+      {/* { !!event.photos.length && <Photos photos={event.photos} /> } */}
+      { !!event.description && <Description description={event.description} /> }
+      { !!event.tags && <Tags tags={event.tags} /> }
 
       <Edit 
-        item={item} 
+        event={event} 
         showForm={showForm}
-        selectItem={selectItem}
+        setUpdatedEvent={setUpdatedEvent}
       />
     </div>
   )
@@ -75,7 +75,7 @@ function Tags({ tags }) {
     <div className='mt-4'>
       <hr className='mb-4 border-sky-900' />
       {
-        tags.map(tag => (
+        tags.split(' ').map(tag => (
           <Link 
             className='mr-2 hover:underline'
             key={tag}
@@ -88,13 +88,13 @@ function Tags({ tags }) {
   )
 }
 
-function Edit({ item, showForm, selectItem }) {
+function Edit({ event, showForm, setUpdatedEvent }) {
   return (
     <button
       className='block mt-6 mx-auto px-2 py-1 border-2 rounded-lg border-sky-200 transition-all duration-200 hover:border-sky-900 hover:bg-sky-200'
       onClick={() => {
         showForm()
-        selectItem(item)
+        setUpdatedEvent(event)
       }}
     >
       Редактировать

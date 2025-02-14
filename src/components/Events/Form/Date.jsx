@@ -1,12 +1,16 @@
 import { useEffect, useId, useRef } from 'react'
 
-export default function Date({ inputText, isDateValid, validateDate, selectedItem }) {
+export default function Date({ inputText, isDateValid, validateDate, date }) {
   const id = useId()
   const dateRef = useRef()
 
   useEffect(() => {
-    if (selectedItem) dateRef.current.value = selectedItem.date
-  }, [selectedItem])
+    if (date) {
+      const parsedDate = date.split('.').reverse()
+      parsedDate[2]++
+      dateRef.current.valueAsDate = new global.Date(parsedDate)
+    }
+  }, [date])
 
   return (
     <div className='w-fit mx-auto text-center'>

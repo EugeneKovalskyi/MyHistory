@@ -1,5 +1,6 @@
 const eventsModel = require('../models/EventsModel')
 const parseUrl = require('../middleware/parseUrl')
+const formatDate = require('../middleware/formatDate')
 
 class EventsController {
   async post(req, res) {
@@ -24,8 +25,14 @@ class EventsController {
   }
   
   async get(req, res) {
-    const userId = parseUrl(req.url).searchParams.get('userId')
+    const params = parseUrl(req.url).searchParams
+    const userId = params.get('userId')
+    const userLocale = params.get('userLocale')
     const events = await eventsModel.getEvents(userId)
+
+    for (let event of events) {
+      event.date = formatDate(event.date, userLocale)
+    }
 
     res.writeHead(200, {
       'Content-Type': 'application/json',

@@ -1,12 +1,12 @@
 import { useId, useRef, useEffect } from "react";
 
-export default function Tags({ inputText, selectedItem }) {
+export default function Tags({ inputText, tags }) {
   const id = useId();
   const tagsRef = useRef();
 
   useEffect(() => {
-    if (selectedItem) tagsRef.current.value = selectedItem.tags
-  }, [selectedItem]);
+    if (tags) tagsRef.current.value = tags
+  }, [tags]);
 
   return (
     <div className='mt-6'>

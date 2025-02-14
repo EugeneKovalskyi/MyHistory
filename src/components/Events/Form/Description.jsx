@@ -1,12 +1,12 @@
 import { useId, useRef, useEffect } from "react";
 
-export default function Description({ inputText, selectedItem }) {
+export default function Description({ inputText, description }) {
   const id = useId();
   const descriptionRef = useRef();
 
   useEffect(() => {
-    if (selectedItem) descriptionRef.current.value = selectedItem.description;
-  }, [selectedItem]);
+    if (description) descriptionRef.current.value = description;
+  }, [description]);
 
   return (
     <div className='mt-10'>

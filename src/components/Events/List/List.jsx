@@ -1,15 +1,15 @@
-import Item from './Item'
+import Event from './Event'
 
-export default function List({ list, showForm, selectItem }) {
+export default function List({ list, showForm, setUpdatedEvent }) {
   return (
     <div className='mt-12 grid grid-cols-2 gap-8 text-sky-900'>
       {
-				list.map((item) => (
-        	<Item
-          	key={item.id}
-          	item={item}
+				list.map((event) => (
+        	<Event
+          	key={event.id}
+          	event={event}
           	showForm={showForm}
-          	selectItem={selectItem}
+          	setUpdatedEvent={setUpdatedEvent}
         	/>
       	))
 			}

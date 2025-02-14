@@ -12,27 +12,27 @@ import Tags from './Tags'
 
 export default function Form({
   hideForm,
-  addListItem,
-  updateListItem,
-  removeListItem,
-  selectedItem,
+  addEvent,
+  updateEvent,
+  deleteEvent,
+  updatedEvent,
 }) {
 
   function submitForm() {
-    if (selectedItem) {
+    if (updatedEvent) {
       const dataToUpdate = {}
-      console.log(selectedItem)
-      console.log(formData)
-      for (let prop in selectedItem) {
-        if (selectedItem[prop] !== formData[prop]) {
+
+      for (let prop in updatedEvent) {
+        if (updatedEvent[prop] !== formData[prop]) {
           dataToUpdate[prop] = formData[prop]
         }
       }
-      console.log(dataToUpdate)
-      
-      updateListItem(selectedItem.id, dataToUpdate)
 
-    } else addListItem(formData)
+      if (Object.keys(dataToUpdate).length) {
+        updateEvent(updatedEvent.id, dataToUpdate)
+      } 
+
+    } else addEvent(formData)
 
     hideForm()
   }
@@ -43,20 +43,20 @@ export default function Form({
     validateDate,
     isTitleValid,
     validateTitle,
-  } = useFormValidation(selectedItem)
+  } = useFormValidation(updatedEvent)
 
   const {
     formData,
     inputText,
     addPhotos,
-    removePhoto,
+    deletePhoto,
     uploadErrorMessage,
-    fillFormWithSelectedItemData,
+    fillFormWithUpdatedEvent,
   } = useForm()
 
   useEffect(() => {
-    if (selectedItem) fillFormWithSelectedItemData(selectedItem)
-  }, [selectedItem])
+    if (updatedEvent) fillFormWithUpdatedEvent(updatedEvent)
+  }, [updatedEvent])
 
   return (
     <div className='z-10 fixed top-0 left-0 min-h-screen w-full backdrop-blur-sm bg-black/50'>
@@ -66,27 +66,27 @@ export default function Form({
             inputText={inputText}
             isDateValid={isDateValid}
             validateDate={validateDate}
-            selectedItem={selectedItem}
+            date={updatedEvent?.date}
           />
           <Title
             inputText={inputText}
             isTitleValid={isTitleValid}
             validateTitle={validateTitle}
-            selectedItem={selectedItem}
+            title={updatedEvent?.title}
           />
           <Description
             inputText={inputText}
-            selectedItem={selectedItem}
+            description={updatedEvent?.description}
           />
           {/* <Upload
             photos={formData.photos}
             addPhotos={addPhotos}
-            removePhoto={removePhoto}
+            deletePhoto={deletePhoto}
             uploadErrorMessage={uploadErrorMessage}
           /> */}
           <Tags
             inputText={inputText}
-            selectedItem={selectedItem}
+            tags={updatedEvent?.tags}
           />
 
           <div className='mt-16 flex justify-between'>
@@ -94,14 +94,14 @@ export default function Form({
 
             <Remove
               hideForm={hideForm}
-              removeListItem={removeListItem}
-              selectedItemId={selectedItem?.id}
+              deleteEvent={deleteEvent}
+              eventId={updatedEvent?.id}
             />
 
             <Submit
               submitForm={submitForm}
               disabled={!isFormValid}
-              selectedItem={selectedItem}
+              updatedEvent={updatedEvent}
             />
           </div>
         </form>
@@ -121,12 +121,12 @@ function Cancel({ hideForm }) {
   )
 }
 
-function Remove({ hideForm, removeListItem, selectedItemId}) {
+function Remove({ hideForm, deleteEvent, eventId}) {
   return (
     <button 
-      className={clsx('px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 transition-all duration-150 hover:bg-sky-50/25 focus:bg-sky-50/25', !selectedItemId && 'hidden')}
+      className={clsx('px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 transition-all duration-150 hover:bg-sky-50/25 focus:bg-sky-50/25', !eventId && 'hidden')}
       onClick={() => {
-        removeListItem(selectedItemId)
+        deleteEvent(eventId)
         hideForm()
       }}
     >
@@ -135,7 +135,7 @@ function Remove({ hideForm, removeListItem, selectedItemId}) {
   )
 }
 
-function Submit({ submitForm, disabled, selectedItem }) {
+function Submit({ submitForm, disabled, updatedEvent }) {
   return (
     <button
       className={clsx(
@@ -145,7 +145,7 @@ function Submit({ submitForm, disabled, selectedItem }) {
       disabled={disabled}
       onClick={submitForm}
     >
-      { selectedItem ? 'Сохранить' : 'Добавить' }
+      { updatedEvent ? 'Сохранить' : 'Добавить' }
     </button>
   )
 }

@@ -3,7 +3,7 @@
 import { useEffect } from 'react'
 
 import useList from '@/hooks/useList'
-import useItem from '@/hooks/useItem'
+import useEvent from '@/hooks/useEvent'
 import useToggleForm from '@/hooks/useToggleForm'
 
 import Form from './Form/Form'
@@ -11,14 +11,13 @@ import Tools from './Tools'
 import List from './List/List'
 
 export default function Events({ userId }) {
-  const { list, addListItem, getList, updateListItem, removeListItem } = useList(userId)
-  const { selectedItem, selectItem, deselectItem } = useItem()
-  const { isFormHidden, hideForm, showForm } = useToggleForm(deselectItem)
+  const { list, getList, addEvent, updateEvent, deleteEvent } = useList(userId)
+  const { updatedEvent, setUpdatedEvent, resetUpdatedEvent } = useEvent()
+  const { isFormHidden, hideForm, showForm } = useToggleForm(resetUpdatedEvent)
   
   useEffect(() => {
     getList()
   }, [userId])
-  // console.log(list)
 
   return (
     <div className='max-w-screen-xl mx-auto mt-16 px-8'>
@@ -27,14 +26,14 @@ export default function Events({ userId }) {
         &&
         <Form
           hideForm={hideForm}
-          addListItem={addListItem}
-          updateListItem={updateListItem}
-          removeListItem={removeListItem}
-          selectedItem={selectedItem}
+          addEvent={addEvent}
+          updateEvent={updateEvent}
+          deleteEvent={deleteEvent}
+          updatedEvent={updatedEvent}
         />
       } 
       <Tools showForm={showForm} />
-      <List list={list} showForm={showForm} selectItem={selectItem} />
+      <List list={list} showForm={showForm} setUpdatedEvent={setUpdatedEvent} />
     </div>
   )
 }

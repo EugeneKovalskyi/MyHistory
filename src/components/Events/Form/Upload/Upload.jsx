@@ -8,7 +8,7 @@ import Photo from './Photo'
 export default function Upload({
   photos,
   addPhotos,
-  removePhoto,
+  deletePhoto,
   uploadErrorMessage,
 }) {
 
@@ -24,7 +24,7 @@ export default function Upload({
       <Preview
         id={id}
         photos={photos}
-        removePhoto={removePhoto}
+        deletePhoto={deletePhoto}
       />
 
       <input
@@ -59,7 +59,7 @@ function Title({ id, uploadErrorMessage }) {
   )
 }
 
-function Preview({ id, photos, removePhoto }) {
+function Preview({ id, photos, deletePhoto }) {
   return (
     <div className='mt-4 flex flex-wrap items-center gap-4'>
       {
@@ -67,7 +67,7 @@ function Preview({ id, photos, removePhoto }) {
           <Photo
             photo={photo}
             key={index}
-            removePhoto={removePhoto}
+            deletePhoto={deletePhoto}
           />
         ))
       }

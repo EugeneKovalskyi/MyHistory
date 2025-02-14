@@ -4,7 +4,7 @@ import Image from 'next/image'
 
 import garbageSrc from '@/public/garbage.svg'
 
-export default function Photo({ photo, removePhoto }) {
+export default function Photo({ photo, deletePhoto }) {
   
   const [isMouseEnter, setIsMouseEnter] = useState(false)
 
@@ -13,7 +13,7 @@ export default function Photo({ photo, removePhoto }) {
       className='relative cursor-pointer'
       onMouseEnter={() => setIsMouseEnter(true)}
       onMouseLeave={() => setIsMouseEnter(false)}
-      onClick={() => removePhoto(photo)}
+      onClick={() => deletePhoto(photo)}
       role='photo'
     >
       <Image

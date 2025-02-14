@@ -3,8 +3,7 @@ import { useState } from "react"
 import { MAX_PHOTOS_COUNT } from '@/constants'
 import getImageDimensions from '@/utils/getImageDimensions'
 
-export default function useForm() {
-
+export default () => {
   function inputText(e) {
     const { name, value } = e.target
 
@@ -13,8 +12,13 @@ export default function useForm() {
         ...formData,
         [name]: value.split(/[\s\.,]+/).join(' ').toLowerCase(),
       })
-
-    } else {
+    } else if (name === 'date') {
+      setFormData({
+        ...formData, 
+        [name]: new Date(value).toLocaleDateString()
+      })
+    }
+    else {
       setFormData({
         ...formData,
         [name]: value,
@@ -61,21 +65,21 @@ export default function useForm() {
 		setTimeout(setErrorMessage, 3000, '')
 	}
 
-  function removePhoto(photoToRemove) {
+  function deletePhoto(photoToDelete) {
     setFormData({
       ...formData,
-      photos: formData.photos.filter((photo) => photo !== photoToRemove),
+      photos: formData.photos.filter((photo) => photo !== photoToDelete),
     })
   }
 
-  function fillFormWithSelectedItemData(selectedItem) {
+  function fillFormWithUpdatedEvent(updatedEvent) {
     setFormData({
-      id: selectedItem.id,
-      date: selectedItem.date,
-      title: selectedItem.title,
-      description: selectedItem.description,
-      // photos: selectedItem.photos,
-      tags: selectedItem.tags
+      id: updatedEvent.id,
+      date: updatedEvent.date,
+      title: updatedEvent.title,
+      description: updatedEvent.description,
+      // photos: updatedEvent.photos,
+      tags: updatedEvent.tags
     })
   }
   
@@ -94,8 +98,8 @@ export default function useForm() {
     formData,
 		inputText,
     addPhotos,
-    removePhoto,
+    deletePhoto,
     uploadErrorMessage,
-    fillFormWithSelectedItemData
+    fillFormWithUpdatedEvent
   }
 }
