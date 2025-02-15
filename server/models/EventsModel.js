@@ -3,7 +3,7 @@ const db = require('../db/db')
 
 class EventsModel {
 	async createEvent(event, userId) {
-		const tagsArray = event.tags.split(' ')
+		const tagsArray = event.tags.length && event.tags.split(' ') 
 		
 		const eventId = ( await db.query( pgf( `
 			INSERT INTO events (title, date, description, user_id)
@@ -12,18 +12,20 @@ class EventsModel {
 			[event.title, event.date, event.description, userId]
 		))).rows[0].id
 
-		await db.query( pgf( `
-			INSERT INTO tags (name)
-			VALUES %L
-			ON CONFLICT (name) DO NOTHING;`,
-			tagsArray.map(tag => [tag])
-		))
+		if (tagsArray) {
+			await db.query( pgf( `
+				INSERT INTO tags (name)
+				VALUES %L
+				ON CONFLICT (name) DO NOTHING;`,
+				tagsArray.map(tag => [tag])
+			))
 
-		await db.query( pgf( `
-			INSERT INTO events_tags (event_id, tag_name)
-			VALUES %L;`, 
-			tagsArray.map(tag => [eventId, tag])
-		))
+			await db.query( pgf( `
+				INSERT INTO events_tags (event_id, tag_name)
+				VALUES %L;`, 
+				tagsArray.map(tag => [eventId, tag])
+			))
+		}
 
 		return eventId
 	}
@@ -45,12 +47,20 @@ class EventsModel {
 	async updateEvent(dataToUpdate, eventId) {
 		for (let field in dataToUpdate) {
 			if (field === 'tags') {
-				const tagsToUpdate = dataToUpdate[field].split(' ')           
+				const tagsToUpdate = dataToUpdate[field].length && dataToUpdate[field].split(' ') 
 				
 				const currentTags = ( await db.query( pgf( `
 					SELECT tag_name AS name FROM events_tags WHERE event_id = %L;`,
 					eventId
 				))).rows.map(tag => tag.name)
+
+				if (!tagsToUpdate) {
+					await db.query( pgf( `
+						DELETE FROM events_tags WHERE event_id = %L`, 
+						eventId))
+					
+					continue
+				} 
 
 				await db.query( pgf( `
 					INSERT INTO tags (name)
