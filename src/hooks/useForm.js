@@ -1,9 +1,10 @@
-import { useState } from "react"
+import { useState } from 'react'
 
-import { MAX_PHOTOS_COUNT } from '@/constants'
-import getImageDimensions from '@/utils/getImageDimensions'
+import { MAX_PHOTOS_NUMBER } from '@/constants'
+import getUploadedPhotos from '@/utils/getUploadedPhotos'
 
 export default () => {
+  
   function inputText(e) {
     const { name, value } = e.target
 
@@ -27,48 +28,27 @@ export default () => {
   }
 
   async function addPhotos(fileList) {
-    const fileArray = [...fileList].slice(0, MAX_PHOTOS_COUNT - formData.photos.length)
-
+    const availablePhotosNumber = MAX_PHOTOS_NUMBER - formData.photos.length
+    const uploadedFiles = [ ...fileList ].slice(0, availablePhotosNumber)
+    
     try {
-      const newPhotos = []
-
-      for (let file of fileArray) {
-        if (file.size > 10485760) {
-          throw new Error('Файл слишком большой!', { cause: 'TOO_LARGE_FILE' })
-        }
-
-        const src = URL.createObjectURL(file)
-        const alt = file.name
-        const { width, height } = await getImageDimensions(src)
-
-        newPhotos.push({
-          src,
-          alt,
-          width,
-          height,
-        })
-
-        URL.revokeObjectURL(src)
-      }
+      const photos = await getUploadedPhotos(uploadedFiles)
 
       setFormData({
         ...formData,
-        photos: [...formData.photos, ...newPhotos]
+        photos: [ ...formData.photos, ...photos ],
       })
-
+      
     } catch (error) {
-      if (error.cause === 'TOO_LARGE_FILE') setErrorMessage('Размер файла должен быть меньше 10 Мб')
-      else if (error.cause === 'UPLOAD_ERROR') setErrorMessage('Файл не удалось загрузить')
-      else setErrorMessage('Неизвестная ошибка')
+      setErrorMessage(error.message)
+      setTimeout(setErrorMessage, 3000, '')
     }
+  }
 
-		setTimeout(setErrorMessage, 3000, '')
-	}
-
-  function deletePhoto(photoToDelete) {
+  function deletePhoto(id) {
     setFormData({
       ...formData,
-      photos: formData.photos.filter((photo) => photo !== photoToDelete),
+      photos: formData.photos.filter(photo => photo.id !== id),
     })
   }
 
@@ -78,13 +58,12 @@ export default () => {
       date: updatedEvent.date,
       title: updatedEvent.title,
       description: updatedEvent.description,
-      // photos: updatedEvent.photos,
+      photos: updatedEvent.photos,
       tags: updatedEvent.tags
     })
   }
   
 	const [formData, setFormData] = useState({
-    id: null,
     date: '',
     title: '',
     description: '',

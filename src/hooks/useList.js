@@ -1,17 +1,33 @@
-import { useState } from "react"
+import { useState } from 'react'
 
 export default (userId) => {
+
   async function addEvent(event) {
     try {
+      const formData = new FormData()
+
+      for (let field in event) {
+        if (field === 'photos') {
+          for (let photo of event['photos']) {
+            formData.set(photo.id, photo.file)
+            delete photo.file
+            formData.append('photos', JSON.stringify(photo))
+          }
+        } else {
+          formData.set(field, event[field])
+        }
+      }
+
       const response = await fetch(
         `http://localhost:5000/events?userId=${userId}`,
         {
           method: 'POST',
-          body: JSON.stringify(event),
+          body: formData
         }
       )
 
       event.id = await response.text()
+
       setList([...list, event])
 
     } catch (error) {
@@ -22,10 +38,11 @@ export default (userId) => {
   async function getList() {
     try {
       const response = await fetch(
-        `http://localhost:5000/events?userId=${userId}&userLocale=${navigator.language}`
+        `http://localhost:5000/events?userId=${userId}`
       )
-      const list = await response.json()
 
+      const list = await response.json()
+      
       setList(list)
 
     } catch (error) {

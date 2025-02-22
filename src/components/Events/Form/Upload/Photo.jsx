@@ -13,13 +13,13 @@ export default function Photo({ photo, deletePhoto }) {
       className='relative cursor-pointer'
       onMouseEnter={() => setIsMouseEnter(true)}
       onMouseLeave={() => setIsMouseEnter(false)}
-      onClick={() => deletePhoto(photo)}
+      onClick={() => deletePhoto(photo.id)}
       role='photo'
     >
       <Image
         className='max-w-28 max-h-28 rounded-md shadow-lg shadow-black/25'
         src={photo.src}
-        alt={photo.alt}
+        alt={photo.name}
         width={photo.width}
         height={photo.height}
       />

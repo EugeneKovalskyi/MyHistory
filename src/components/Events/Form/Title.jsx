@@ -17,8 +17,8 @@ export default function Title({ inputText, isTitleValid, validateTitle, title })
         { 
           isTitleValid ? 'Название *' 
           : 
-          <span className='text-rose-700'>
-            ⚠ Введите название ⚠
+          <span className='text-rose-700/70'>
+            ⚠ Введите название
           </span>
         }
       </label>

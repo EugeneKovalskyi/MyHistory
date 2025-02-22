@@ -2,7 +2,6 @@ import { useId } from 'react'
 import Image from 'next/image'
 
 import addSrc from '@/public/add.svg'
-
 import Photo from './Photo'
 
 export default function Upload({
@@ -50,8 +49,8 @@ function Title({ id, uploadErrorMessage }) {
       { 
         uploadErrorMessage 
         && 
-        <span className='ml-4 text-rose-700'>
-          ⚠ { uploadErrorMessage } ⚠
+        <span className='ml-4 text-rose-700/70'>
+          ⚠ { uploadErrorMessage }
         </span>
       } 
     </label>
@@ -63,10 +62,10 @@ function Preview({ id, photos, deletePhoto }) {
   return (
     <div className='mt-4 flex flex-wrap items-center gap-4'>
       {
-        photos.map((photo, index) => (
+        photos.map(photo => (
           <Photo
             photo={photo}
-            key={index}
+            key={photo.id}
             deletePhoto={deletePhoto}
           />
         ))
@@ -74,17 +73,17 @@ function Preview({ id, photos, deletePhoto }) {
 
       <Add
         id={id}
-        photosCount={photos.length}
+        photosNumber={photos.length}
       />
     </div>
   )
 }
 
-function Add({ id, photosCount }) {
+function Add({ id, photosNumber }) {
   return (
     <label htmlFor={id}>
       {
-        photosCount < 10 
+        (photosNumber < 10) 
         && 
         (<Image
           className='w-20 h-20 rounded-xl border-2 shadow-md shadow-black/25 cursor-pointer transition-all duration-150 hover:scale-110'

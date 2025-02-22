@@ -8,7 +8,7 @@ export default function Event({ event, showForm, setUpdatedEvent }) {
       <Date date={event.date} />
       <Title title={event.title} />
 
-      {/* { !!event.photos.length && <Photos photos={event.photos} /> } */}
+      { !!event.photos.length && <Photos photos={event.photos} /> }
       { !!event.description && <Description description={event.description} /> }
       { !!event.tags && <Tags tags={event.tags} /> }
 
@@ -54,13 +54,12 @@ function Photos({ photos }) {
     <div className='mt-6 flex items-center justify-center gap-4'>
       {
         photos.map((photo, index) =>
-          (index < 4)
-          &&
+          (index < 4) &&
           <Image
             className='max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-200 hover:scale-110'
-            key={index}
+            key={photo.id}
             src={photo.src}
-            alt={photo.alt}
+            alt={photo.name}
             width={photo.width}
             height={photo.height}
           />

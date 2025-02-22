@@ -21,8 +21,8 @@ export default function Date({ inputText, isDateValid, validateDate, date }) {
         { 
           isDateValid ? 'Дата *' 
           : 
-          <span className='text-rose-700'>
-            ⚠ Введите дату ⚠
+          <span className='text-rose-700/70'>
+            ⚠ Введите дату
           </span>
         }
       </label>

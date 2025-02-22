@@ -1,4 +1,4 @@
-export default function getImageDimensions(imageURL) {
+export default (imageURL) => {
 	return new Promise((resolve, reject) => {
 		const image = new Image()
 		

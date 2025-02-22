@@ -78,12 +78,12 @@ export default function Form({
             inputText={inputText}
             description={updatedEvent?.description}
           />
-          {/* <Upload
+          <Upload
             photos={formData.photos}
             addPhotos={addPhotos}
             deletePhoto={deletePhoto}
             uploadErrorMessage={uploadErrorMessage}
-          /> */}
+          />
           <Tags
             inputText={inputText}
             tags={updatedEvent?.tags}

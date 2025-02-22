@@ -1,3 +1,5 @@
-node_modules
 .next
+.swc
+node_modules
+server/db/photos
 ToDo.txt

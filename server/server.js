@@ -8,10 +8,11 @@ const parseUrl = require('./middleware/parseUrl')
 const router = require('./Router')
 const eventsController = require('./controllers/EventsController')
 
-router.get('/events', eventsController.get)
 router.post('/events', eventsController.post)
+router.get('/events', eventsController.get)
 router.patch('/events', eventsController.patch)
 router.delete('/events', eventsController.delete)
+router.get('/events/photos', eventsController.get)
 
 const server = http.createServer((req, res) => {
 	const method = req.method

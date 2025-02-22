@@ -1,4 +1,5 @@
-export const MAX_PHOTOS_COUNT = 10
+export const MAX_PHOTOS_NUMBER = 10
+export const PHOTO_MAX_SIZE = 10485760
 export const NAVIGATION_LINKS = [
   {
     id: 1,

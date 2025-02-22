@@ -1,7 +1,12 @@
 const pgf = require('pg-format')
+const path = require('path')
+const fsPromise = require('fs/promises')
+
 const db = require('../db/db')
+const formatDate = require('../middleware/formatDate')
 
 class EventsModel {
+
 	async createEvent(event, userId) {
 		const tagsArray = event.tags.length && event.tags.split(' ') 
 		
@@ -27,10 +32,27 @@ class EventsModel {
 			))
 		}
 
+		const photosPath = process.env.PHOTOS_PATH
+		const eventPhotosPath = path.join(photosPath, userId, eventId)
+
+    await fsPromise.mkdir(eventPhotosPath, { recursive: true })
+
+    for (let photo of event.photos) {
+			const photoName = crypto.randomUUID() + photo.ext
+			const photoPath = path.join(eventPhotosPath, photoName)
+
+      await fsPromise.writeFile(photoPath, photo.buffer)
+			await db.query( pgf( `
+				INSERT INTO photos (path, width, height, event_id)
+				VALUES (%L);`,
+				[photoPath, photo.width, photo.height, eventId]
+			))
+    }
+
 		return eventId
 	}
 
-	async getEvents(userId) {
+	async getEvents(userId, userLocale) {
 		const events = ( await db.query( pgf( `
 			SELECT events.id, events.title, events.date, events.description, 
 			string_agg(tags.name, ' ') AS tags FROM events
@@ -41,7 +63,41 @@ class EventsModel {
 			userId
 		))).rows
 
+		for (let event of events) {
+			const photos = ( await db.query( pgf( `
+				SELECT id, width, height FROM photos
+				WHERE event_id = %L;`,
+				event.id
+			))).rows
+
+			event.photos = []
+			for (let photo of photos) {
+				event.photos.push({
+					id: photo.id,
+					name: event.title,
+					src: `${process.env.ORIGIN}/events/photos?photoId=${photo.id}`,
+					width: photo.width,
+					height: photo.height,
+				})
+			}
+		}
+
+		for (let event of events) {
+      event.date = formatDate(event.date, userLocale)
+    }
+			
 		return events
+	}
+
+	async getPhoto(photoId) {
+		const photoPath = ( await db.query( pgf( `
+			SELECT path FROM photos WHERE id = %L`,
+			photoId
+		))).rows[0].path
+
+		const photo = fsPromise.readFile(photoPath)
+
+		return photo
 	}
 
 	async updateEvent(dataToUpdate, eventId) {
