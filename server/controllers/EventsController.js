@@ -13,33 +13,26 @@ class EventsController {
     const buffers = {}
 
     bb.on('error', tempErrorHandler)
+    bb.on('file', (id, file) => handleFile(id, file, buffers))
     bb.on('field', (name, value) => {
       if (name === 'photos') {
         event.photos.push(JSON.parse(value))
       } else event[name] = value
     })
-    bb.on('file', (id, file) => {
-      const chunks = []
-
-      file.on('error', tempErrorHandler)
-      file.on('data', chunk => chunks.push(chunk))
-      file.on('end', () => buffers[id] = Buffer.concat(chunks))
-    })
     bb.on('finish', async () => {
-      for (let photo of event.photos) {
+      for (const photo of event.photos) {
         photo.buffer = buffers[photo.id]
       }
 
-      const eventId = await eventsModel.createEvent(event, userId)
-
-      res.write(JSON.stringify(eventId))
+      const ids = await eventsModel.createEvent(event, userId)
+      
+      res.writeHead(201, {
+        'Content-Type': 'application/json',
+      })
+      res.end(JSON.stringify(ids)) 
     })
 
     req.pipe(bb)
-    res.writeHead(201, {
-      'Content-Type': 'text/plain',
-    })
-    res.end() 
   }
 
   async get(req, res) {
@@ -68,28 +61,52 @@ class EventsController {
     res.end()
   }
 
-  async getPhotos(req, res) {
-    console.log(req.headers)
-  }
-
   async patch(req, res) {
-    const eventId = parseUrl(req.url).searchParams.get('eventId')
-    const chunks = []
+    const params = parseUrl(req.url).searchParams
+    const userId = params.get('userId')
+    const eventId = params.get('eventId')
+    const bb = busboy({ headers: req.headers })
+    const dataToUpdate = { photosToInsert: [] }
+    const buffers = {}
 
-    req.on('error', tempErrorHandler)
-    req.on('data', chunk => chunks.push(chunk))
-    req.on('end', async () => {
-      const dataToUpdate = JSON.parse(Buffer.concat(chunks).toString())
-      await eventsModel.updateEvent(dataToUpdate, eventId)
-
-      res.statusCode = 204
-      res.end()
+    bb.on('error', tempErrorHandler)
+    bb.on('file', (id, file) => handleFile(id, file, buffers))
+    bb.on('field', (name, value) => {
+      if (name === 'photosToInsert') {
+        dataToUpdate[name].push(JSON.parse(value)) 
+      } else if (name === 'photosToDelete') {
+        dataToUpdate[name] = JSON.parse(value)
+      } else {
+        dataToUpdate[name] = value
+      }
     })
+    bb.on('finish', async () => {
+      for (const photo of dataToUpdate.photosToInsert) {
+        photo.buffer = buffers[photo.id]
+      }
+
+      const photosIds = await eventsModel.updateEvent(dataToUpdate, userId, eventId)
+
+      if (photosIds) {
+        res.writeHead(200, {
+          'Content-Type': 'application/json',
+        })
+        res.end(JSON.stringify(photosIds))
+      } else {
+        res.statusCode = 204
+        res.end()
+      }
+    })
+
+    req.pipe(bb)
   }
 
   async delete(req, res) {
-    const eventId = parseUrl(req.url).searchParams.get('eventId')
-    await eventsModel.deleteEvent(eventId)
+    const params = parseUrl(req.url).searchParams
+    const userId = params.get('userId')
+    const eventId = params.get('eventId')
+    
+    await eventsModel.deleteEvent(userId, eventId)
 
     res.statusCode = 204
     res.end()
@@ -98,3 +115,10 @@ class EventsController {
 
 module.exports = new EventsController()
 
+function handleFile(id, file, buffers) {
+  const chunks = []
+
+  file.on('error', tempErrorHandler)
+  file.on('data', chunk => chunks.push(chunk))
+  file.on('end', () => buffers[id] = Buffer.concat(chunks))
+}

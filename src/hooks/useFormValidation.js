@@ -1,6 +1,12 @@
 import { useState } from 'react'
 
-export default (updatedEvent) => {
+export default updatedEvent => {
+  const [isDateValid, setIsDateValid] = useState(true)
+  const [isTitleValid, setIsTitleValid] = useState(true)
+	const [dateDirty, setDateDirty] = useState(!!updatedEvent)
+	const [titleDirty, setTitleDirty] = useState(!!updatedEvent)
+  const [isFormValid, setIsFormValid] = useState(!!updatedEvent)
+  
   function validateDate(e) {
     if (e.target.value.trim() === '') {
       setIsDateValid(false)
@@ -23,17 +29,11 @@ export default (updatedEvent) => {
     }
   }
 
-  const [isDateValid, setIsDateValid] = useState(true)
-  const [isTitleValid, setIsTitleValid] = useState(true)
-	const [dateDirty, setDateDirty] = useState(!!updatedEvent)
-	const [titleDirty, setTitleDirty] = useState(!!updatedEvent)
-  const [isFormValid, setIsFormValid] = useState(!!updatedEvent)
-
   return {
     isFormValid,
     isDateValid,
-    validateDate,
     isTitleValid,
+    validateDate,
     validateTitle,
   }
 }

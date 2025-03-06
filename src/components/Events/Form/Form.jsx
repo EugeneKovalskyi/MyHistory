@@ -11,51 +11,40 @@ import Upload from './Upload/Upload'
 import Tags from './Tags'
 
 export default function Form({
+  updatedEvent,
   hideForm,
   addEvent,
-  updateEvent,
+  updateEvent, 
   deleteEvent,
-  updatedEvent,
 }) {
-
-  function submitForm() {
-    if (updatedEvent) {
-      const dataToUpdate = {}
-
-      for (let prop in updatedEvent) {
-        if (updatedEvent[prop] !== formData[prop]) {
-          dataToUpdate[prop] = formData[prop]
-        }
-      }
-
-      if (Object.keys(dataToUpdate).length) {
-        updateEvent(updatedEvent.id, dataToUpdate)
-      } 
-
-    } else addEvent(formData)
-
-    hideForm()
-  }
 
   const {
     isFormValid,
     isDateValid,
-    validateDate,
     isTitleValid,
+    validateDate,
     validateTitle,
   } = useFormValidation(updatedEvent)
 
   const {
     formData,
-    inputText,
-    addPhotos,
-    deletePhoto,
+    getDataToUpdate,
     uploadErrorMessage,
+    inputText,
     fillFormWithUpdatedEvent,
-  } = useForm()
+    addPhotos,
+    deletePhoto
+  } = useForm(updatedEvent)
+
+  const submitForm = () => {
+    if (updatedEvent) updateEvent(getDataToUpdate(), updatedEvent.id)
+    else addEvent(formData)
+
+    hideForm()
+  }
 
   useEffect(() => {
-    if (updatedEvent) fillFormWithUpdatedEvent(updatedEvent)
+    if (updatedEvent) fillFormWithUpdatedEvent()
   }, [updatedEvent])
 
   return (

@@ -9,13 +9,16 @@ class EventsModel {
 
 	async createEvent(event, userId) {
 		const tagsArray = event.tags.length && event.tags.split(' ') 
-		
 		const eventId = ( await db.query( pgf( `
 			INSERT INTO events (title, date, description, user_id)
 			VALUES (%L)
 			RETURNING id;`,
 			[event.title, event.date, event.description, userId]
 		))).rows[0].id
+		let photosIds = null
+
+		if (event.photos.length)
+			photosIds = await this._insertPhotos(event.photos, userId, eventId)
 
 		if (tagsArray) {
 			await db.query( pgf( `
@@ -31,25 +34,11 @@ class EventsModel {
 				tagsArray.map(tag => [eventId, tag])
 			))
 		}
-
-		const photosPath = process.env.PHOTOS_PATH
-		const eventPhotosPath = path.join(photosPath, userId, eventId)
-
-    await fsPromise.mkdir(eventPhotosPath, { recursive: true })
-
-    for (let photo of event.photos) {
-			const photoName = crypto.randomUUID() + photo.ext
-			const photoPath = path.join(eventPhotosPath, photoName)
-
-      await fsPromise.writeFile(photoPath, photo.buffer)
-			await db.query( pgf( `
-				INSERT INTO photos (path, width, height, event_id)
-				VALUES (%L);`,
-				[photoPath, photo.width, photo.height, eventId]
-			))
-    }
-
-		return eventId
+		
+		return {
+			eventId,
+			photosIds
+		}
 	}
 
 	async getEvents(userId, userLocale) {
@@ -63,7 +52,7 @@ class EventsModel {
 			userId
 		))).rows
 
-		for (let event of events) {
+		for (const event of events) {
 			const photos = ( await db.query( pgf( `
 				SELECT id, width, height FROM photos
 				WHERE event_id = %L;`,
@@ -71,18 +60,19 @@ class EventsModel {
 			))).rows
 
 			event.photos = []
-			for (let photo of photos) {
+
+			for (const photo of photos) {
 				event.photos.push({
 					id: photo.id,
 					name: event.title,
-					src: `${process.env.ORIGIN}/events/photos?photoId=${photo.id}`,
+					src: `${process.env.SERVER_DOMAIN}/events/photos?photoId=${photo.id}`,
 					width: photo.width,
 					height: photo.height,
 				})
 			}
 		}
 
-		for (let event of events) {
+		for (const event of events) {
       event.date = formatDate(event.date, userLocale)
     }
 			
@@ -100,11 +90,12 @@ class EventsModel {
 		return photo
 	}
 
-	async updateEvent(dataToUpdate, eventId) {
-		for (let field in dataToUpdate) {
+	async updateEvent(dataToUpdate, userId, eventId) {
+		let photosIds = null
+
+		for (const field in dataToUpdate) {
 			if (field === 'tags') {
 				const tagsToUpdate = dataToUpdate[field].length && dataToUpdate[field].split(' ') 
-				
 				const currentTags = ( await db.query( pgf( `
 					SELECT tag_name AS name FROM events_tags WHERE event_id = %L;`,
 					eventId
@@ -125,7 +116,7 @@ class EventsModel {
 					tagsToUpdate.map(tag => [tag])
 				))
 
-				for (let tag of currentTags) {
+				for (const tag of currentTags) {
 					if (!tagsToUpdate.includes(tag)) {
 						await db.query( pgf( `
 							DELETE FROM events_tags WHERE tag_name = %L;`,
@@ -134,7 +125,7 @@ class EventsModel {
 					}
 				}
 
-				for (let tag of tagsToUpdate) {
+				for (const tag of tagsToUpdate) {
 					if (!currentTags.includes(tag)) {
 						await db.query( pgf( `
 							INSERT INTO events_tags (event_id, tag_name)
@@ -143,6 +134,25 @@ class EventsModel {
 						))
 					}
 				}
+
+			} else if (field === 'photosToInsert') {
+				if (dataToUpdate[field].length)
+					photosIds = await this._insertPhotos(dataToUpdate[field], userId, eventId)
+
+			} else if (field === 'photosToDelete') {
+				for (const photoId of dataToUpdate[field]) {
+					const photoPath = ( await db.query( pgf( `
+						SELECT path FROM photos WHERE id = %L;`,
+						photoId
+					))).rows[0].path
+
+					await fsPromise.rm(photoPath)
+					await db.query( pgf( `
+						DELETE FROM photos WHERE id = %L;`,
+						photoId
+					))
+				}
+
 			} else {
 				await db.query( pgf( `
 					UPDATE events SET %I = %L WHERE events.id = %L;`,
@@ -150,13 +160,43 @@ class EventsModel {
 				))
 			}
 		}
+
+		return photosIds
 	}
 
-	async deleteEvent(eventId) {
+	async deleteEvent(userId, eventId) {
+		const dirPath = path.join(process.env.PHOTOS_PATH, userId, eventId)
+
+		await fsPromise.rm(dirPath, { recursive: true })
 		await db.query( pgf( `
 			DELETE FROM events WHERE id = %L;`,
 			eventId
 		))
+	}
+
+	async _insertPhotos(photos, userId, eventId) {
+		const photosPath = process.env.PHOTOS_PATH
+		const eventPhotosPath = path.join(photosPath, userId, eventId)
+		const photosIds = {}
+	
+		await fsPromise.mkdir(eventPhotosPath, { recursive: true })
+	
+		for (const photo of photos) {
+			const ext = photo.name.match(/\.[^.]+$/)[0]
+			const photoName = crypto.randomUUID() + ext
+			const photoPath = path.join(eventPhotosPath, photoName)
+			const photoId = ( await db.query( pgf( `
+					INSERT INTO photos (path, width, height, event_id)
+					VALUES (%L)
+					RETURNING id;`,
+					[photoPath, photo.width, photo.height, eventId]
+			))).rows[0].id
+	
+			await fsPromise.writeFile(photoPath, photo.buffer)
+			photosIds[photo.id] = photoId
+		}
+	
+		return photosIds
 	}
 }
 

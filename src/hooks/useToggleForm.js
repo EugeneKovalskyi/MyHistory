@@ -1,6 +1,7 @@
 import { useState } from "react"
 
-export default (resetUpdatedEvent) => {
+export default resetUpdatedEvent => {
+  const [isFormHidden, setIsFormHidden] = useState(true)
 
   function hideForm() {
 		setIsFormHidden(true)
@@ -10,8 +11,6 @@ export default (resetUpdatedEvent) => {
   function showForm() {
     setIsFormHidden(false)
   }
-
-  const [isFormHidden, setIsFormHidden] = useState(true)
 
   return { isFormHidden, hideForm, showForm }
 }

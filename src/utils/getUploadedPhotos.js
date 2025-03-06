@@ -7,16 +7,14 @@ export default async files => {
   for (let file of files) {
     validateFile(file)
 
-    const id = crypto.randomUUID()
+    const id = Math.random()
     const name = file.name
-    const ext = name.match(/\.[^.]+$/)[0]
     const src = URL.createObjectURL(file)
     const { width, height } = await getImageDimensions(src)
 
     photos.push({
       id,
       name,
-      ext,
       src,
       width,
       height,

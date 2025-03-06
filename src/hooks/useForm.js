@@ -1,9 +1,46 @@
 import { useState } from 'react'
 
-import { MAX_PHOTOS_NUMBER } from '@/constants'
-import getUploadedPhotos from '@/utils/getUploadedPhotos'
+import useFormPhotos from './useFormPhotos'
 
-export default () => {
+export default updatedEvent => {
+  const [formData, setFormData] = useState({
+    id: '',
+    date: '',
+    title: '',
+    description: '',
+    photos: [],
+    tags: ''
+  })
+
+  const { 
+    photosToInsert,
+    photosToDelete,
+    uploadErrorMessage,
+    resetPhotosToInsert,
+    resetPhotosToDelete,
+    addPhotos,
+    deletePhoto
+  } = useFormPhotos(updatedEvent, setFormData, formData.photos.length)
+
+  function getDataToUpdate() {
+    const dataToUpdate = {}
+
+    if (photosToInsert.length) {
+      dataToUpdate.photosToInsert = [...photosToInsert]
+      resetPhotosToInsert()
+    }
+    if (photosToDelete.length) {
+      dataToUpdate.photosToDelete = [...photosToDelete]
+      resetPhotosToDelete()
+    }
+    
+    for (let field in updatedEvent) {
+      if (formData[field] !== updatedEvent[field]) {
+        dataToUpdate[field] = formData[field]
+      }
+    }
+    return dataToUpdate
+  }
   
   function inputText(e) {
     const { name, value } = e.target
@@ -27,32 +64,7 @@ export default () => {
     }
   }
 
-  async function addPhotos(fileList) {
-    const availablePhotosNumber = MAX_PHOTOS_NUMBER - formData.photos.length
-    const uploadedFiles = [ ...fileList ].slice(0, availablePhotosNumber)
-    
-    try {
-      const photos = await getUploadedPhotos(uploadedFiles)
-
-      setFormData({
-        ...formData,
-        photos: [ ...formData.photos, ...photos ],
-      })
-      
-    } catch (error) {
-      setErrorMessage(error.message)
-      setTimeout(setErrorMessage, 3000, '')
-    }
-  }
-
-  function deletePhoto(id) {
-    setFormData({
-      ...formData,
-      photos: formData.photos.filter(photo => photo.id !== id),
-    })
-  }
-
-  function fillFormWithUpdatedEvent(updatedEvent) {
+  function fillFormWithUpdatedEvent() {
     setFormData({
       id: updatedEvent.id,
       date: updatedEvent.date,
@@ -63,22 +75,13 @@ export default () => {
     })
   }
   
-	const [formData, setFormData] = useState({
-    date: '',
-    title: '',
-    description: '',
-    photos: [],
-    tags: ''
-  })
-  
-	const [uploadErrorMessage, setErrorMessage] = useState('')
-
   return {
     formData,
-		inputText,
-    addPhotos,
-    deletePhoto,
+    getDataToUpdate,
     uploadErrorMessage,
-    fillFormWithUpdatedEvent
+		inputText,
+    fillFormWithUpdatedEvent,
+    addPhotos,
+    deletePhoto
   }
 }

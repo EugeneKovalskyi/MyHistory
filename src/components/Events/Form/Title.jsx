@@ -1,5 +1,7 @@
 import { useEffect, useId, useRef } from "react"
 
+import { TITLE_MAX_LENGTH } from '@/constants'
+
 export default function Title({ inputText, isTitleValid, validateTitle, title }) {
   const id = useId()
   const titleRef = useRef()
@@ -28,7 +30,7 @@ export default function Title({ inputText, isTitleValid, validateTitle, title })
         id={id}
         type='text'
         name='title'
-        maxLength={50}
+        maxLength={TITLE_MAX_LENGTH}
         ref={titleRef}
         onChange={inputText}
         onBlur={validateTitle}

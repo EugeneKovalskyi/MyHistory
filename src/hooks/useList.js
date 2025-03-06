@@ -1,35 +1,45 @@
 import { useState } from 'react'
 
-export default (userId) => {
+export default userId => {
+  const [list, setList] = useState([])
 
   async function addEvent(event) {
     try {
       const formData = new FormData()
 
-      for (let field in event) {
+      for (const field in event) {
         if (field === 'photos') {
-          for (let photo of event['photos']) {
+          for (const photo of event[field]) {
             formData.set(photo.id, photo.file)
-            delete photo.file
-            formData.append('photos', JSON.stringify(photo))
+            formData.append(field, JSON.stringify({
+              id: photo.id,
+              name: photo.name,
+              width: photo.width,
+              height: photo.height,
+            }))
           }
         } else {
           formData.set(field, event[field])
         }
       }
 
-      const response = await fetch(
-        `http://localhost:5000/events?userId=${userId}`,
-        {
-          method: 'POST',
-          body: formData
-        }
-      )
+      const response = await fetch(`http://localhost:5000/events?userId=${userId}`, {
+        method: 'POST',
+        body: formData,
+      })
+      const ids = await response.json()
 
-      event.id = await response.text()
+      event.id = ids.eventId
+      if (ids.photosIds) {
+        for (const photo of event.photos) {
+          if (photo.id < 1) {
+            photo.id = ids.photosIds[photo.id]
+          }
+        }
+      }
 
       setList([...list, event])
-
+      
     } catch (error) {
       console.log(error)
     }
@@ -37,35 +47,61 @@ export default (userId) => {
 
   async function getList() {
     try {
-      const response = await fetch(
-        `http://localhost:5000/events?userId=${userId}`
-      )
-
+      const response = await fetch(`http://localhost:5000/events?userId=${userId}`)
       const list = await response.json()
-      
+
       setList(list)
 
     } catch (error) {
       console.log(error)
     }
-	}
+  }
 
-  async function updateEvent(eventId, dataToUpdate) {
+  async function updateEvent(dataToUpdate, eventId) {
     try {
-      await fetch(
+      const formData = new FormData()
+
+      for (const field in dataToUpdate) {
+        if (field === 'photosToInsert') {
+          for (const photo of dataToUpdate[field]) {
+            formData.set(photo.id, photo.file)
+            formData.append(field, JSON.stringify({
+              id: photo.id,
+              name: photo.name,
+              width: photo.width,
+              height: photo.height,
+            }))
+          }
+          delete dataToUpdate[field]
+        } else if (field === 'photosToDelete') {
+          formData.set(field, JSON.stringify(dataToUpdate[field]))
+          delete dataToUpdate[field]
+        } else if (field !== 'photos') {
+          formData.set(field, dataToUpdate[field])
+        }
+      }
+
+      const response = await fetch(
         `http://localhost:5000/events?userId=${userId}&eventId=${eventId}`,
         {
           method: 'PATCH',
-          body: JSON.stringify(dataToUpdate),
+          body: formData,
         }
       )
-
-      setList(
-        list.map((event) => {
-          if (event.id !== eventId) return event
-          else return { ...event, ...dataToUpdate }
-        })
-      )
+      const photosIds = await response.json()
+        
+      if (photosIds) {
+        for (let photo of dataToUpdate.photos) {
+          if (photo.id < 1) {
+            photo.id = photosIds[photo.id]
+          }
+        }
+      }
+        
+      setList(list.map(event => {
+        if (event.id !== eventId) return event
+        else return { ...event, ...dataToUpdate }
+      }))
 
     } catch (error) {
       console.log(error)
@@ -75,17 +111,15 @@ export default (userId) => {
   async function deleteEvent(eventId) {
     try {
       await fetch(`http://localhost:5000/events?userId=${userId}&eventId=${eventId}`, {
-        method: 'DELETE'
+        method: 'DELETE',
       })
 
-      setList(list.filter((event) => event.id !== eventId))
+      setList(list.filter(event => event.id !== eventId))
 
     } catch (error) {
       console.log(error)
     }
   }
-
-  const [list, setList] = useState([])
 
   return { list, addEvent, updateEvent, deleteEvent, getList }
 }

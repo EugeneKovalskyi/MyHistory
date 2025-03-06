@@ -1,5 +1,7 @@
 import { useId, useRef, useEffect } from "react";
 
+import { DESCRIPTION_MAX_LENGTH } from '@/constants';
+
 export default function Description({ inputText, description }) {
   const id = useId();
   const descriptionRef = useRef();
@@ -22,9 +24,12 @@ export default function Description({ inputText, description }) {
         id={id}
         type='text'
         name='description'
+        maxLength={DESCRIPTION_MAX_LENGTH}
         rows={5}
         ref={descriptionRef}
-        onChange={inputText} />
+        onChange={inputText} 
+      />
+    {/* <span>{ descriptionRef.current.value.length + '\/' + DESCRIPTION_MAX_LENGTH }</span> */}
     </div>
   );
 }
