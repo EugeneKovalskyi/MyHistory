@@ -1,6 +1,6 @@
 const { getType } = require('jest-get-type')
 const db = require('../db/db')
-const eventsModel = require('../models/EventsModel')
+const eventsModel = require('../models/EventModel')
 
 afterAll(async () => {
 	await db.query('DELETE FROM events WHERE user_id = 1')

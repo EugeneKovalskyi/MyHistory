@@ -1,4 +1,4 @@
-const eventsController = require('../controllers/EventsController')
+const eventsController = require('../controllers/EventController')
 
 test('EventController', () => {
 	expect(eventsController).toHaveProperty('post')

@@ -37,8 +37,15 @@ export default function Form({
   } = useForm(updatedEvent)
 
   const submitForm = () => {
-    if (updatedEvent) updateEvent(getDataToUpdate(), updatedEvent.id)
-    else addEvent(formData)
+    if (updatedEvent) {
+      const dataToUpdate = getDataToUpdate()
+      
+      if (Object.keys(dataToUpdate).length) {
+        updateEvent(dataToUpdate, updatedEvent.id)
+      }
+    } else {
+      addEvent(formData)
+    }
 
     hideForm()
   }

@@ -33,7 +33,7 @@ export default updatedEvent => {
       dataToUpdate.photosToDelete = [...photosToDelete]
       resetPhotosToDelete()
     }
-    
+
     for (let field in updatedEvent) {
       if (formData[field] !== updatedEvent[field]) {
         dataToUpdate[field] = formData[field]
@@ -45,22 +45,31 @@ export default updatedEvent => {
   function inputText(e) {
     const { name, value } = e.target
 
-    if (name === 'tags') {
-      setFormData({
-        ...formData,
-        [name]: value.split(/[\s\.,]+/).join(' ').toLowerCase(),
-      })
-    } else if (name === 'date') {
-      setFormData({
-        ...formData, 
-        [name]: new Date(value).toLocaleDateString()
-      })
-    }
-    else {
-      setFormData({
-        ...formData,
-        [name]: value,
-      })
+    switch(name) {
+      case 'tags': 
+        setFormData({
+          ...formData,
+          [name]: value
+            .trim()
+            .split(/[\s\.,]+/)
+            .filter(tag => tag)
+            .join(' ')
+            .toLowerCase(),
+        })
+      break
+
+      case 'date':
+        setFormData({
+          ...formData, 
+          [name]: new Date(value).toLocaleDateString()
+        })
+        break
+
+      default:
+        setFormData({
+          ...formData,
+          [name]: value,
+        })
     }
   }
 

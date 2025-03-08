@@ -6,7 +6,7 @@ const PORT = process.env.PORT
 
 const parseUrl = require('./middleware/parseUrl')
 const router = require('./Router')
-const eventsController = require('./controllers/EventsController')
+const eventsController = require('./controllers/EventController')
 
 router.post('/events', eventsController.post)
 router.get('/events', eventsController.get)
