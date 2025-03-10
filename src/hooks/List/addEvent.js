@@ -1,22 +1,5 @@
 export default async (event, userId) => {
-  const formData = new FormData()
-
-  for (const field in event) {
-    if (field === 'photos') {
-      for (const photo of event[field]) {
-        formData.set(photo.id, photo.file)
-        formData.append(field, JSON.stringify({
-          id: photo.id,
-          name: photo.name,
-          width: photo.width,
-          height: photo.height,
-        }))
-      }
-
-    } else {
-      formData.set(field, event[field])
-    }
-  }
+  const formData = createFormDataFrom(event)
 
   try {
     const response = await fetch(`http://localhost:5000/events?userId=${userId}`, {
@@ -40,4 +23,27 @@ export default async (event, userId) => {
   } catch (error) {
     console.log(error)
   }
+}
+
+function createFormDataFrom(form) {
+  const formData = new FormData()
+
+  for (const field in form) {
+    if (field === 'photos') {
+      for (const photo of form[field]) {
+        formData.set(photo.id, photo.file)
+        formData.append(field, JSON.stringify({
+          id: photo.id,
+          name: photo.name,
+          width: photo.width,
+          height: photo.height,
+        }))
+      }
+
+    } else {
+      formData.set(field, form[field])
+    }
+  }
+
+  return formData
 }
