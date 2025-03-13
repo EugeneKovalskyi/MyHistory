@@ -1,24 +1,24 @@
 const pgf = require('pg-format')
-const fsPromise = require('fs/promises')
-const { join } = require('path')
+const fsPromises = require('fs/promises')
+const path = require('path')
+const crypto = require('crypto')
 
 const db = require('../../db/db')
 
 async function addPhotos(photos, eventId, userId) {
 	const photosPath = process.env.PHOTOS_PATH
-	const eventPhotosPath = join(photosPath, userId, eventId)
+	const eventPhotosPath = path.join(photosPath, userId, eventId)
 	const photosIds = {}
 
-	await fsPromise.mkdir(eventPhotosPath, { recursive: true })
+	await fsPromises.mkdir(eventPhotosPath, { recursive: true })
 
 	for (const photo of photos) {
 		const ext = photo.name.match(/\.[^.]+$/)[0]
 		const photoName = crypto.randomUUID() + ext
-		const photoPath = join(eventPhotosPath, photoName)
-		const photoId = await insertPhotos(photo, photoPath, eventId)
-
-		await fsPromise.writeFile(photoPath, photo.buffer)
-		photosIds[photo.id] = photoId
+		
+		photo.path = path.join(eventPhotosPath, photoName)
+		photosIds[photo.id] = await insertPhoto(photo, eventId)
+		await fsPromises.writeFile(photo.path, photo.buffer)
 	}
 
 	return photosIds
@@ -26,13 +26,13 @@ async function addPhotos(photos, eventId, userId) {
 
 module.exports = { addPhotos }
 
-
-async function insertPhotos(photo, photoPath, eventId) {
+// Запросы
+async function insertPhoto(photo, eventId) {
 	const queryResult = await db.query( pgf( `
 		INSERT INTO photos (path, width, height, event_id)
 		VALUES (%L)
 		RETURNING id;`,
-		[photoPath, photo.width, photo.height, eventId]
+		[photo.path, photo.width, photo.height, eventId]
 	))
 
 	return queryResult.rows[0].id

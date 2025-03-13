@@ -5,12 +5,9 @@ const formatDate = require('../../middleware/formatDate')
 async function getEvents(userId, userLocale) {
 	const events = await selectEvents(userId)
 
-	for (const event of events)
-		event.date = formatDate(event.date, userLocale)
-
 	for (const event of events) {
+		event.date = formatDate(event.date, userLocale)
 		event.photos = await selectPhotos(event.id)
-
 		event.photos.forEach((photo, index) => {
 			photo.name = event.title + index,
 			photo.src = `${process.env.SERVER_DOMAIN}/events/photos?photoId=${photo.id}`
@@ -22,7 +19,7 @@ async function getEvents(userId, userLocale) {
 
 module.exports = getEvents 
 
-
+// Запросы
 async function selectEvents(userId) {
 	const queryResult = await db.query( pgf( `
 		SELECT events.id, events.title, events.date, events.description, 

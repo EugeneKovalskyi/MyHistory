@@ -25,12 +25,12 @@ export default async (event, userId) => {
   }
 }
 
-function createFormDataFrom(form) {
+function createFormDataFrom(data) {
   const formData = new FormData()
 
-  for (const field in form) {
+  for (const field in data) {
     if (field === 'photos') {
-      for (const photo of form[field]) {
+      for (const photo of data[field]) {
         formData.set(photo.id, photo.file)
         formData.append(field, JSON.stringify({
           id: photo.id,
@@ -41,7 +41,7 @@ function createFormDataFrom(form) {
       }
 
     } else {
-      formData.set(field, form[field])
+      formData.set(field, data[field])
     }
   }
 

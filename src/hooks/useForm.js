@@ -8,8 +8,8 @@ export default updatedEvent => {
     date: '',
     title: '',
     description: '',
-    photos: [],
-    tags: ''
+    tags: '',
+    photos: []
   })
 
   const { 
@@ -79,8 +79,8 @@ export default updatedEvent => {
       date: updatedEvent.date,
       title: updatedEvent.title,
       description: updatedEvent.description,
-      photos: updatedEvent.photos,
-      tags: updatedEvent.tags
+      tags: updatedEvent.tags,
+      photos: updatedEvent.photos
     })
   }
   

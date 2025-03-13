@@ -26,12 +26,12 @@ export default async (dataToUpdate, eventId, userId) => {
   }
 }
 
-function createFormDataFrom(form) {
+function createFormDataFrom(data) {
   const formData = new FormData()
 
-  for (const field in form) {
+  for (const field in data) {
     if (field === 'photosToInsert') {
-      for (const photo of form[field]) {
+      for (const photo of data[field]) {
         formData.set(photo.id, photo.file)
         formData.append(field, JSON.stringify({
           id: photo.id,
@@ -40,12 +40,12 @@ function createFormDataFrom(form) {
           height: photo.height,
         }))
       }
-      delete form[field]
+      delete data[field]
     } else if (field === 'photosToDelete') {
-      formData.set(field, JSON.stringify(form[field]))
-      delete form[field]
+      formData.set(field, JSON.stringify(data[field]))
+      delete data[field]
     } else if (field !== 'photos') {
-      formData.set(field, form[field])
+      formData.set(field, data[field])
     }
   }
 

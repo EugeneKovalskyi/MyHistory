@@ -18,7 +18,7 @@ async function createEvent(event, userId) {
 
 module.exports = createEvent
 
-
+// Запросы
 async function insertEvent(event, userId) {
 	const queryResult = await db.query( pgf( `
 		INSERT INTO events (title, date, description, user_id)

@@ -1,5 +1,5 @@
 const pgf = require('pg-format')
-const fsPromise = require('fs/promises')
+const fsPromises = require('fs/promises')
 
 const db = require('../../db/db')
 const { addPhotos } = require('./utils')
@@ -47,6 +47,7 @@ async function manageTags(tagsToUpdate, eventId) {
 		if (!newTags?.includes(tag)) deleteEventTagRelation(tag)
 }
 
+// Запросы
 async function selectTags(eventId) {
 	const queryResult = await db.query( pgf( `
 		SELECT tag_name AS name FROM events_tags WHERE event_id = %L;`,
@@ -87,7 +88,7 @@ async function deletePhotos(photosIds) {
 			photoId
 		))).rows[0].path
 
-		await fsPromise.rm(photoPath)
+		await fsPromises.rm(photoPath)
 		await db.query( pgf( `
 			DELETE FROM photos WHERE id = %L;`,
 			photoId

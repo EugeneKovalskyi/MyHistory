@@ -1,14 +1,14 @@
 const pgf = require('pg-format')
-const fsPromise = require('fs/promises')
-const { join } = require('path')
+const fsPromises = require('fs/promises')
 const { existsSync } = require('fs')
+const path = require('path')
 const db = require('../../db/db')
 
 async function deleteEvent(eventId, userId) {
-	const dirPath = join(process.env.PHOTOS_PATH, userId, eventId)
+	const dirPath = path.join(process.env.PHOTOS_PATH, userId, eventId)
 
 	if (existsSync(dirPath)) {
-		await fsPromise.rm(dirPath, { recursive: true })
+		await fsPromises.rm(dirPath, { recursive: true })
 	}
 
 	await db.query( pgf( `
