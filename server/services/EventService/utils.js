@@ -3,7 +3,7 @@ const fsPromises = require('fs/promises')
 const path = require('path')
 const crypto = require('crypto')
 
-const db = require('../../db/db')
+const db = require('#db')
 
 async function addPhotos(photos, eventId, userId) {
 	const photosPath = process.env.PHOTOS_PATH

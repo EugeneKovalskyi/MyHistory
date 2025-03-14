@@ -1,7 +1,7 @@
 const busboy = require('busboy')
-const tempErrorHandler = require('../../middleware/tempErrorHandler')
-const parseUrl = require('../../middleware/parseUrl')
-const { createEvent } = require('../../models/EventModel')
+const tempErrorHandler = require('#middleware/tempErrorHandler')
+const parseUrl = require('#middleware/parseUrl')
+const { createEvent } = require('#models/EventModel')
 
 module.exports = async (req, res) => {
 	const userId = parseUrl(req.url).searchParams.get('userId')

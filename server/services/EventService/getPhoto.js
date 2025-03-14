@@ -1,7 +1,7 @@
 const pgf = require('pg-format')
 const fsPromises = require('fs/promises')
 
-const db = require('../../db/db')
+const db = require('#db')
 
 async function getPhoto(photoId) {
 	const photoPath = ( await db.query( pgf( `

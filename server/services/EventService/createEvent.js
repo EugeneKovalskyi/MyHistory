@@ -1,5 +1,5 @@
 const pgf = require('pg-format')
-const db = require('../../db/db')
+const db = require('#db')
 const { addPhotos } = require('./utils')
 
 async function createEvent(event, userId) {

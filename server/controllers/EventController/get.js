@@ -1,5 +1,5 @@
-const parseUrl = require('../../middleware/parseUrl')
-const { getEvents, getPhoto } = require('../../models/EventModel')
+const parseUrl = require('#middleware/parseUrl')
+const { getEvents, getPhoto } = require('#models/EventModel')
 
 module.exports = async (req, res) => {
 	const params = parseUrl(req.url).searchParams

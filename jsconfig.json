@@ -2,8 +2,6 @@
   "compilerOptions": {
     "baseUrl": "./",
 		"paths": {
-			"#*": ["./server/*"],
-			"#db": ["./server/db/db.js"],
 			"@/components/*": ["./src/components/*"],
 			"@/constants": ["./src/constants/constants.js"],
 			"@/hooks/*": ["./src/hooks/*"],

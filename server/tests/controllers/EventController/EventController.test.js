@@ -1,4 +1,4 @@
-const EventController = require('../../../controllers/EventController')
+const EventController = require('#controllers/EventController')
 
 describe('EventController', () => {
   test('Наличие необходимых методов', () => {

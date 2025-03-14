@@ -1,7 +1,7 @@
 const pgf = require('pg-format')
 const fsPromises = require('fs/promises')
 
-const db = require('../../db/db')
+const db = require('#db')
 const { addPhotos } = require('./utils')
 
 async function updateEvent(dataToUpdate, eventId, userId) {

@@ -1,6 +1,6 @@
 const pgf = require('pg-format')
-const db = require('../../db/db')
-const formatDate = require('../../middleware/formatDate')
+const db = require('#db')
+const formatDate = require('#middleware/formatDate')
 
 async function getEvents(userId, userLocale) {
 	const events = await selectEvents(userId)

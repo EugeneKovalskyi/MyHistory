@@ -1,4 +1,4 @@
-const router = require('../Router')
+const router = require('#Router')
 const { EventEmitter } = require('stream')
 
 describe('Router', () => {

@@ -1,8 +1,8 @@
 const fs = require('fs')
 const path = require('path')
 
-const db = require('../../../db/db')
-const EventModel = require('../../../models/EventModel')
+const db = require('#db')
+const EventModel = require('#models/EventModel')
 const { clearTestDB, getTestDBData } = require('./utils')
 const { userId, createdEvent, updatedEvent } = require('./mocks')
 const userPhotosPath = path.join(process.env.PHOTOS_PATH, userId)

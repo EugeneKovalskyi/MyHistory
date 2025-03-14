@@ -1,5 +1,5 @@
 const fsPromises = require('fs/promises')
-const db = require('../../../db/db')
+const db = require('#db')
 
 async function getTestDBData(eventId) {
 	const event = (await db.query(`

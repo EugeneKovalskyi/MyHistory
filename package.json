@@ -15,7 +15,10 @@
     "test:front:watch": "jest src --watch"
   },
   "imports": {
-    "#*": "./server/*.js",
+    "#*": [
+      "./server/*.js",
+      "./server/*.ts"
+    ],
     "#db": "./server/db/db.js"
   },
   "keywords": [],
