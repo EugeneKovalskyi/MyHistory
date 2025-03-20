@@ -25,10 +25,10 @@ export default function Events({ userId }) {
         !isFormHidden
         &&
         <Form
-          hideForm={hideForm}
           addEvent={addEvent}
           updateEvent={updateEvent}
           deleteEvent={deleteEvent}
+          hideForm={hideForm}
           updatedEvent={updatedEvent}
         />
       } 

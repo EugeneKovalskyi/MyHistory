@@ -15,10 +15,7 @@ export default function Upload({
 
   return (
     <div className='w-full mt-10'>
-      <Title 
-        id={id} 
-        uploadErrorMessage={uploadErrorMessage} 
-      />
+      <Title uploadErrorMessage={uploadErrorMessage} />
 
       <Preview
         id={id}
@@ -27,6 +24,7 @@ export default function Upload({
       />
 
       <input
+        data-testid='uploadInput'
         className='-z-50 w-0 h-0'
         id={id}
         type='file'
@@ -54,7 +52,6 @@ function Title({ id, uploadErrorMessage }) {
         </span>
       } 
     </label>
-    
   )
 }
 

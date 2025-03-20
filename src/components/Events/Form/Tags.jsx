@@ -1,8 +1,9 @@
 import { useId, useRef, useEffect } from "react";
+import { TAGS_MAX_LENGTH } from '@/constants';
 
 export default function Tags({ inputText, tags }) {
-  const id = useId();
-  const tagsRef = useRef();
+  const id = useId()
+  const tagsRef = useRef()
 
   useEffect(() => {
     if (tags) tagsRef.current.value = tags
@@ -18,14 +19,15 @@ export default function Tags({ inputText, tags }) {
       </label>
 
       <input
-        className='block mt-4 px-4 py-2 rounded-lg text-lg bg-slate-100 transition-all duration-150 hover:bg-white focus:ring focus:ring-inset focus:ring-sky-700 focus:bg-white'
+        data-testid='formTags'
+        className='block w-full mt-4 px-4 py-2 rounded-lg text-lg bg-slate-100 transition-all duration-150 hover:bg-white focus:ring focus:ring-inset focus:ring-sky-700 focus:bg-white'
         id={id}
         type='text'
         name='tags'
-        maxLength={50}
-        placeholder='Ассоциативное слово'
+        maxLength={TAGS_MAX_LENGTH}
+        placeholder='Слова через пробел (общая длина до 50 символов) '
         ref={tagsRef}
         onChange={inputText} />
     </div>
-  );
+  )
 }

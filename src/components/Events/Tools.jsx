@@ -35,6 +35,7 @@ function Search() {
 function ShowForm({ showForm }) {
   return (
     <button
+      data-testid='showForm'
       className='w-1/6 px-2 py-5 rounded-xl shadow-lg font-bold text-lg text-sky-50 bg-teal-500 transition-all duration-150 hover:shadow-xl hover:bg-teal-400'
       onClick={showForm}
     >

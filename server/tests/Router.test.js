@@ -16,12 +16,23 @@ describe('Router', () => {
   test('Router: Подписка на событие-запрос', () => {
 		const handler = () => true
 		const pathname = '/test'
+    const methods = ['POST', 'GET', 'PATCH', 'DELETE']
 
     router.post(pathname, handler)
+    router.get(pathname, handler)
+    router.patch(pathname, handler)
+    router.delete(pathname, handler)
 
-		expect(router.eventEmitter._events).toHaveProperty('POST/test')
-		expect(router.eventEmitter._events['POST/test']).toBe(handler)
-		expect(() => router.post(pathname, handler)).toThrow()
+    for (const method of methods) {
+      const event = method + pathname
+      expect(router.eventEmitter._events).toHaveProperty(event)
+      expect(router.eventEmitter._events[event]).toBe(handler)
+    }
+
+    expect(() => router.post(pathname, handler)).toThrow()
+    expect(() => router.get(pathname, handler)).toThrow()
+    expect(() => router.patch(pathname, handler)).toThrow()
+    expect(() => router.delete(pathname, handler)).toThrow()
   })
 
 	test('Router: Триггер события', () => {

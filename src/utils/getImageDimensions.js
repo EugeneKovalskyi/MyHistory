@@ -1,7 +1,7 @@
 export default (imageURL) => {
 	return new Promise((resolve, reject) => {
 		const image = new Image()
-		
+
 		image.src = imageURL
 
 		image.onload = () => resolve({ width: image.width, height: image.height })

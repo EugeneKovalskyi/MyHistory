@@ -8,7 +8,10 @@ export default function Navigation() {
   const pathname = usePathname()
 
   return (
-    <div className='h-full flex text-sky-50 text-xl'>
+    <div 
+      data-testid='navigation'
+      className='h-full flex text-sky-50 text-xl'
+    >
       {
         NAVIGATION_LINKS.map(({ id, title, path }) => {
           return (

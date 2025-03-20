@@ -59,6 +59,7 @@ export default updatedEvent => {
       break
 
       case 'date':
+        if (!value) break
         setFormData({
           ...formData, 
           [name]: new Date(value).toLocaleDateString()
@@ -68,7 +69,7 @@ export default updatedEvent => {
       default:
         setFormData({
           ...formData,
-          [name]: value,
+          [name]: value.trim(),
         })
     }
   }

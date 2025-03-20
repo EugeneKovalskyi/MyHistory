@@ -8,14 +8,14 @@ import deleteEvent from './deleteEvent'
 export default userId => {
   const [list, setList] = useState([])
 
-  async function handleGetList() {
-    const response = await getList(userId)
-    setList(response)
-  }
-
   async function handleAddEvent(event) {
     const response = await addEvent(event, userId)
     setList([...list, response])
+  }
+
+  async function handleGetList() {
+    const response = await getList(userId)
+    setList(response)
   }
 
   async function handleUpdateEvent(dataToUpdate, eventId) {
@@ -35,8 +35,8 @@ export default userId => {
 
   return {
     list,
-    getList: handleGetList,
     addEvent: handleAddEvent,
+    getList: handleGetList,
     updateEvent: handleUpdateEvent,
     deleteEvent: handleDeleteEvent,
   }

@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "baseUrl": "./",
+    "baseUrl": "src/",
 		"paths": {
-			"@/components/*": ["./src/components/*"],
-			"@/constants": ["./src/constants/constants.js"],
-			"@/hooks/*": ["./src/hooks/*"],
-			"@/public/*": ["./public/*"],
-			"@/utils/*": ["./src/utils/*"]
+			"@/components/*": ["components/*"],
+			"@/constants": ["constants/constants.js"],
+			"@/hooks/*": ["hooks/*"],
+			"@/public/*": ["../public/*"],
+			"@/utils/*": ["utils/*"]
 		}
   }
 }

@@ -1,9 +1,13 @@
 import Image from 'next/image'
 import Link from 'next/link'
+import { MAX_PREVIEW_PHOTOS_NUMBER } from '@/constants'
 
 export default function Event({ event, showForm, setUpdatedEvent }) {
   return (
-    <div className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-200 hover:bg-sky-300'>
+    <div 
+      data-testid='event'
+      className='px-10 py-6 rounded-xl shadow-lg bg-sky-200 transition-all duration-200 hover:bg-sky-300'
+    >
       
       <Date date={event.date} />
       <Title title={event.title} />
@@ -23,7 +27,10 @@ export default function Event({ event, showForm, setUpdatedEvent }) {
 
 function Date({ date }) {
   return (
-    <div className='w-fit mx-auto text-center font-bold'>
+    <div 
+      data-testid='eventDate'
+      className='w-fit mx-auto text-center font-bold'
+    >
       { date }
     </div>
   )
@@ -31,7 +38,10 @@ function Date({ date }) {
 
 function Title({ title }) {
   return (
-    <button className='block mx-auto mt-6 text-lg font-bold tracking-wider border-sky-200 transition-all duration-200 border-b-4 rounded-md hover:border-sky-900'>
+    <button 
+      data-testid='eventTitle'
+      className='block mx-auto mt-6 text-lg font-bold tracking-wider border-sky-200 transition-all duration-200 border-b-4 hover:border-sky-900'
+    >
       { title }
     </button>
   )
@@ -39,7 +49,10 @@ function Title({ title }) {
 
 function Description({ description }) {
   return (
-    <div className='mt-6 rounded-lg'>
+    <div 
+      data-testid='eventDescription'
+      className='mt-6 rounded-lg'
+    >
       {
         (description.length <= 140) 
 				? description
@@ -54,8 +67,9 @@ function Photos({ photos }) {
     <div className='mt-6 flex items-center justify-center gap-4'>
       {
         photos.map((photo, index) =>
-          (index < 4) &&
+          (index < MAX_PREVIEW_PHOTOS_NUMBER) &&
           <Image
+            data-testid='eventPhoto'
             className='max-h-28 max-w-28 rounded-xl cursor-pointer transition-all duration-200 hover:scale-110'
             key={photo.id}
             src={photo.src}
@@ -76,6 +90,7 @@ function Tags({ tags }) {
       {
         tags.split(' ').map(tag => (
           <Link 
+            data-testid='eventTag'
             className='mr-2 hover:underline'
             key={tag}
             href={`/events?searchBy=${tag}`}>
@@ -90,6 +105,7 @@ function Tags({ tags }) {
 function Edit({ event, showForm, setUpdatedEvent }) {
   return (
     <button
+      data-testid='eventEdit'
       className='block mt-6 mx-auto px-2 py-1 border-2 rounded-lg border-sky-200 transition-all duration-200 hover:border-sky-900 hover:bg-sky-200'
       onClick={() => {
         showForm()

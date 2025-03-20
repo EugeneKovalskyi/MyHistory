@@ -11,21 +11,14 @@ import Upload from './Upload/Upload'
 import Tags from './Tags'
 
 export default function Form({
-  updatedEvent,
-  hideForm,
   addEvent,
-  updateEvent, 
+  updateEvent,
   deleteEvent,
+  hideForm,
+  updatedEvent
 }) {
 
-  const {
-    isFormValid,
-    isDateValid,
-    isTitleValid,
-    validateDate,
-    validateTitle,
-  } = useFormValidation(updatedEvent)
-
+  const validateForm = useFormValidation()
   const {
     formData,
     getDataToUpdate,
@@ -35,17 +28,15 @@ export default function Form({
     addPhotos,
     deletePhoto
   } = useForm(updatedEvent)
+  const submit = (e) => {
+    e.preventDefault()
+    
+    if (!validateForm(formData)) return
 
-  const submitForm = () => {
-    if (updatedEvent) {
-      const dataToUpdate = getDataToUpdate()
-      
-      if (Object.keys(dataToUpdate).length) {
-        updateEvent(dataToUpdate, updatedEvent.id)
-      }
-    } else {
+    if (updatedEvent) 
+      updateEvent(getDataToUpdate(), updatedEvent.id)
+    else 
       addEvent(formData)
-    }
 
     hideForm()
   }
@@ -57,17 +48,16 @@ export default function Form({
   return (
     <div className='z-10 fixed top-0 left-0 min-h-screen w-full backdrop-blur-sm bg-black/50'>
       <div className='max-w-3xl mx-auto mt-24 px-10 py-6 rounded-xl border-2 bg-sky-500'>
-        <form name='form'>
+        <form 
+          data-testid='form' 
+          onSubmit={submit}
+        >
           <Date
             inputText={inputText}
-            isDateValid={isDateValid}
-            validateDate={validateDate}
             date={updatedEvent?.date}
           />
           <Title
             inputText={inputText}
-            isTitleValid={isTitleValid}
-            validateTitle={validateTitle}
             title={updatedEvent?.title}
           />
           <Description
@@ -88,17 +78,13 @@ export default function Form({
           <div className='mt-16 flex justify-between'>
             <Cancel hideForm={hideForm} />
 
-            <Remove
+            <Delete
               hideForm={hideForm}
               deleteEvent={deleteEvent}
               eventId={updatedEvent?.id}
             />
 
-            <Submit
-              submitForm={submitForm}
-              disabled={!isFormValid}
-              updatedEvent={updatedEvent}
-            />
+            <Submit updatedEvent={updatedEvent} />
           </div>
         </form>
       </div>
@@ -109,6 +95,7 @@ export default function Form({
 function Cancel({ hideForm }) {
   return (
     <button
+      data-testid='formCancel'
       className='px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-rose-400/75 transition-all duration-150 hover:bg-rose-400 focus:bg-rose-400'
       onClick={hideForm}
     >
@@ -117,9 +104,10 @@ function Cancel({ hideForm }) {
   )
 }
 
-function Remove({ hideForm, deleteEvent, eventId}) {
+function Delete({ hideForm, deleteEvent, eventId}) {
   return (
     <button 
+      data-testid='formDelete'
       className={clsx('px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 transition-all duration-150 hover:bg-sky-50/25 focus:bg-sky-50/25', !eventId && 'hidden')}
       onClick={() => {
         deleteEvent(eventId)
@@ -131,15 +119,14 @@ function Remove({ hideForm, deleteEvent, eventId}) {
   )
 }
 
-function Submit({ submitForm, disabled, updatedEvent }) {
+function Submit({ updatedEvent }) {
   return (
     <button
+      data-testid='formSubmit'
       className={clsx(
-        'px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-emerald-400/75 hover:bg-emerald-400 focus:bg-emerald-400 transition-all duration-150',
-        disabled && '!bg-gray-400'
+        'px-4 py-2 rounded-lg font-bold text-xl text-sky-50 border-2 bg-emerald-400/75 hover:bg-emerald-400 focus:bg-emerald-400 transition-all duration-150'
       )}
-      disabled={disabled}
-      onClick={submitForm}
+      type='submit'
     >
       { updatedEvent ? 'Сохранить' : 'Добавить' }
     </button>

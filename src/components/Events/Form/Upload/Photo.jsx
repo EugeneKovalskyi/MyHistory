@@ -14,9 +14,9 @@ export default function Photo({ photo, deletePhoto }) {
       onMouseEnter={() => setIsMouseEnter(true)}
       onMouseLeave={() => setIsMouseEnter(false)}
       onClick={() => deletePhoto(photo.id)}
-      role='photo'
     >
       <Image
+        data-testid='formPhoto'
         className='max-w-28 max-h-28 rounded-md shadow-lg shadow-black/25'
         src={photo.src}
         alt={photo.name}
@@ -25,6 +25,7 @@ export default function Photo({ photo, deletePhoto }) {
       />
 
       <div
+        data-testid='formDeletePhoto'
         className={clsx(
           isMouseEnter ? 'opacity-100' : 'opacity-0',
           'absolute top-0 left-0 w-full h-full rounded-md bg-black/50 transition-all duration-150'
@@ -33,7 +34,7 @@ export default function Photo({ photo, deletePhoto }) {
         <Image
           className='w-1/3 absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2'
           src={garbageSrc}
-          alt='Garbage'
+          alt='DeletePhoto'
         />
       </div>
     </div>
