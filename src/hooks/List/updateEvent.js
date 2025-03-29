@@ -1,9 +1,11 @@
+import { HOST } from '@/constants'
+
 export default async (dataToUpdate, eventId, userId) => {
   const formData = createFormDataFrom(dataToUpdate)
 
   try {
     const response = await fetch(
-      `http://localhost:5000/events?userId=${userId}&eventId=${eventId}`,
+      `${HOST}/events?userId=${userId}&eventId=${eventId}`,
       {
         method: 'PATCH',
         body: formData,

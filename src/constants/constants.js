@@ -1,3 +1,4 @@
+export const HOST = 'http://localhost:5000'
 export const MAX_PHOTOS_NUMBER = 10
 export const MAX_PREVIEW_PHOTOS_NUMBER = 4
 export const PHOTO_MAX_SIZE = 10485760

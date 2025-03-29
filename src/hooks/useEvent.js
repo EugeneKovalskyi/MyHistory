@@ -7,6 +7,5 @@ export default () => {
 		setUpdatedEvent(null)
 	}
 
-
 	return { updatedEvent, setUpdatedEvent, resetUpdatedEvent }
 }

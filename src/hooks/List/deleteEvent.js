@@ -1,6 +1,8 @@
+import { HOST } from '@/constants'
+
 export default async (eventId, userId) => {
 	try {
-		await fetch(`http://localhost:5000/events?userId=${userId}&eventId=${eventId}`, {
+		await fetch(`${HOST}/events?userId=${userId}&eventId=${eventId}`, {
 			method: 'DELETE',
 		})
 

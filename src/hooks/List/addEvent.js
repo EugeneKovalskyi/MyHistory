@@ -1,8 +1,10 @@
+import { HOST } from '@/constants'
+
 export default async (event, userId) => {
   const formData = createFormDataFrom(event)
 
   try {
-    const response = await fetch(`http://localhost:5000/events?userId=${userId}`, {
+    const response = await fetch(`${HOST}/events?userId=${userId}`, {
       method: 'POST',
       body: formData,
     })
