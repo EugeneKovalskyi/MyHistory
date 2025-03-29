@@ -1,7 +1,7 @@
 module.exports = {
-	createEvent: require('../services/EventService/createEvent'),
-	getEvents: require('../services/EventService/getEvents'),
-	getPhoto: require('../services/EventService/getPhoto'),
-	updateEvent: require('../services/EventService/updateEvent'),
-	deleteEvent: require('../services/EventService/deleteEvent')
+	createEvent: require('#services/EventRepository/createEvent'),
+	getEvents: require('#services/EventRepository/getEvents'),
+	getPhoto: require('#services/EventRepository/getPhoto'),
+	updateEvent: require('#services/EventRepository/updateEvent'),
+	deleteEvent: require('#services/EventRepository/deleteEvent')
 }
