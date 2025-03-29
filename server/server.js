@@ -3,9 +3,10 @@ dotenv.config()
 const http = require('http')
 const parseUrl = require('./middleware/parseUrl')
 const router = require('./router')
-const eventsController = require('./controllers/EventController')
-
+const EventRoutes = require('./routes/EventRoutes')
 const PORT = process.env.PORT
+
+EventRoutes(router)
 
 const server = http.createServer((req, res) => {
 	const method = req.method
@@ -23,9 +24,3 @@ server.listen(PORT, (error) => {
 	if (error) console.log(error)
 	else console.log(`Server started on PORT = ${PORT}`)
 })
-
-router.post('/events', eventsController.post)
-router.get('/events', eventsController.get)
-router.patch('/events', eventsController.patch)
-router.delete('/events', eventsController.delete)
-router.get('/events/photos', eventsController.get)
