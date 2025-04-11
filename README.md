@@ -6,14 +6,14 @@
 > 4. **sudo -u postgres psql** - войти в СУБД 
 > 5. Инициализировать БД 
      <details>
-        <summary>Инструкции</summary>
+        <summary>**Инструкции**</summary>
         **// Изменить пароль**  
         ALTER USER postgres WITH PASSWORD 'root';  
         <br>
         ** // Создать БД**  
         CREATE DATABASE my_history;  
          <br>
-        // Подключится к БД   
+        **// Подключится к БД**   
         \c my_history;    
            <br>
         **// Создание таблиц **  
