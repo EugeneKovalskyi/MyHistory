@@ -42,13 +42,15 @@
 
 <br>
 
-### Инструкция по развёртыванию приложения:
-1. Скачать проект
-2. **npm i** // установить зависимости папке MyHistory
-3. **sudo apt install postgresql postgresql-client** // установить СУБД postgresql
-4. **sudo -u postgres psql** // войти в СУБД 
-5. Инициализировать БД по <details>
-        <summary><ins>инструкции</ins></summary>
+> [!TIP]
+> ### Инструкция по развёртыванию приложения
+> 1. Скачать проект
+> 2. **npm i** (установить зависимости папке MyHistory)
+> 3. **sudo apt install postgresql postgresql-client** (установить СУБД postgresql)
+> 4. **sudo -u postgres psql** (войти в СУБД) 
+> 5. Инициализировать БД 
+     <details>
+        <summary><ins>Инструкции</ins></summary>
         <br>
         **-- Изменить пароль**  
         ALTER USER postgres WITH PASSWORD 'root';  
@@ -87,6 +89,7 @@
         event_id BIGINT REFERENCES events(id) ON DELETE CASCADE);  
         <br>
     </details>
-6. **npm run dev:back** // запустить сервер 
-7. **npm run dev:front** // запустить клиент 
-8. Открыть страницу **http://localhost:3000**
+> 6. **npm run dev:back** (запустить сервер )
+> 7. **npm run dev:front** (запустить клиент) 
+> 8. Открыть страницу **http://localhost:3000**
+
