@@ -45,9 +45,9 @@
 ### Инструкция по развёртыванию приложения
 
 1. Скачать проект  
-2. `**npm i**` - установить зависимости в папке MyHistory  
-3. `**sudo apt install postgresql postgresql-client**` - установить СУБД PostgreSQL  
-4. `**sudo -u postgres psql**` - войти в СУБД  
+2. `npm i` - установить зависимости в папке MyHistory  
+3. `sudo apt install postgresql postgresql-client` - установить СУБД PostgreSQL  
+4. `sudo -u postgres psql` - войти в СУБД  
 5. Инициализировать БД  
    
    <details>
@@ -99,7 +99,7 @@
      ```
    </details>
 
-6. `**npm run dev:back**` - запустить сервер  
-7. `**npm run dev:front**` - запустить клиент  
-8. Открыть страницу `**http://localhost:3000**`
+6. `npm run dev:back` - запустить сервер  
+7. `npm run dev:front` - запустить клиент  
+8. Открыть страницу `http://localhost:3000`
 
