@@ -4,8 +4,7 @@
 > 2. **npm i** - установить зависимости папке MyHistory
 > 3. **sudo apt install postgresql postgresql-client** - установить СУБД postgresql
 > 4. **sudo -u postgres psql** - войти в СУБД 
-> 5.
-  <details>
+> 5. <details>
   <summary>Инициализировать БД выполнив инструкции:</summary>
   // Изменить пароль
   ALTER USER postgres WITH PASSWORD 'root';\
@@ -35,7 +34,7 @@
   width SMALLINT NOT NULL,
   height SMALLINT NOT NULL,
   event_id BIGINT REFERENCES events(id) ON DELETE CASCADE);
-  </details>
+</details>
 > 6. **npm run dev:back** - запустить сервер 
 > 7. **npm run dev:front** - запустить клиент 
 > 8. Открыть страницу **http://localhost:3000**
