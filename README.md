@@ -86,7 +86,7 @@
     height SMALLINT NOT NULL,  
     event_id BIGINT REFERENCES events(id) ON DELETE CASCADE);  
     <br>
-</details>
+   </details>
 6. **npm run dev:back** (запустить сервер )
 7. **npm run dev:front** (запустить клиент) 
 8. Открыть страницу **http://localhost:3000**
