@@ -56,15 +56,12 @@
 
      **-- Изменить пароль**  
      `ALTER USER postgres WITH PASSWORD 'root';`  
-     <br>
 
      **-- Создать БД**  
      `CREATE DATABASE my_history;`  
-     <br>
 
      **-- Подключиться к БД**  
      `\c my_history`  
-     <br>
 
      **-- Создание таблиц**  
      ```sql
