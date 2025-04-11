@@ -47,7 +47,8 @@
 2. **npm i** (установить зависимости папке MyHistory)
 3. **sudo apt install postgresql postgresql-client** (установить СУБД postgresql)
 4. **sudo -u postgres psql** (войти в СУБД) 
-5. Инициализировать БД <details>
+5. Инициализировать БД  
+   <details>
     <summary><ins>Инструкции</ins></summary>
     <br>
     **-- Изменить пароль**  
