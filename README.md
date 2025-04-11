@@ -4,10 +4,13 @@
 > 2. **npm i** - установить зависимости папке MyHistory
 > 3. **sudo apt install postgresql postgresql-client** - установить СУБД postgresql
 > 4. **sudo -u postgres psql** - войти в СУБД 
-> 5. Инициализировать БД по [инструкции](https://app.diagrams.net/#HEugeneKovalskyi%2FMyHistory%2Fmain%2Fserver%2Fdb%2Fdb.drawio#%7B%22pageId%22%3A%229f46799a-70d6-7492-0946-bef42562c5a5%22%7D)
-> 6. **npm run dev:back** - запустить сервер 
-> 7. **npm run dev:front** - запустить клиент 
-> 8. Открыть страницу **http://localhost:3000**
+> 5. Инициализировать БД по <details><summary>инструкции</summary>
+> 1
+> 2
+> 3</details>
+> 7. **npm run dev:back** - запустить сервер 
+> 8. **npm run dev:front** - запустить клиент 
+> 9. Открыть страницу **http://localhost:3000**
 
 ### Доступный функционал
 
