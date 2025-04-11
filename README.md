@@ -41,12 +41,13 @@
 - [ ] Чат
 
 <br>
+
 ### Инструкция по развёртыванию приложения
 
 1. Скачать проект  
-2. **npm i** (установить зависимости в папке MyHistory)  
-3. **sudo apt install postgresql postgresql-client** (установить СУБД PostgreSQL)  
-4. **sudo -u postgres psql** (войти в СУБД)  
+2. `**npm i**` - установить зависимости в папке MyHistory  
+3. `**sudo apt install postgresql postgresql-client**` - установить СУБД PostgreSQL  
+4. `**sudo -u postgres psql**` - войти в СУБД  
 5. Инициализировать БД  
    
    <details>
@@ -63,7 +64,7 @@
      **-- Подключиться к БД**  
      `\c my_history`  
 
-     **-- Создание таблиц**  
+     **-- Создать таблицы**  
      ```sql
      CREATE TABLE users (
        id SERIAL PRIMARY KEY,
@@ -98,7 +99,7 @@
      ```
    </details>
 
-6. **npm run dev:back** (запустить сервер)  
-7. **npm run dev:front** (запустить клиент)  
-8. Открыть страницу **http://localhost:3000**
+6. `**npm run dev:back**` - запустить сервер  
+7. `**npm run dev:front**` - запустить клиент  
+8. Открыть страницу `**http://localhost:3000**`
 
