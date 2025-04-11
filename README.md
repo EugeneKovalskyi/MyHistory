@@ -47,46 +47,46 @@
 2. **npm i** (установить зависимости папке MyHistory)
 3. **sudo apt install postgresql postgresql-client** (установить СУБД postgresql)
 4. **sudo -u postgres psql** (войти в СУБД) 
-5. Инициализировать БД  
+5. Инициализировать БД
    <details>
-    <summary><ins>Инструкции</ins></summary>
-    <br>
-    **-- Изменить пароль**  
-    ALTER USER postgres WITH PASSWORD 'root';  
-    <br>
-    ** -- Создать БД**  
-    CREATE DATABASE my_history;  
-    <br>
-    **-- Подключится к БД**   
-    \c my_history;    
-       <br>
-    **-- Создание таблиц **  
-    CREATE TABLE users (  
-    id SERIAL PRIMARY KEY,  
-    login VARCHAR(32) UNIQUE NOT NULL);  
-    <br>
-    CREATE TABLE events (  
-    id BIGSERIAL PRIMARY KEY,  
-    title VARCHAR(64) NOT NULL,  
-    date DATE NOT NULL,  
-    description TEXT,  
-    user_id INTEGER REFERENCES users (id) ON DELETE CASCADE);    
-    <br>
-    CREATE TABLE tags (  
-    name VARCHAR(64) PRIMARY KEY);  
-    <br>
-    CREATE TABLE events_tags (  
-    event_id BIGINT REFERENCES events(id) ON DELETE CASCADE,  
-    tag_name VARCHAR REFERENCES tags(name),  
-    PRIMARY KEY (event_id, tag_name));  
-    <br>
-    CREATE TABLE photos (  
-    id BIGSERIAL PRIMARY KEY,  
-    path VARCHAR(256) UNIQUE NOT NULL,  
-    width SMALLINT NOT NULL,  
-    height SMALLINT NOT NULL,  
-    event_id BIGINT REFERENCES events(id) ON DELETE CASCADE);  
-    <br>
+     <summary><ins>Инструкции</ins></summary>
+     <br>
+     **-- Изменить пароль**  
+     ALTER USER postgres WITH PASSWORD 'root';  
+     <br>
+     ** -- Создать БД**  
+     CREATE DATABASE my_history;  
+     <br>
+     **-- Подключится к БД**   
+     \c my_history;    
+        <br>
+     **-- Создание таблиц **  
+     CREATE TABLE users (  
+     id SERIAL PRIMARY KEY,  
+     login VARCHAR(32) UNIQUE NOT NULL);  
+     <br>
+     CREATE TABLE events (  
+     id BIGSERIAL PRIMARY KEY,  
+     title VARCHAR(64) NOT NULL,  
+     date DATE NOT NULL,  
+     description TEXT,  
+     user_id INTEGER REFERENCES users (id) ON DELETE CASCADE);    
+     <br>
+     CREATE TABLE tags (  
+     name VARCHAR(64) PRIMARY KEY);  
+     <br>
+     CREATE TABLE events_tags (  
+     event_id BIGINT REFERENCES events(id) ON DELETE CASCADE,  
+     tag_name VARCHAR REFERENCES tags(name),  
+     PRIMARY KEY (event_id, tag_name));  
+     <br>
+     CREATE TABLE photos (  
+     id BIGSERIAL PRIMARY KEY,  
+     path VARCHAR(256) UNIQUE NOT NULL,  
+     width SMALLINT NOT NULL,  
+     height SMALLINT NOT NULL,  
+     event_id BIGINT REFERENCES events(id) ON DELETE CASCADE);  
+     <br>
    </details>
 6. **npm run dev:back** (запустить сервер )
 7. **npm run dev:front** (запустить клиент) 
