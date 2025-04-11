@@ -42,6 +42,7 @@
         width SMALLINT NOT NULL,  
         height SMALLINT NOT NULL,  
         event_id BIGINT REFERENCES events(id) ON DELETE CASCADE);  
+        <br>
     </details>
 > 6. **npm run dev:back** - запустить сервер 
 > 7. **npm run dev:front** - запустить клиент 
