@@ -8,27 +8,34 @@
      <details>
         <summary>Инструкции</summary>
         **// Изменить пароль**  
-        ALTER USER postgres WITH PASSWORD 'root';    
+        ALTER USER postgres WITH PASSWORD 'root';  
+        <br>
         ** // Создать БД**  
-        CREATE DATABASE my_history;    
-         // Подключится к БД   
+        CREATE DATABASE my_history;  
+         <br>
+        // Подключится к БД   
         \c my_history;    
-           **// Создание таблиц **  
+           <br>
+        **// Создание таблиц **  
         CREATE TABLE users (  
         id SERIAL PRIMARY KEY,  
-        login VARCHAR(32) UNIQUE NOT NULL);    
+        login VARCHAR(32) UNIQUE NOT NULL);  
+        <br>
         CREATE TABLE events (  
         id BIGSERIAL PRIMARY KEY,  
         title VARCHAR(64) NOT NULL,  
         date DATE NOT NULL,  
         description TEXT,  
         user_id INTEGER REFERENCES users (id) ON DELETE CASCADE);    
+        <br>
         CREATE TABLE tags (  
-        name VARCHAR(64) PRIMARY KEY);    
+        name VARCHAR(64) PRIMARY KEY);  
+        <br>
         CREATE TABLE events_tags (  
         event_id BIGINT REFERENCES events(id) ON DELETE CASCADE,  
         tag_name VARCHAR REFERENCES tags(name),  
-        PRIMARY KEY (event_id, tag_name));    
+        PRIMARY KEY (event_id, tag_name));  
+        <br>
         CREATE TABLE photos (  
         id BIGSERIAL PRIMARY KEY,  
         path VARCHAR(256) UNIQUE NOT NULL,  
