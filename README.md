@@ -19,9 +19,6 @@
 
 ## Основные этапы разработки
 
-> [!WARNING]
-> Задачи и порядок разработки могут быть изменены.
-
 > [!NOTE]
 > - [Архитектура проекта](https://miro.com/app/board/uXjVLZMfJK0=/?share_link_id=808692328607)
 > - [Схема БД](https://app.diagrams.net/#HEugeneKovalskyi%2FMyHistory%2Fmain%2Fserver%2Fdb%2Fdb.drawio#%7B%22pageId%22%3A%229f46799a-70d6-7492-0946-bef42562c5a5%22%7D)
@@ -45,13 +42,12 @@
 
 <br>
 
-> [!TIP]
-> ### Инструкция по развёртыванию приложения
-> 1. Скачать проект
-> 2. **npm i** // установить зависимости папке MyHistory
-> 3. **sudo apt install postgresql postgresql-client** // установить СУБД postgresql
-> 4. **sudo -u postgres psql** // войти в СУБД 
-> 5. Инициализировать БД 
+### Инструкция по развёртыванию приложения:
+1. Скачать проект
+2. **npm i** // установить зависимости папке MyHistory
+3. **sudo apt install postgresql postgresql-client** // установить СУБД postgresql
+4. **sudo -u postgres psql** // войти в СУБД 
+5. Инициализировать БД:
      <details>
         <summary><ins>Инструкции</ins></summary>
         <br>
@@ -92,6 +88,6 @@
         event_id BIGINT REFERENCES events(id) ON DELETE CASCADE);  
         <br>
     </details>
-> 6. **npm run dev:back** // запустить сервер 
-> 7. **npm run dev:front** // запустить клиент 
-> 8. Открыть страницу **http://localhost:3000**
+6. **npm run dev:back** // запустить сервер 
+7. **npm run dev:front** // запустить клиент 
+8. Открыть страницу **http://localhost:3000**
