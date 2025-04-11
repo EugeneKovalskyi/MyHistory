@@ -4,37 +4,38 @@
 > 2. **npm i** - установить зависимости папке MyHistory
 > 3. **sudo apt install postgresql postgresql-client** - установить СУБД postgresql
 > 4. **sudo -u postgres psql** - войти в СУБД 
-> 5. <details>
-  <summary>Инициализировать БД выполнив инструкции:</summary>
-  // Изменить пароль
-  ALTER USER postgres WITH PASSWORD 'root';\
-   // Создать БД
-  CREATE DATABASE my_history;
-   // Подключится к БД 
-  \c my_history;
-     // Создание таблиц 
-  CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  login VARCHAR(32) UNIQUE NOT NULL);\
-  CREATE TABLE events (
-  id BIGSERIAL PRIMARY KEY,
-  title VARCHAR(64) NOT NULL,
-  date DATE NOT NULL,
-  description TEXT,
-  user_id INTEGER REFERENCES users (id) ON DELETE CASCADE);\
-  CREATE TABLE tags (
-  name VARCHAR(64) PRIMARY KEY);
-  CREATE TABLE events_tags (
-  event_id BIGINT REFERENCES events(id) ON DELETE CASCADE,
-  tag_name VARCHAR REFERENCES tags(name),
-  PRIMARY KEY (event_id, tag_name));\
-  CREATE TABLE photos (
-  id BIGSERIAL PRIMARY KEY,
-  path VARCHAR(256) UNIQUE NOT NULL,
-  width SMALLINT NOT NULL,
-  height SMALLINT NOT NULL,
-  event_id BIGINT REFERENCES events(id) ON DELETE CASCADE);
-</details>
+> 5.
+     <details>
+        <summary>Инициализировать БД выполнив инструкции:</summary>
+        // Изменить пароль
+        ALTER USER postgres WITH PASSWORD 'root';\
+         // Создать БД
+        CREATE DATABASE my_history;
+         // Подключится к БД 
+        \c my_history;
+           // Создание таблиц 
+        CREATE TABLE users (
+        id SERIAL PRIMARY KEY,
+        login VARCHAR(32) UNIQUE NOT NULL);\
+        CREATE TABLE events (
+        id BIGSERIAL PRIMARY KEY,
+        title VARCHAR(64) NOT NULL,
+        date DATE NOT NULL,
+        description TEXT,
+        user_id INTEGER REFERENCES users (id) ON DELETE CASCADE);\
+        CREATE TABLE tags (
+        name VARCHAR(64) PRIMARY KEY);
+        CREATE TABLE events_tags (
+        event_id BIGINT REFERENCES events(id) ON DELETE CASCADE,
+        tag_name VARCHAR REFERENCES tags(name),
+        PRIMARY KEY (event_id, tag_name));\
+        CREATE TABLE photos (
+        id BIGSERIAL PRIMARY KEY,
+        path VARCHAR(256) UNIQUE NOT NULL,
+        width SMALLINT NOT NULL,
+        height SMALLINT NOT NULL,
+        event_id BIGINT REFERENCES events(id) ON DELETE CASCADE);
+    </details>
 > 6. **npm run dev:back** - запустить сервер 
 > 7. **npm run dev:front** - запустить клиент 
 > 8. Открыть страницу **http://localhost:3000**
